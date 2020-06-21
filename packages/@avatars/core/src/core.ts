@@ -1,4 +1,4 @@
-import * as base64 from './base64';
+import * as dataUri from './dataUri';
 import * as svg from './svg';
 import * as options from './options';
 import type * as style from './style';
@@ -56,5 +56,5 @@ export function create<O = {}>(
 
   avatar = svg.stringify(avatar);
 
-  return processedOptions.base64 ? `data:image/svg+xml;base64,${base64.encode(avatar)}` : avatar;
+  return processedOptions.dataUri ? dataUri.encode(avatar) : avatar;
 }

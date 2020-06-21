@@ -5,7 +5,7 @@ export type IStyleOptions<O = {}> = {
   seed?: string | IExpression<string>;
   radius?: number | IExpression<number>;
   r?: number | IExpression<number>;
-  base64?: boolean | IExpression<boolean>;
+  dataUri?: boolean | IExpression<boolean>;
   width?: number | IExpression<number>;
   w?: number | IExpression<number>;
   height?: number | IExpression<number>;

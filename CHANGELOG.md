@@ -60,6 +60,9 @@
     let svg = avatars.create(style, options);
   ```
 
+- The following options have been renamed
+  - `base64` => `dataUri`
+
 ### @avatars/avataaars
 
 - The following options have been renamed
