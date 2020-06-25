@@ -1,15 +1,21 @@
-import type { IExpression, IExpressionResolved } from '../expr';
+import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
 
-export type ILtExpressionArguments = [IExpression<number>, IExpression<number>];
-export type ILtExpression = ['$lt', ILtExpressionArguments];
+export type ILtExpressionArguments<O> = [IExpression<O, number>, IExpression<O, number>];
+export type ILtExpression<O> = ['$lt', ILtExpressionArguments<O>];
 
-export function lt(...args: ILtExpressionArguments): ILtExpression {
+export function lt<O>(...args: ILtExpressionArguments<O>): ILtExpression<O> {
   return ['$lt', args];
 }
 
-export function resolveLt(args: ILtExpressionArguments): IExpressionResolved<ILtExpression> {
-  if (typeof args[0] === 'number' && typeof args[0] === 'number') {
-    return args[0] < args[1];
+export function resolveLt<O>(
+  context: IResolveContext<O>,
+  args: ILtExpressionArguments<O>
+): IExpressionResolved<ILtExpression<O>> {
+  let arg0 = context.resolve(args[0]);
+  let arg1 = context.resolve(args[1]);
+
+  if (typeof arg0 === 'number' && typeof arg1 === 'number') {
+    return arg0 < arg1;
   }
 
   throw new Error('Invalid arguments for $lt.');

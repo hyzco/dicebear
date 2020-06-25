@@ -1,26 +1,20 @@
-import type { IExpression, IExpressionResolved } from '../expr';
-import type { IPrng } from '../prng';
+import type { IExpressionResolved, IResolveContext, IExpression } from '../expr';
 
-export type IRefExpressionArguments = [string];
-export type IRefExpression = ['$ref', IRefExpressionArguments];
+export type IRefExpressionArguments<O> = [IExpression<O, keyof O>];
+export type IRefExpression<O> = ['$ref', IRefExpressionArguments<O>];
 
-export function ref(...args: IRefExpressionArguments): IRefExpression {
+export function ref<O>(...args: IRefExpressionArguments<O>): IRefExpression<O> {
   return ['$ref', args];
 }
 
-export function resolveRef<T = any>(
-  args: any[],
-  root: Record<string, any>,
-  prng: IPrng,
-  callstack: string[],
-  nesting: number
-): IExpressionResolved<IRefExpression> {
-  if (typeof args[0] === 'string') {
-    if (callstack.includes(args[0])) {
-      throw new Error(`Recursion Error: ${callstack.join(' → ')}`);
-    }
+export function resolveRef<O>(
+  context: IResolveContext<O>,
+  args: IRefExpressionArguments<O>
+): IExpressionResolved<IRefExpression<O>> {
+  let arg0 = context.resolve(args[0]);
 
-    return (root[args[0]] = resolve(root[args[0]], root, prng, [...callstack, args[0]], nesting + 1));
+  if (typeof arg0 === 'string' && context.root[arg0]) {
+    return (context.root[arg0] = context.resolve(context.root[arg0], arg0));
   }
 
   throw new Error('Invalid arguments for $ref.');

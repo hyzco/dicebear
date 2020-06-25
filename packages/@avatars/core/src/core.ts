@@ -3,12 +3,9 @@ import * as svg from './svg';
 import * as options from './options';
 import type * as style from './style';
 
-export function create<O = {}>(
-  styleObject: style.IStyle<O>,
-  optionsOrSeed: string | Partial<style.IStyleOptions<O>> = {}
-) {
+export function create<O>(styleObject: style.IStyle<O>, optionsOrSeed: string | Partial<options.IOptions<O>> = {}) {
   let seed = Math.random().toString();
-  let optionsObject: Partial<style.IStyleOptions<O>> = {};
+  let optionsObject: Partial<options.IOptions<O>> = {};
 
   if (typeof optionsOrSeed === 'string') {
     seed = optionsOrSeed;
@@ -17,7 +14,7 @@ export function create<O = {}>(
   }
 
   // Apply defaults and alias options and process config
-  let processedOptions = options.process<style.IStyleOptions<O>>({
+  let processedOptions = options.process<O>({
     ...styleObject.options,
     seed: seed,
     radius: optionsObject.r,

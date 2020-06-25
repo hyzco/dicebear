@@ -1,19 +1,21 @@
-import type { IExpression, IExpressionResolved } from '../expr';
-import type { IPrng } from '../prng';
+import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
 
-export type IPrngIntegerExpressionArguments = [IExpression<number>, IExpression<number>];
-export type IPrngIntegerExpression = ['$prng.integer', IPrngIntegerExpressionArguments];
+export type IPrngIntegerExpressionArguments<O> = [IExpression<O, number>, IExpression<O, number>];
+export type IPrngIntegerExpression<O> = ['$prng.integer', IPrngIntegerExpressionArguments<O>];
 
-export function prngInteger(...args: IPrngIntegerExpressionArguments): IPrngIntegerExpression {
+export function prngInteger<O>(...args: IPrngIntegerExpressionArguments<O>): IPrngIntegerExpression<O> {
   return ['$prng.integer', args];
 }
 
-export function resolvePrngInteger(
-  args: IPrngIntegerExpressionArguments,
-  prng: IPrng
-): IExpressionResolved<IPrngIntegerExpression> {
-  if (typeof args[0] === 'number' && typeof args[1] === 'number') {
-    return prng.integer(args[0], args[1]);
+export function resolvePrngInteger<O>(
+  context: IResolveContext<O>,
+  args: IPrngIntegerExpressionArguments<O>
+): IExpressionResolved<IPrngIntegerExpression<O>> {
+  let arg0 = context.resolve(args[0]);
+  let arg1 = context.resolve(args[1]);
+
+  if (typeof arg0 === 'number' && typeof arg1 === 'number') {
+    return context.prng.integer(arg0, arg1);
   }
 
   throw new Error('Invalid arguments for $prng.integer.');

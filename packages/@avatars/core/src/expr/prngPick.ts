@@ -1,19 +1,22 @@
-import type { IExpression, IExpressionResolved } from '../expr';
-import type { IPrng } from '../prng';
+import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
 
-export type IPrngPickExpressionArguments<T> = [Array<IExpression<T>>];
-export type IPrngPickExpression<T> = ['$prng.pick', IPrngPickExpressionArguments<T>];
+export type IPrngPickExpressionArguments<O, T> = [Array<IExpression<O, T>>];
+export type IPrngPickExpression<O, T> = ['$prng.pick', IPrngPickExpressionArguments<O, T>];
 
-export function prngPick<T>(...args: IPrngPickExpressionArguments<T>): IPrngPickExpression<T> {
+export function prngPick<O, T>(...args: IPrngPickExpressionArguments<O, T>): IPrngPickExpression<O, T> {
   return ['$prng.pick', args];
 }
 
-export function resolvePrngPick<T>(
-  args: IPrngPickExpressionArguments<T>,
-  prng: IPrng
-): IExpressionResolved<IPrngPickExpression<T>> {
-  if (Array.isArray(args[0])) {
-    return prng.pick(args[0]) as T;
+export function resolvePrngPick<O, T>(
+  context: IResolveContext<O>,
+  args: IPrngPickExpressionArguments<O, T>
+): IExpressionResolved<IPrngPickExpression<O, T>> {
+  let arg0 = args[0];
+
+  if (Array.isArray(arg0)) {
+    arg0 = arg0.map((v) => context.resolve(v));
+
+    return context.prng.pick(args[0]) as T;
   }
 
   throw new Error('Invalid arguments for $prng.bool.');

@@ -1,15 +1,18 @@
-import type { IExpression, IExpressionResolved } from '../expr';
+import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
 
-export type ISomeExpressionArguments = [Array<IExpression<boolean>>];
-export type ISomeExpression = ['$some', ISomeExpressionArguments];
+export type ISomeExpressionArguments<O> = [Array<IExpression<O, boolean>>];
+export type ISomeExpression<O> = ['$some', ISomeExpressionArguments<O>];
 
-export function some(...args: ISomeExpressionArguments): ISomeExpression {
+export function some<O>(...args: ISomeExpressionArguments<O>): ISomeExpression<O> {
   return ['$some', args];
 }
 
-export function resolveSome(args: ISomeExpressionArguments): IExpressionResolved<ISomeExpression> {
+export function resolveSome<O>(
+  context: IResolveContext<O>,
+  args: ISomeExpressionArguments<O>
+): IExpressionResolved<ISomeExpression<O>> {
   if (Array.isArray(args[0])) {
-    return args[0].some((v) => v);
+    return args[0].some((v) => context.resolve(v));
   }
 
   throw new Error('Invalid arguments for $some.');

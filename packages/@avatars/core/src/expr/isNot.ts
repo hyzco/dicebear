@@ -1,12 +1,15 @@
-import type { IExpression, IExpressionResolved } from '../expr';
+import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
 
-export type IIsNotExpressionArguments<T> = [IExpression<T>, IExpression<T>];
-export type IIsNotExpression<T> = ['$isNot', IIsNotExpressionArguments<T>];
+export type IIsNotExpressionArguments<O, T> = [IExpression<O, T>, IExpression<O, T>];
+export type IIsNotExpression<O, T> = ['$isNot', IIsNotExpressionArguments<O, T>];
 
-export function isNot<T>(...args: IIsNotExpressionArguments<T>): IIsNotExpression<T> {
+export function isNot<O, T>(...args: IIsNotExpressionArguments<O, T>): IIsNotExpression<O, T> {
   return ['$isNot', args];
 }
 
-export function resolveIsNot<T>(args: IIsNotExpressionArguments<T>): IExpressionResolved<IIsNotExpression<T>> {
-  return args[0] !== args[1];
+export function resolveIsNot<O, T>(
+  context: IResolveContext<O>,
+  args: IIsNotExpressionArguments<O, T>
+): IExpressionResolved<IIsNotExpression<O, T>> {
+  return context.resolve(args[0]) !== context.resolve(args[1]);
 }
