@@ -1,16 +1,13 @@
-import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
+import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
 
-export type IPrngBoolExpressionArguments<O> = [IExpression<O, number | undefined>];
-export type IPrngBoolExpression<O> = ['$prng.bool', IPrngBoolExpressionArguments<O>];
+export type IExprArgs<O> = [IExprBase<O, number | undefined>];
+export type IExpr<O> = ['$prng.bool', IExprArgs<O>];
 
-export function prngBool<O>(...args: IPrngBoolExpressionArguments<O>): IPrngBoolExpression<O> {
+export function create<O>(...args: IExprArgs<O>): IExpr<O> {
   return ['$prng.bool', args];
 }
 
-export function resolvePrngBool<O>(
-  context: IResolveContext<O>,
-  args: IPrngBoolExpressionArguments<O>
-): IExpressionResolved<IPrngBoolExpression<O>> {
+export function resolve<O>(context: IExprContext<O>, args: IExprArgs<O>): IExprResolved<IExpr<O>> {
   let arg0 = context.resolve(args[0]);
 
   if (arg0 === undefined || typeof arg0 === 'number') {

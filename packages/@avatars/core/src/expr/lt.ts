@@ -1,16 +1,13 @@
-import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
+import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
 
-export type ILtExpressionArguments<O> = [IExpression<O, number>, IExpression<O, number>];
-export type ILtExpression<O> = ['$lt', ILtExpressionArguments<O>];
+export type IExprArgs<O> = [IExprBase<O, number>, IExprBase<O, number>];
+export type IExpr<O> = ['$lt', IExprArgs<O>];
 
-export function lt<O>(...args: ILtExpressionArguments<O>): ILtExpression<O> {
+export function create<O>(...args: IExprArgs<O>): IExpr<O> {
   return ['$lt', args];
 }
 
-export function resolveLt<O>(
-  context: IResolveContext<O>,
-  args: ILtExpressionArguments<O>
-): IExpressionResolved<ILtExpression<O>> {
+export function resolve<O>(context: IExprContext<O>, args: IExprArgs<O>): IExprResolved<IExpr<O>> {
   let arg0 = context.resolve(args[0]);
   let arg1 = context.resolve(args[1]);
 

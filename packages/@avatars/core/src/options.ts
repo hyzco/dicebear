@@ -17,11 +17,11 @@ export type IDefaultOptions = {
 };
 
 export type IOptions<O extends {}, D = O & IDefaultOptions> = {
-  [P in keyof D]: expr.IExpression<O, D[P]>;
+  [P in keyof D]: expr.IExpr<O, D[P]>;
 };
 
 export type IProcessedOptions<T extends IOptions<{}>> = {
-  [K in keyof T]: expr.IExpressionResolved<T[K]>;
+  [K in keyof T]: expr.IExprResolved<T[K]>;
 };
 
 export function process<O extends {}>(options: IOptions<O>): IProcessedOptions<IOptions<O>> {

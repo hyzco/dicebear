@@ -1,15 +1,12 @@
-import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
+import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
 
-export type IIsExpressionArguments<O, T> = [IExpression<O, T>, IExpression<O, T>];
-export type IIsExpression<O, T> = ['$is', IIsExpressionArguments<O, T>];
+export type IExprArgs<O, T> = [IExprBase<O, T>, IExprBase<O, T>];
+export type IExpr<O, T> = ['$is', IExprArgs<O, T>];
 
-export function is<O, T>(...args: IIsExpressionArguments<O, T>): IIsExpression<O, T> {
+export function create<O, T>(...args: IExprArgs<O, T>): IExpr<O, T> {
   return ['$is', args];
 }
 
-export function resolveIs<O, T>(
-  context: IResolveContext<O>,
-  args: IIsExpressionArguments<O, T>
-): IExpressionResolved<IIsExpression<O, T>> {
+export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): IExprResolved<IExpr<O, T>> {
   return context.resolve(args[0]) === context.resolve(args[1]);
 }

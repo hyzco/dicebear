@@ -1,16 +1,13 @@
-import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
+import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
 
-export type IPrngPickExpressionArguments<O, T> = [Array<IExpression<O, T>>];
-export type IPrngPickExpression<O, T> = ['$prng.pick', IPrngPickExpressionArguments<O, T>];
+export type IExprArgs<O, T> = [Array<IExprBase<O, T>>];
+export type IExpr<O, T> = ['$prng.pick', IExprArgs<O, T>];
 
-export function prngPick<O, T>(...args: IPrngPickExpressionArguments<O, T>): IPrngPickExpression<O, T> {
+export function create<O, T>(...args: IExprArgs<O, T>): IExpr<O, T> {
   return ['$prng.pick', args];
 }
 
-export function resolvePrngPick<O, T>(
-  context: IResolveContext<O>,
-  args: IPrngPickExpressionArguments<O, T>
-): IExpressionResolved<IPrngPickExpression<O, T>> {
+export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): IExprResolved<IExpr<O, T>> {
   let arg0 = args[0];
 
   if (Array.isArray(arg0)) {

@@ -1,5 +1,7 @@
+import { Primitive } from 'utility-types';
 import type { IOptions } from './options';
 import type { IPrng } from './prng';
+import * as array from './expr/array';
 import * as every from './expr/every';
 import * as gt from './expr/gt';
 import * as gte from './expr/gte';
@@ -14,51 +16,52 @@ import * as prngPick from './expr/prngPick';
 import * as ref from './expr/ref';
 import * as some from './expr/some';
 
-export type IExpression<O, T> =
-  | every.IEveryExpression<O>
-  | gt.IGtExpression<O>
-  | gte.IGteExpression<O>
-  | includes.IIncludesExpression<O, T>
-  | is.IIsExpression<O, T>
-  | isNot.IIsNotExpression<O, T>
-  | lt.ILtExpression<O>
-  | lte.ILteExpression<O>
-  | prngBool.IPrngBoolExpression<O>
-  | prngInteger.IPrngIntegerExpression<O>
-  | prngPick.IPrngPickExpression<O, T>
-  | ref.IRefExpression<O>
-  | some.ISomeExpression<O>
-  | IExpressionResolved<T>;
+export type IExpr<O, T> =
+  | (T extends boolean ? every.IExpr<O> : never)
+  | (T extends boolean ? gt.IExpr<O> : never)
+  | (T extends boolean ? gte.IExpr<O> : never)
+  | (T extends boolean ? includes.IExpr<O, T> : never)
+  | (T extends boolean ? is.IExpr<O, T> : never)
+  | (T extends boolean ? isNot.IExpr<O, T> : never)
+  | (T extends boolean ? lt.IExpr<O> : never)
+  | (T extends boolean ? lte.IExpr<O> : never)
+  | (T extends boolean ? prngBool.IExpr<O> : never)
+  | (T extends boolean ? some.IExpr<O> : never)
+  | (T extends number ? prngInteger.IExpr<O> : never)
+  | (T extends Primitive ? prngPick.IExpr<O, T> : never)
+  | (T extends Primitive ? ref.IExpr<O, T> : never)
+  | (T extends Primitive ? array.IExpr<O, T> : never)
+  | (T extends Primitive ? T : never);
 
 // prettier-ignore
-export type IExpressionResolved<T> =
-  T extends every.IEveryExpression<any> ? boolean :
-  T extends gt.IGtExpression<any> ? boolean :
-  T extends gte.IGteExpression<any> ? boolean :
-  T extends includes.IIncludesExpression<any, any> ? boolean :
-  T extends is.IIsExpression<any, any> ? boolean :
-  T extends isNot.IIsNotExpression<any, any> ? boolean :
-  T extends lt.ILtExpression<any> ? boolean :
-  T extends lte.ILteExpression<any> ? boolean :
-  T extends prngBool.IPrngBoolExpression<any> ? boolean :
-  T extends prngInteger.IPrngIntegerExpression<any> ? number :
-  T extends prngPick.IPrngPickExpression<any, infer U> ? U :
-  T extends ref.IRefExpression<infer O> ? O[T[1][0]] :
-  T extends some.ISomeExpression<any> ? boolean :
-  T extends Record<infer U, boolean> ? U :
-  T extends (infer U)[] ? U : T;
+export type IExprResolved<T> =
+  T extends every.IExpr<any> ? boolean :
+  T extends gt.IExpr<any> ? boolean :
+  T extends gte.IExpr<any> ? boolean :
+  T extends includes.IExpr<any, any> ? boolean :
+  T extends is.IExpr<any, any> ? boolean :
+  T extends isNot.IExpr<any, any> ? boolean :
+  T extends lt.IExpr<any> ? boolean :
+  T extends lte.IExpr<any> ? boolean :
+  T extends prngBool.IExpr<any> ? boolean :
+  T extends prngInteger.IExpr<any> ? number :
+  T extends some.IExpr<any> ? boolean :
+  T extends ref.IExpr<any, infer U> ? U :
+  T extends prngPick.IExpr<any, infer U> ? U :
+  T extends array.IExpr<any, infer U> ? U :
+  T extends Primitive ? T : never;
 
-export interface IResolveContext<O> {
+export interface IExprContext<O> {
   root: IOptions<O>;
   prng: IPrng;
-  resolve: <O, T>(expr: IExpression<O, T>, addToCallstack?: string) => IExpressionResolved<T>;
+  resolve: <O, T>(expr: IExpr<O, T>, addToCallstack?: string) => IExprResolved<T>;
 }
 
-export function createResolveContext<O>(callstack: string[], root: IOptions<O>, prng: IPrng): IResolveContext<O> {
+export function createContext<O>(callstack: string[], root: IOptions<O>, prng: IPrng): IExprContext<O> {
   return {
     root,
     prng,
-    resolve: <O, T>(expr: IExpression<O, T>, addToCallstack?: string) => {
+    resolve: <O, T>(expr: IExpr<O, T>, addToCallstack?: string) => {
       if (addToCallstack) {
         if (callstack.includes(addToCallstack)) {
           throw new Error(`Recursion Error: ${callstack.join(' → ')} → ${addToCallstack}`);
@@ -72,67 +75,61 @@ export function createResolveContext<O>(callstack: string[], root: IOptions<O>, 
   };
 }
 
-export function resolve<T, O>(
-  expr: IExpression<O, T>,
+export function resolve<O, T>(
+  expr: IExpr<O, T>,
   callstack: string[],
   root: IOptions<O>,
   prng: IPrng
-): IExpressionResolved<IExpression<O, T>> {
+): IExprResolved<IExpr<O, T>> {
   if (Array.isArray(expr)) {
-    if (typeof expr[0] === 'string' && Array.isArray(expr[1])) {
-      let resolveContext = createResolveContext(callstack, root, prng);
+    let resolveContext = createContext(callstack, root, prng);
 
+    if (typeof expr[0] === 'string' && Array.isArray(expr[1])) {
       switch (expr[0]) {
         case '$includes':
-          return includes.resolveIncludes(resolveContext, expr[1]);
+          return includes.resolve(resolveContext, expr[1]);
 
         case '$every':
-          return every.resolveEvery(resolveContext, expr[1]);
+          return every.resolve(resolveContext, expr[1]);
 
         case '$some':
-          return some.resolveSome(resolveContext, expr[1]);
+          return some.resolve(resolveContext, expr[1]);
 
         case '$is':
-          return is.resolveIs(resolveContext, expr[1]);
+          return is.resolve(resolveContext, expr[1]);
 
         case '$isNot':
-          return isNot.resolveIsNot(resolveContext, expr[1]);
+          return isNot.resolve(resolveContext, expr[1]);
 
         case '$gt':
-          return gt.resolveGt(resolveContext, expr[1]);
+          return gt.resolve(resolveContext, expr[1]);
 
         case '$gte':
-          return gte.resolveGte(resolveContext, expr[1]);
+          return gte.resolve(resolveContext, expr[1]);
 
         case '$lt':
-          return lt.resolveLt(resolveContext, expr[1]);
+          return lt.resolve(resolveContext, expr[1]);
 
         case '$lte':
           return lte.resolveLte(resolveContext, expr[1]);
 
         case '$ref':
-          return ref.resolveRef(resolveContext, expr[1]);
+          return ref.resolve(resolveContext, expr[1]);
 
         case '$prng.integer':
-          return prngInteger.resolvePrngInteger(resolveContext, expr[1]);
+          return prngInteger.resolve(resolveContext, expr[1]);
 
         case '$prng.bool':
-          return prngBool.resolvePrngBool(resolveContext, expr[1]);
+          return prngBool.resolve(resolveContext, expr[1]);
 
         case '$prng.pick':
-          return prngPick.resolvePrngPick(resolveContext, expr[1]);
+          return prngPick.resolve(resolveContext, expr[1]);
       }
     }
 
-    let resolvedValues: Array<IExpressionResolved<any>> = [];
-
-    expr.forEach((v: IExpression<O, any>) => {
-      resolvedValues.push(resolve(v, callstack, root, prng));
-    });
-
-    return prng.pick(resolvedValues);
+    return array.resolve(resolveContext, expr);
   } else if (typeof expr === 'object') {
-    let resolvedValues: Array<IExpressionResolved<any>> = [];
+    let resolvedValues: Array<IExprResolved<any>> = [];
 
     Object.entries(expr).forEach(([k, v]) => {
       if (resolve(v, callstack, root, prng)) {

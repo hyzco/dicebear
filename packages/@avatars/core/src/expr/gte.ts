@@ -1,16 +1,13 @@
-import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
+import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
 
-export type IGteExpressionArguments<O> = [IExpression<O, number>, IExpression<O, number>];
-export type IGteExpression<O> = ['$gte', IGteExpressionArguments<O>];
+export type IExprArgs<O> = [IExprBase<O, number>, IExprBase<O, number>];
+export type IExpr<O> = ['$gte', IExprArgs<O>];
 
-export function gte<O>(...args: IGteExpressionArguments<O>): IGteExpression<O> {
+export function create<O>(...args: IExprArgs<O>): IExpr<O> {
   return ['$gte', args];
 }
 
-export function resolveGte<O>(
-  context: IResolveContext<O>,
-  args: IGteExpressionArguments<O>
-): IExpressionResolved<IGteExpression<O>> {
+export function resolve<O>(context: IExprContext<O>, args: IExprArgs<O>): IExprResolved<IExpr<O>> {
   let arg0 = context.resolve(args[0]);
   let arg1 = context.resolve(args[1]);
 

@@ -8,7 +8,8 @@
   "types": "types/index.d.ts",
   "dependencies": {
     "seedrandom": "^3.0.5",
-    "svgson": "^4.0.0"
+    "svgson": "^4.0.0",
+    "utility-types": "^3.10.0"
   },
   "scripts": {
     "pretest": "npm run build",

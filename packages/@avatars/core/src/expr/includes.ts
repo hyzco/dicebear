@@ -1,16 +1,13 @@
-import type { IExpression, IExpressionResolved, IResolveContext } from '../expr';
+import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
 
-export type IIncludesExpressionArguments<O, T> = [IExpression<O, T>, Array<IExpression<O, T>>];
-export type IIncludesExpression<O, T> = ['$includes', IIncludesExpressionArguments<O, T>];
+export type IExprArgs<O, T> = [IExprBase<O, T>, Array<IExprBase<O, T>>];
+export type IExpr<O, T> = ['$includes', IExprArgs<O, T>];
 
-export function includes<O, T>(...args: IIncludesExpressionArguments<O, T>): IIncludesExpression<O, T> {
+export function create<O, T>(...args: IExprArgs<O, T>): IExpr<O, T> {
   return ['$includes', args];
 }
 
-export function resolveIncludes<O, T>(
-  context: IResolveContext<O>,
-  args: IIncludesExpressionArguments<O, T>
-): IExpressionResolved<IIncludesExpression<O, T>> {
+export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): IExprResolved<IExpr<O, T>> {
   let arg0 = context.resolve(args[0]);
 
   if (arg0 && Array.isArray(args[1])) {
