@@ -34,22 +34,23 @@ export type IExpr<O, T> =
   | (T extends Primitive ? T : never);
 
 // prettier-ignore
-export type IExprResolved<T> =
-  T extends every.IExpr<any> ? boolean :
-  T extends gt.IExpr<any> ? boolean :
-  T extends gte.IExpr<any> ? boolean :
-  T extends includes.IExpr<any, any> ? boolean :
-  T extends is.IExpr<any, any> ? boolean :
-  T extends isNot.IExpr<any, any> ? boolean :
-  T extends lt.IExpr<any> ? boolean :
-  T extends lte.IExpr<any> ? boolean :
-  T extends prngBool.IExpr<any> ? boolean :
-  T extends prngInteger.IExpr<any> ? number :
-  T extends some.IExpr<any> ? boolean :
-  T extends ref.IExpr<any, infer U> ? U :
-  T extends prngPick.IExpr<any, infer U> ? U :
-  T extends array.IExpr<any, infer U> ? U :
-  T extends Primitive ? T : never;
+export type IExprResolved<E> =
+  E extends every.IExpr<infer O> ? boolean :
+  E extends gt.IExpr<infer O> ? boolean :
+  E extends gte.IExpr<infer O> ? boolean :
+  E extends includes.IExpr<infer O, infer T> ? boolean :
+  E extends is.IExpr<infer O, infer T> ? boolean :
+  E extends isNot.IExpr<infer O, infer T> ? boolean :
+  E extends lt.IExpr<infer O> ? boolean :
+  E extends lte.IExpr<infer O> ? boolean :
+  E extends prngBool.IExpr<infer O> ? boolean :
+  E extends prngInteger.IExpr<infer O> ? number :
+  E extends some.IExpr<infer O> ? boolean :
+  E extends ref.IExpr<infer O, infer T> ? T :
+  E extends prngPick.IExpr<infer O, infer T> ? T :
+  E extends array.IExpr<infer O, infer T> ? T :
+  E extends Primitive ? E :
+  never;
 
 export interface IExprContext<O> {
   root: IOptions<O>;

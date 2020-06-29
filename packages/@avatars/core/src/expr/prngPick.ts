@@ -11,9 +11,7 @@ export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): 
   let arg0 = args[0];
 
   if (Array.isArray(arg0)) {
-    arg0 = arg0.map((v) => context.resolve(v));
-
-    return context.prng.pick(args[0]) as T;
+    return context.prng.pick(arg0.map((v) => context.resolve(v))) as T;
   }
 
   throw new Error('Invalid arguments for $prng.bool.');
