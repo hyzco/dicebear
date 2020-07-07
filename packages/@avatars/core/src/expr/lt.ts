@@ -1,19 +1,15 @@
-import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
+import { ILtExpr, IExprContext, IExpr, EXPR } from './types';
 
-export type IExprArgs<O> = [IExprBase<O, number>, IExprBase<O, number>];
-export type IExpr<O> = ['$lt', IExprArgs<O>];
+export function resolve(context: IExprContext, expr: IExpr): boolean {
+  if (isResponsible(expr)) {
+    let args = expr[EXPR.LT];
 
-export function create<O>(...args: IExprArgs<O>): IExpr<O> {
-  return ['$lt', args];
-}
-
-export function resolve<O>(context: IExprContext<O>, args: IExprArgs<O>): IExprResolved<IExpr<O>> {
-  let arg0 = context.resolve(args[0]);
-  let arg1 = context.resolve(args[1]);
-
-  if (typeof arg0 === 'number' && typeof arg1 === 'number') {
-    return arg0 < arg1;
+    return context.resolve(args[0]) < context.resolve(args[1]);
   }
 
-  throw new Error('Invalid arguments for $lt.');
+  throw new Error('Error during expression processing.');
+}
+
+export function isResponsible(expr: any): expr is ILtExpr {
+  return typeof expr === 'object' && Array.isArray(expr[EXPR.LT]) && expr[EXPR.LT].length === 2;
 }

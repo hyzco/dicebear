@@ -1,147 +1,70 @@
-import { Primitive } from 'utility-types';
-import type { IOptions } from './options';
 import type { IPrng } from './prng';
+import type { IExpr, IExprContext, IExprCollection } from './expr/types';
 import * as array from './expr/array';
+import * as bool from './expr/bool';
 import * as every from './expr/every';
 import * as gt from './expr/gt';
 import * as gte from './expr/gte';
 import * as includes from './expr/includes';
+import * as integer from './expr/integer';
 import * as is from './expr/is';
 import * as isNot from './expr/isNot';
 import * as lt from './expr/lt';
 import * as lte from './expr/lte';
-import * as prngBool from './expr/prngBool';
-import * as prngInteger from './expr/prngInteger';
-import * as prngPick from './expr/prngPick';
+import * as object from './expr/object';
+import * as pick from './expr/pick';
+import * as plain from './expr/plain';
 import * as ref from './expr/ref';
 import * as some from './expr/some';
 
-export type IExpr<O, T> =
-  | (T extends boolean ? every.IExpr<O> : never)
-  | (T extends boolean ? gt.IExpr<O> : never)
-  | (T extends boolean ? gte.IExpr<O> : never)
-  | (T extends boolean ? includes.IExpr<O, T> : never)
-  | (T extends boolean ? is.IExpr<O, T> : never)
-  | (T extends boolean ? isNot.IExpr<O, T> : never)
-  | (T extends boolean ? lt.IExpr<O> : never)
-  | (T extends boolean ? lte.IExpr<O> : never)
-  | (T extends boolean ? prngBool.IExpr<O> : never)
-  | (T extends boolean ? some.IExpr<O> : never)
-  | (T extends number ? prngInteger.IExpr<O> : never)
-  | (T extends Primitive ? prngPick.IExpr<O, T> : never)
-  | (T extends Primitive ? ref.IExpr<O, T> : never)
-  | (T extends Primitive ? array.IExpr<O, T> : never)
-  | (T extends Primitive ? T : never);
+export function resolveValue(context: IExprContext, expr: IExpr) {
+  let resolvers: Array<{
+    resolve: (context: IExprContext, expr: IExpr) => any;
+    isResponsible: (expr: any) => boolean;
+  }> = [array, bool, every, gt, gte, includes, integer, is, isNot, lt, lte, object, pick, plain, ref, some];
 
-// prettier-ignore
-export type IExprResolved<E> =
-  E extends every.IExpr<infer O> ? boolean :
-  E extends gt.IExpr<infer O> ? boolean :
-  E extends gte.IExpr<infer O> ? boolean :
-  E extends includes.IExpr<infer O, infer T> ? boolean :
-  E extends is.IExpr<infer O, infer T> ? boolean :
-  E extends isNot.IExpr<infer O, infer T> ? boolean :
-  E extends lt.IExpr<infer O> ? boolean :
-  E extends lte.IExpr<infer O> ? boolean :
-  E extends prngBool.IExpr<infer O> ? boolean :
-  E extends prngInteger.IExpr<infer O> ? number :
-  E extends some.IExpr<infer O> ? boolean :
-  E extends ref.IExpr<infer O, infer T> ? T :
-  E extends prngPick.IExpr<infer O, infer T> ? T :
-  E extends array.IExpr<infer O, infer T> ? T :
-  E extends Primitive ? E :
-  never;
+  for (let i = 0; i < resolvers.length; i++) {
+    let resolver = resolvers[i];
 
-export interface IExprContext<O> {
-  root: IOptions<O>;
-  prng: IPrng;
-  resolve: <O, T>(expr: IExpr<O, T>, addToCallstack?: string) => IExprResolved<T>;
-}
-
-export function createContext<O>(callstack: string[], root: IOptions<O>, prng: IPrng): IExprContext<O> {
-  return {
-    root,
-    prng,
-    resolve: <O, T>(expr: IExpr<O, T>, addToCallstack?: string) => {
-      if (addToCallstack) {
-        if (callstack.includes(addToCallstack)) {
-          throw new Error(`Recursion Error: ${callstack.join(' → ')} → ${addToCallstack}`);
-        } else {
-          callstack.push(addToCallstack);
-        }
-      }
-
-      return resolve(expr, callstack, root, prng);
-    },
-  };
-}
-
-export function resolve<O, T>(
-  expr: IExpr<O, T>,
-  callstack: string[],
-  root: IOptions<O>,
-  prng: IPrng
-): IExprResolved<IExpr<O, T>> {
-  if (Array.isArray(expr)) {
-    let resolveContext = createContext(callstack, root, prng);
-
-    if (typeof expr[0] === 'string' && Array.isArray(expr[1])) {
-      switch (expr[0]) {
-        case '$includes':
-          return includes.resolve(resolveContext, expr[1]);
-
-        case '$every':
-          return every.resolve(resolveContext, expr[1]);
-
-        case '$some':
-          return some.resolve(resolveContext, expr[1]);
-
-        case '$is':
-          return is.resolve(resolveContext, expr[1]);
-
-        case '$isNot':
-          return isNot.resolve(resolveContext, expr[1]);
-
-        case '$gt':
-          return gt.resolve(resolveContext, expr[1]);
-
-        case '$gte':
-          return gte.resolve(resolveContext, expr[1]);
-
-        case '$lt':
-          return lt.resolve(resolveContext, expr[1]);
-
-        case '$lte':
-          return lte.resolveLte(resolveContext, expr[1]);
-
-        case '$ref':
-          return ref.resolve(resolveContext, expr[1]);
-
-        case '$prng.integer':
-          return prngInteger.resolve(resolveContext, expr[1]);
-
-        case '$prng.bool':
-          return prngBool.resolve(resolveContext, expr[1]);
-
-        case '$prng.pick':
-          return prngPick.resolve(resolveContext, expr[1]);
-      }
+    if (resolver.isResponsible(expr)) {
+      return resolver.resolve(context, expr);
     }
-
-    return array.resolve(resolveContext, expr);
-  } else if (typeof expr === 'object') {
-    let resolvedValues: Array<IExprResolved<any>> = [];
-
-    Object.entries(expr).forEach(([k, v]) => {
-      if (resolve(v, callstack, root, prng)) {
-        resolvedValues.push(k);
-      }
-    });
-
-    return prng.pick(resolvedValues);
   }
 
-  return expr;
+  throw new Error('Unsupported expression.');
 }
 
-export { every, gt, gte, includes, is, isNot, lt, lte, prngBool, prngInteger, prngPick, ref, some };
+export function resolveRoot<O extends Record<string, any>>(context: IExprContext, name: keyof O): any {
+  if (context.callstack.includes(name.toString())) {
+    throw new Error(`Recursion Error: ${context.callstack.join(' → ')} → ${name}`);
+  }
+
+  if (context.collectionResolved[name] === undefined) {
+    let oldCallstack = context.callstack;
+
+    context.callstack = [...context.callstack, name.toString()];
+
+    context.collectionResolved[name] = resolveValue(context, context.collection[name]);
+
+    context.callstack = oldCallstack;
+  }
+
+  return context.collectionResolved[name];
+}
+
+export function resolve<O>(collection: IExprCollection<O>, prng: IPrng): O {
+  let context: IExprContext = {
+    prng,
+    collection,
+    collectionResolved: {},
+    callstack: [],
+    resolveRoot: (name: string) => resolveRoot(this, name),
+    resolve: (expr: IExpr) => resolveValue(this, expr),
+  };
+
+  Object.keys(collection).forEach((name) => {
+    context.resolveRoot(name);
+  });
+
+  return context.collectionResolved as O;
+}

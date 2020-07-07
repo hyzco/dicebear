@@ -1,12 +1,15 @@
-import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
+import { IIsNotExpr, IExprContext, IExpr, EXPR } from './types';
 
-export type IExprArgs<O, T> = [IExprBase<O, T>, IExprBase<O, T>];
-export type IExpr<O, T> = ['$isNot', IExprArgs<O, T>];
+export function resolve(context: IExprContext, expr: IExpr): boolean {
+  if (isResponsible(expr)) {
+    let args = expr[EXPR.IS_NOT];
 
-export function create<O, T>(...args: IExprArgs<O, T>): IExpr<O, T> {
-  return ['$isNot', args];
+    return context.resolve(args[0]) !== context.resolve(args[1]);
+  }
+
+  throw new Error('Error during expression processing.');
 }
 
-export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): IExprResolved<IExpr<O, T>> {
-  return context.resolve(args[0]) !== context.resolve(args[1]);
+export function isResponsible(expr: any): expr is IIsNotExpr {
+  return typeof expr === 'object' && Array.isArray(expr[EXPR.IS_NOT]) && expr[EXPR.IS_NOT].length === 2;
 }

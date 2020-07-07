@@ -1,19 +1,15 @@
-import { PickByValue } from 'utility-types';
-import type { IExprResolved, IExprContext } from '../expr';
+import { IRefExpr, IExprContext, IExpr, EXPR } from './types';
 
-export type IExprArgs<O, T> = [keyof PickByValue<O, T>];
-export type IExpr<O, T> = ['$ref', IExprArgs<O, T>];
+export function resolve(context: IExprContext, expr: IRefExpr): unknown {
+  if (isResponsible(expr)) {
+    let args = expr[EXPR.REF];
 
-export function create<O, T>(...args: IExprArgs<O, T>): IExpr<O, T> {
-  return ['$ref', args];
-}
-
-export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): IExprResolved<IExpr<O, T>> {
-  let arg0 = args[0];
-
-  if (typeof arg0 === 'string' && context.root[arg0]) {
-    return (context.root[arg0] = context.resolve(context.root[arg0], arg0));
+    return context.resolveRoot(context.resolve(args[0]));
   }
 
-  throw new Error('Invalid arguments for $ref.');
+  throw new Error('Error during expression processing.');
+}
+
+export function isResponsible(expr: any): expr is IRefExpr {
+  return typeof expr === 'object' && Array.isArray(expr[EXPR.REF]) && expr[EXPR.REF].length === 1;
 }

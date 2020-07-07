@@ -1,5 +1,6 @@
 import * as expr from './expr';
 import * as prng from './prng';
+import { IExprResolvedCollection } from './expr/types';
 
 export type IDefaultOptions = {
   seed?: string;
@@ -16,9 +17,7 @@ export type IDefaultOptions = {
   b?: string;
 };
 
-export type IOptions<O extends {}, D = O & IDefaultOptions> = {
-  [P in keyof D]: expr.IExpr<O, D[P]>;
-};
+export type IOptions<O extends {}, D = O & IDefaultOptions> = IExprResolvedCollection<D>;
 
 export type IProcessedOptions<T extends IOptions<{}>> = {
   [K in keyof T]: expr.IExprResolved<T[K]>;

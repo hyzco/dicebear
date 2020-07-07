@@ -1,20 +1,20 @@
-import type { IExpr as IExprBase, IExprResolved, IExprContext } from '../expr';
+import { IIncludesExpr, IExprContext, IExpr, EXPR } from './types';
 
-export type IExprArgs<O, T> = [IExprBase<O, T>, Array<IExprBase<O, T>>];
-export type IExpr<O, T> = ['$includes', IExprArgs<O, T>];
+export function resolve(context: IExprContext, expr: IExpr): boolean {
+  if (isResponsible(expr)) {
+    let args = expr[EXPR.INCLUDES];
 
-export function create<O, T>(...args: IExprArgs<O, T>): IExpr<O, T> {
-  return ['$includes', args];
-}
-
-export function resolve<O, T>(context: IExprContext<O>, args: IExprArgs<O, T>): IExprResolved<IExpr<O, T>> {
-  let arg0 = context.resolve(args[0]);
-
-  if (arg0 && Array.isArray(args[1])) {
-    let arg1 = args[1].map((v) => context.resolve(v));
-
-    return arg1.includes(arg0);
+    return args[1].map((v) => context.resolve(v)).includes(context.resolve(args[0]));
   }
 
-  throw new Error('Invalid arguments for $includes.');
+  throw new Error('Error during expression processing.');
+}
+
+export function isResponsible(expr: any): expr is IIncludesExpr {
+  return (
+    typeof expr === 'object' &&
+    Array.isArray(expr[EXPR.INCLUDES]) &&
+    expr[EXPR.INCLUDES].length === 2 &&
+    Array.isArray(expr[EXPR.INCLUDES][1])
+  );
 }
