@@ -1,10 +1,10 @@
-import { IRefExpr, IExprContext, IExpr, EXPR } from './types';
+import { IRefExpr, IExprContext, IExpr, EXPR } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IRefExpr): unknown {
+export function resolveValue(context: IExprContext, expr: IRefExpr): unknown {
   if (isResponsible(expr)) {
     let args = expr[EXPR.REF];
 
-    return context.resolveRoot(context.resolve(args[0]));
+    return context.resolveRoot(context.resolveValue(args[0]));
   }
 
   throw new Error('Error during expression processing.');

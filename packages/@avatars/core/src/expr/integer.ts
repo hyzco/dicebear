@@ -1,11 +1,11 @@
-import { IIntegerExpr, IExprContext, IExpr, EXPR } from './types';
+import { IIntegerExpr, IExprContext, IExpr, EXPR } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): number {
+export function resolveValue(context: IExprContext, expr: IExpr): number {
   if (isResponsible(expr)) {
     let args = expr[EXPR.INTEGER];
 
-    let arg0 = context.resolve(args[0]);
-    let arg1 = context.resolve(args[1]);
+    let arg0 = context.resolveValue(args[0]);
+    let arg1 = context.resolveValue(args[1]);
 
     if (typeof arg0 === 'number' && typeof arg1 === 'number') {
       return context.prng.integer(arg0, arg1);
@@ -16,5 +16,5 @@ export function resolve(context: IExprContext, expr: IExpr): number {
 }
 
 export function isResponsible(expr: any): expr is IIntegerExpr {
-  return typeof expr === 'object' && Array.isArray(expr[EXPR.EVERY]) && expr[EXPR.INTEGER].length === 2;
+  return typeof expr === 'object' && Array.isArray(expr[EXPR.INTEGER]) && expr[EXPR.INTEGER].length === 2;
 }

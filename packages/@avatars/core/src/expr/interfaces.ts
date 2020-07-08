@@ -57,7 +57,7 @@ export interface IExprContext {
   callstack: string[];
   collection: IExprCollection<any>;
   collectionResolved: any;
-  resolve: <T = any>(expr: IExpr) => T;
+  resolveValue: <T = any>(expr: IExpr) => T;
   resolveRoot: <T = any>(name: string) => T;
 }
 

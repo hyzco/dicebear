@@ -1,10 +1,10 @@
-import { IEveryExpr, IExprContext, IExpr, EXPR } from './types';
+import { IEveryExpr, IExprContext, IExpr, EXPR } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): boolean {
+export function resolveValue(context: IExprContext, expr: IExpr): boolean {
   if (isResponsible(expr)) {
     let args = expr[EXPR.EVERY];
 
-    return args[0].every((v) => context.resolve(v));
+    return args[0].every((v) => context.resolveValue(v));
   }
 
   throw new Error('Error during expression processing.');

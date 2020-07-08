@@ -1,10 +1,10 @@
-import { IIncludesExpr, IExprContext, IExpr, EXPR } from './types';
+import { IIncludesExpr, IExprContext, IExpr, EXPR } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): boolean {
+export function resolveValue(context: IExprContext, expr: IExpr): boolean {
   if (isResponsible(expr)) {
     let args = expr[EXPR.INCLUDES];
 
-    return args[1].map((v) => context.resolve(v)).includes(context.resolve(args[0]));
+    return args[1].map((v) => context.resolveValue(v)).includes(context.resolveValue(args[0]));
   }
 
   throw new Error('Error during expression processing.');

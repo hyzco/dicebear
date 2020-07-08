@@ -1,16 +1,27 @@
 const Avatars = require('../');
 
-test('options.resolve', () => {
-  let options = {
+test('options.process', () => {
+  let source = {
     foo: {
       a: true,
       b: true,
-      c: Avatars.expr.ref('bar'),
+      c: { $ref: ['bar'] },
       d: false,
     },
     bar: false,
     baz: ['a', 'b', 'c', 'd'],
   };
 
-  expect(Avatars.options.process(options)).toEqual({ foo: 'a', bar: false, baz: 'b' });
+  let target = {
+    background: undefined,
+    bar: false,
+    baz: 'b',
+    foo: 'a',
+    height: undefined,
+    margin: undefined,
+    radius: undefined,
+    width: undefined,
+  };
+
+  expect(Avatars.options.process(source)).toEqual(target);
 });

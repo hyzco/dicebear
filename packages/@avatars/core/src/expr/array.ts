@@ -1,8 +1,8 @@
-import { IArrayExpr, IExprContext, IExpr } from './types';
+import { IArrayExpr, IExprContext, IExpr } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): unknown {
+export function resolveValue(context: IExprContext, expr: IExpr): unknown {
   if (isResponsible(expr)) {
-    return context.prng.pick(expr.map((v) => context.resolve(v)));
+    return context.prng.pick(expr.map((v) => context.resolveValue(v)));
   }
 
   throw new Error('Error during expression processing.');

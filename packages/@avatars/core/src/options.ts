@@ -1,6 +1,6 @@
 import * as expr from './expr';
 import * as prng from './prng';
-import { IExprResolvedCollection } from './expr/types';
+import { IExprCollection } from './expr/interfaces';
 
 export type IDefaultOptions = {
   seed?: string;
@@ -17,23 +17,22 @@ export type IDefaultOptions = {
   b?: string;
 };
 
-export type IOptions<O extends {}, D = O & IDefaultOptions> = IExprResolvedCollection<D>;
+export type IOptions<O extends {}> = O & IDefaultOptions;
 
-export type IProcessedOptions<T extends IOptions<{}>> = {
-  [K in keyof T]: expr.IExprResolved<T[K]>;
-};
+export function process<O extends {}>(options: IExprCollection<IOptions<O>>): IOptions<O> {
+  let prngInstance = prng.create(typeof options.seed === 'string' ? options.seed : '');
 
-export function process<O extends {}>(options: IOptions<O>): IProcessedOptions<IOptions<O>> {
-  let processedOptions = { ...options };
-  let prngInstance = prng.create(typeof processedOptions.seed === 'string' ? processedOptions.seed : '');
+  // Apply aliases
+  options = {
+    ...{
+      radius: options.r,
+      width: options.w,
+      height: options.h,
+      margin: options.m,
+      background: options.b,
+    },
+    ...options,
+  };
 
-  let keys = Object.keys(processedOptions) as Array<keyof O>;
-
-  keys.forEach((key) => {
-    let val = processedOptions[key];
-
-    processedOptions[key] = expr.resolve(val, [key as string], processedOptions, prngInstance);
-  });
-
-  return processedOptions as IProcessedOptions<IOptions<O>>;
+  return expr.resolve(options, prngInstance);
 }

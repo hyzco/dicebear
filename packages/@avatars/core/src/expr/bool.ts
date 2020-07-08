@@ -1,9 +1,9 @@
-import { IBoolExpr, IExprContext, IExpr, EXPR } from './types';
+import { IBoolExpr, IExprContext, IExpr, EXPR } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): any {
+export function resolveValue(context: IExprContext, expr: IExpr): any {
   if (isResponsible(expr)) {
     let args = expr[EXPR.BOOL];
-    let arg0 = context.resolve(args[0]);
+    let arg0 = context.resolveValue(args[0]);
 
     return context.prng.bool(typeof arg0 === 'number' ? arg0 : undefined);
   }

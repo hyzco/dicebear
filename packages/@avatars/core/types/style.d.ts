@@ -1,23 +1,9 @@
 import type * as svgson from 'svgson';
-import { IExpression } from './expr';
-export declare type IStyleOptions<O = {}> = {
-    seed?: string | IExpression<string>;
-    radius?: number | IExpression<number>;
-    r?: number | IExpression<number>;
-    base64?: boolean | IExpression<boolean>;
-    width?: number | IExpression<number>;
-    w?: number | IExpression<number>;
-    height?: number | IExpression<number>;
-    h?: number | IExpression<number>;
-    margin?: number | IExpression<number>;
-    m?: number | IExpression<number>;
-    background?: string | IExpression<string>;
-    b?: number | IExpression<number>;
-} & O;
-export interface IStyleGenerator<O = {}> {
-    (options: Partial<IStyleOptions & O>): string | svgson.INode;
+import { IOptions } from './options';
+export interface IStyleGenerator<O> {
+    (options: Partial<IOptions<O>>): string | svgson.INode;
 }
-export interface IStyle<O = {}> {
-    options: IStyleOptions & O;
+export interface IStyle<O> {
+    options: IOptions<O>;
     generator: IStyleGenerator<O>;
 }

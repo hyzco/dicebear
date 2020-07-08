@@ -1,10 +1,10 @@
-import { IIsExpr, IExprContext, IExpr, EXPR } from './types';
+import { IIsExpr, IExprContext, IExpr, EXPR } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): boolean {
+export function resolveValue(context: IExprContext, expr: IExpr): boolean {
   if (isResponsible(expr)) {
     let args = expr[EXPR.IS];
 
-    return context.resolve(args[0]) === context.resolve(args[1]);
+    return context.resolveValue(args[0]) === context.resolveValue(args[1]);
   }
 
   throw new Error('Error during expression processing.');

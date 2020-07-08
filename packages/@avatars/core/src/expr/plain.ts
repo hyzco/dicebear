@@ -1,6 +1,6 @@
-import { IArrayExpr, IExprContext, IExpr } from './types';
+import { IArrayExpr, IExprContext, IExpr } from './interfaces';
 
-export function resolve(context: IExprContext, expr: IExpr): unknown {
+export function resolveValue(context: IExprContext, expr: IExpr): unknown {
   if (isResponsible(expr)) {
     return expr;
   }
@@ -9,5 +9,5 @@ export function resolve(context: IExprContext, expr: IExpr): unknown {
 }
 
 export function isResponsible(expr: any): expr is IArrayExpr<any> {
-  return ['undefined', 'integer', 'boolean', 'string'].includes(typeof expr);
+  return ['undefined', 'number', 'boolean', 'string'].includes(typeof expr);
 }

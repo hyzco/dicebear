@@ -2,10 +2,14 @@ import * as dataUri from './dataUri';
 import * as svg from './svg';
 import * as options from './options';
 import type * as style from './style';
+import { IExprCollection } from './expr/interfaces';
 
-export function create<O>(styleObject: style.IStyle<O>, optionsOrSeed: string | Partial<options.IOptions<O>> = {}) {
+export function create<O>(
+  styleObject: style.IStyle<O>,
+  optionsOrSeed: string | Partial<IExprCollection<options.IOptions<O>>> = {}
+) {
   let seed = Math.random().toString();
-  let optionsObject: Partial<options.IOptions<O>> = {};
+  let optionsObject: Partial<IExprCollection<options.IOptions<O>>> = {};
 
   if (typeof optionsOrSeed === 'string') {
     seed = optionsOrSeed;
@@ -15,13 +19,8 @@ export function create<O>(styleObject: style.IStyle<O>, optionsOrSeed: string | 
 
   // Apply defaults and alias options and process config
   let processedOptions = options.process<O>({
-    ...styleObject.options,
     seed: seed,
-    radius: optionsObject.r,
-    width: optionsObject.w,
-    height: optionsObject.h,
-    margin: optionsObject.m,
-    background: optionsObject.b,
+    ...styleObject.options,
     ...optionsObject,
   });
 
