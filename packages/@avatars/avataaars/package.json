@@ -7,8 +7,7 @@
   "scripts": {
     "prepublishOnly": "npm run build",
     "prebuild": "rm -rf lib/ || true",
-    "build": "tsc",
-    "test": "echo 'No tests available'"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",

@@ -36,6 +36,16 @@ export function resolveRoot<O extends Record<string, any>>(context: IExprContext
 }
 
 export function resolve<O>(collection: IExprCollection<O>, prng: IPrng): O {
+  let context = createContext(collection, prng);
+
+  Object.keys(collection).forEach((name) => {
+    context.resolveRoot(name);
+  });
+
+  return context.collectionResolved as O;
+}
+
+export function createContext(collection: IExprCollection<any>, prng: IPrng): IExprContext {
   let context: IExprContext = {
     prng,
     collection,
@@ -45,9 +55,5 @@ export function resolve<O>(collection: IExprCollection<O>, prng: IPrng): O {
     resolveValue: (expr: IExpr) => resolveValue(context, expr),
   };
 
-  Object.keys(collection).forEach((name) => {
-    context.resolveRoot(name);
-  });
-
-  return context.collectionResolved as O;
+  return context;
 }
