@@ -13,7 +13,6 @@ export function resolveValue(context: IExprContext, expr: IExpr) {
     }
   }
 
-  console.log(expr);
   throw new Error('Unsupported expression.');
 }
 

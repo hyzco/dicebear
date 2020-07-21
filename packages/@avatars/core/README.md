@@ -59,6 +59,20 @@ let avatars = new Avatars(sprites, options);
 let svg = avatars.create('custom-seed');
 ```
 
+```js
+import Avatars from '@avatars/core';
+import sprites from '@avatars/male';
+
+let options = {};
+let avatars = new Avatars(sprites, options);
+let svg = avatars.ui('#element', {
+  seed: '', // default false
+  onChange: (options) => {
+    console.log(options);
+  },
+});
+```
+
 ### Available options
 
 The following options are available for each avatar style.
