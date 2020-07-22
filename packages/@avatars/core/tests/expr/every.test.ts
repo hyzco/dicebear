@@ -1,5 +1,5 @@
-import * as every from './every';
-import { createContext } from '../expr';
+import * as every from '../../src/expr/every';
+import { createContext } from '../../src/expr';
 
 test('every expression is responsible to object with $every', () => {
   expect(every.isResponsible({ $every: [[true]] })).toBe(true);

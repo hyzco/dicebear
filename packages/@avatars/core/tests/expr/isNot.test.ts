@@ -1,5 +1,5 @@
-import * as isNot from './isNot';
-import { createContext } from '../expr';
+import * as isNot from '../../src/expr/isNot';
+import { createContext } from '../../src/expr';
 
 test('isNot expression isNot responsible to object with $isNot', () => {
   expect(isNot.isResponsible({ $isNot: ['foo', 'foo'] })).toBe(true);

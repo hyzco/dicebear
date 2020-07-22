@@ -1,5 +1,5 @@
-import * as plain from './plain';
-import { createContext } from '../expr';
+import * as plain from '../../src/expr/plain';
+import { createContext } from '../../src/expr';
 
 test('plain expression is responsible to undefined', () => {
   expect(plain.isResponsible(undefined)).toBe(true);

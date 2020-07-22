@@ -1,5 +1,5 @@
-import * as gt from './gt';
-import { createContext } from '../expr';
+import * as gt from '../../src/expr/gt';
+import { createContext } from '../../src/expr';
 
 test('gt expression is responsible to object with $gt', () => {
   expect(gt.isResponsible({ $gt: [1, 0] })).toBe(true);

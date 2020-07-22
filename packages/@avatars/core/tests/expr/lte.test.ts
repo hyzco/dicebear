@@ -1,5 +1,5 @@
-import * as lte from './lte';
-import { createContext } from '../expr';
+import * as lte from '../../src/expr/lte';
+import { createContext } from '../../src/expr';
 
 test('lte expression is responsible to object with $lte', () => {
   expect(lte.isResponsible({ $lte: [1, 0] })).toBe(true);

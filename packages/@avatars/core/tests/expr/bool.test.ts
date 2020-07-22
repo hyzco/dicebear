@@ -1,5 +1,5 @@
-import * as bool from './bool';
-import { createContext } from '../expr';
+import * as bool from '../../src/expr/bool';
+import { createContext } from '../../src/expr';
 
 test('bool expression is responsible to object with $bool', () => {
   expect(bool.isResponsible({ $bool: [50] })).toBe(true);

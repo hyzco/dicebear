@@ -1,5 +1,5 @@
-import * as ref from './ref';
-import { createContext } from '../expr';
+import * as ref from '../../src/expr/ref';
+import { createContext } from '../../src/expr';
 
 test('ref expression ref responsible to object with $ref', () => {
   expect(ref.isResponsible({ $ref: ['foo'] })).toBe(true);

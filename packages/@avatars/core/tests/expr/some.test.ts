@@ -1,5 +1,5 @@
-import * as some from './some';
-import { createContext } from '../expr';
+import * as some from '../../src/expr/some';
+import { createContext } from '../../src/expr';
 
 test('some expression is responsible to object with $some', () => {
   expect(some.isResponsible({ $some: [[true]] })).toBe(true);

@@ -1,5 +1,5 @@
-import * as lt from './lt';
-import { createContext } from '../expr';
+import * as lt from '../../src/expr/lt';
+import { createContext } from '../../src/expr';
 
 test('lt expression is responsible to object with $lt', () => {
   expect(lt.isResponsible({ $lt: [1, 0] })).toBe(true);

@@ -3,7 +3,7 @@ type Options = {
   mode?: 'include' | 'exclude';
   style?: 'transparent' | 'circle';
   top?: Array<'longHair' | 'shortHair' | 'eyepatch' | 'hat' | 'hijab' | 'turban'>;
-  topProbability?: 100;
+  topProbability?: number;
   hatColor?: Array<'black' | 'blue' | 'gray' | 'heather' | 'pastel' | 'pink' | 'red' | 'white'>;
   hairColor?: Array<
     | 'auburn'

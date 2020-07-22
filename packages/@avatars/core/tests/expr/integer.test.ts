@@ -1,5 +1,5 @@
-import * as integer from './integer';
-import { createContext } from '../expr';
+import * as integer from '../../src/expr/integer';
+import { createContext } from '../../src/expr';
 
 test('integer expression is responsible to object with $integer', () => {
   expect(integer.isResponsible({ $integer: [0, 100] })).toBe(true);

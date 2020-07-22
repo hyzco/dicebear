@@ -1,4 +1,4 @@
-import * as pick from './pick';
+import * as pick from '../../src/expr/pick';
 
 test('pick expression is responsible to object with $pick and array', () => {
   expect(pick.isResponsible({ $pick: [['foo']] })).toBe(true);

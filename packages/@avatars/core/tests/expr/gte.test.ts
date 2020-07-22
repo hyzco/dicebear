@@ -1,5 +1,5 @@
-import * as gte from './gte';
-import { createContext } from '../expr';
+import * as gte from '../../src/expr/gte';
+import { createContext } from '../../src/expr';
 
 test('gte expression is responsible to object with $gte', () => {
   expect(gte.isResponsible({ $gte: [1, 0] })).toBe(true);

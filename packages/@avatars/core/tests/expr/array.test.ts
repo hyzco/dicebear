@@ -1,5 +1,5 @@
-import * as array from './array';
-import { createContext } from '../expr';
+import * as array from '../../src/expr/array';
+import { createContext } from '../../src/expr';
 
 test('array expression is responsible to array', () => {
   expect(array.isResponsible(['foo'])).toBe(true);

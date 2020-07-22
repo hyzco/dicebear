@@ -4,7 +4,8 @@ export enum EXPR {
   EVERY = '$every',
   GT = '$gt',
   GTE = '$gte',
-  INCLUDES = '$includes',
+  HAS = '$has',
+  HAS_NOT = '$hasNot',
   IS = '$is',
   IS_NOT = '$isNot',
   LT = '$lt',
@@ -22,7 +23,8 @@ export type IObjectExpr = { [k: string]: IExpr };
 export type IEveryExpr = Record<EXPR.EVERY, [IExpr[]]>;
 export type IGtExpr = Record<EXPR.GT, [IExpr, IExpr]>;
 export type IGteExpr = Record<EXPR.GTE, [IExpr, IExpr]>;
-export type IIncludesExpr = Record<EXPR.INCLUDES, [IExpr, IExpr[]]>;
+export type IHasExpr = Record<EXPR.HAS, [IExpr, IExpr[]]>;
+export type IHasNotExpr = Record<EXPR.HAS_NOT, [IExpr, IExpr[]]>;
 export type IIsExpr = Record<EXPR.IS, [IExpr, IExpr]>;
 export type IIsNotExpr = Record<EXPR.IS_NOT, [IExpr, IExpr]>;
 export type ILtExpr = Record<EXPR.LT, [IExpr, IExpr]>;
@@ -38,7 +40,8 @@ export type IExpr<T = any> =
   | (T extends boolean ? IEveryExpr : never)
   | (T extends boolean ? IGtExpr : never)
   | (T extends boolean ? IGteExpr : never)
-  | (T extends boolean ? IIncludesExpr : never)
+  | (T extends boolean ? IHasExpr : never)
+  | (T extends boolean ? IHasNotExpr : never)
   | (T extends boolean ? IIsExpr : never)
   | (T extends boolean ? IIsNotExpr : never)
   | (T extends boolean ? ILtExpr : never)

@@ -1,4 +1,4 @@
-import * as object from './object';
+import * as object from '../../src/expr/object';
 
 test('object expression is responsible to object with $object', () => {
   expect(object.isResponsible({ foo: true, bar: false })).toBe(true);
