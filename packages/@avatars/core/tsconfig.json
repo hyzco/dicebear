@@ -8,23 +8,5 @@
     "noImplicitAny": true,
     "sourceMap": true
   },
-  "include": [
-    "./src/**/*",
-    "test/bool.test.ts",
-    "test/every.test.ts",
-    "test/gt.test.ts",
-    "test/gte.test.ts",
-    "test/includes.test.ts",
-    "test/integer.test.ts",
-    "test/is.test.ts",
-    "test/isNot.test.ts",
-    "test/lt.test.ts",
-    "test/lte.test.ts",
-    "test/object.test.ts",
-    "test/pick.test.ts",
-    "test/plain.test.ts",
-    "test/ref.test.ts",
-    "test/some.test.ts",
-    "test/array.test.ts"
-  ]
+  "include": ["./src/**/*"]
 }

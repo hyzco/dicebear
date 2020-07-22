@@ -1,3 +1,4 @@
+import * as dataUri from './dataUri';
 import * as svg from './svg';
 import * as options from './options';
 import type * as style from './style';
@@ -51,5 +52,5 @@ export function create<O>(
 
   avatar = svg.stringify(avatar);
 
-  return processedOptions.dataUri ? `data:image/svg+xml;utf8,${encodeURIComponent(avatar)}` : avatar;
+  return processedOptions.dataUri ? dataUri.encode(avatar) : avatar;
 }
