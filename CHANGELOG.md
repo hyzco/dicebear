@@ -4,33 +4,35 @@
 
 ### General
 
-- NPM namespace and package names changed to separate them from libraries not belonging to "DiceBear Avatars". In addition "sprite collections" are now called "avatar styles". This results in the following name changes:
-  - `@dicebear/avatars` => `@avatars/core`
-  - `@dicebear/avatars-avataaars-sprites` => `@avatars/avataaars`
-  - `@dicebear/avatars-bottts-sprites` => `@avatars/bottts`
-  - `@dicebear/avatars-code-sprites` => `@avatars/code`
-  - `@dicebear/avatars-female-sprites` => `@avatars/pixel-art`
-  - `@dicebear/avatars-gridy-sprites` => `@avatars/gridy`
-  - `@dicebear/avatars-human-sprites` => `@avatars/pixel-art`
-  - `@dicebear/avatars-identicon-sprites` => `@avatars/identicon`
-  - `@dicebear/avatars-initials-sprites` => `@avatars/initials`
-  - `@dicebear/avatars-jdenticon-sprites` => `@avatars/jdenticon`
-  - `@dicebear/avatars-male-sprites` => `@avatars/pixel-art`
-- Deprecation of packages with the old namespace.
+- The packages are now provided under the namespace `@avatars`. And the avatar styles `male`, `female` and `human` have been combined under `pixel-art`. This results in the following changes.
+
+| Old package name                      | New package name     |
+| ------------------------------------- | -------------------- |
+| `@dicebear/avatars`                   | `@avatars/core`      |
+| `@dicebear/avatars-avataaars-sprites` | `@avatars/avataaars` |
+| `@dicebear/avatars-bottts-sprites`    | `@avatars/bottts`    |
+| `@dicebear/avatars-code-sprites`      | `@avatars/code`      |
+| `@dicebear/avatars-female-sprites`    | `@avatars/pixel-art` |
+| `@dicebear/avatars-gridy-sprites`     | `@avatars/gridy`     |
+| `@dicebear/avatars-human-sprites`     | `@avatars/pixel-art` |
+| `@dicebear/avatars-identicon-sprites` | `@avatars/identicon` |
+| `@dicebear/avatars-initials-sprites`  | `@avatars/initials`  |
+| `@dicebear/avatars-jdenticon-sprites` | `@avatars/jdenticon` |
+| `@dicebear/avatars-male-sprites`      | `@avatars/pixel-art` |
 
 ### @avatars/core
 
-- Classes are rewritten as functions. This change allows direct access to the `create` function without having to initialize an object first.
+- Classes are rewritten as functions. This allows direct access to the `create` function without having to initialize an object first.
 
   Old API
 
   ```js
     import Avatars from `@dicebear/avatars`;
-    import spriteCollection from `@dicebear/avatars-identicon-sprites`;
+    import avatarStyle from `@dicebear/avatars-identicon-sprites`;
 
     let options = {};
     let seed = 'custom-seed';
-    let avatars = new Avatars(spriteCollection, options);
+    let avatars = new Avatars(avatarStyle, options);
     let svg = avatars.create(seed);
   ```
 
@@ -38,27 +40,15 @@
 
   ```js
     import * as avatars from `@avatars/core`;
-    import * as style from `@avatars/identicon`;
+    import * as avatarStyle from `@avatars/identicon`;
 
-    let seed = 'custom-seed';
-    let options = { seed };
-
-    let svg = avatars.create(style, options);
-
-    // Or create a avatar without options and seed only
-    let svg = avatars.create(style, seed);
+    let svg = avatars.create(avatarStyle, {
+      seed: 'custom-seed',
+      // ... and other options
+    });
   ```
 
-- If no `seed` is passed, a random one is defined. Example usage:
-
-  ```js
-    import * as avatars from `@avatars/core`;
-    import * as style from `@avatars/identicon`;
-
-    let options = {};
-
-    let svg = avatars.create(style, options);
-  ```
+- If no `seed` is passed, a random one is defined.
 
 - The following options have been renamed
   - `base64` => `dataUri`
@@ -100,12 +90,6 @@
   - `grayscaleLightness` => `lightnessGrayscale`
   - `colorSaturation` => `saturationColor`
   - `grayscaleSaturation` => `saturationGrayscale`
-
-## Fixed
-
-### @avatars/core
-
-- [#68](8) base64 option on nodejs environments
 
 ## Added
 
@@ -160,9 +144,8 @@
 
 ### @avatars/pixel-art
 
-- Added as a merger for `male`, `female` and `human`.
 - The following options are new:
-  - `skinColor` (See [#68](10))
+  - `skinColor`
   - `maleMustacheProbability`
   - `maleGlassesProbability`
   - `maleHairProbability`
@@ -175,8 +158,8 @@
 
 ### @avatars/core
 
-- Color modifier classes. Moved to `@avatars/pixel-art`.
-- Material colors. Use [material-colors](9) package instead.
+- Color modifier classes moved to `@avatars/pixel-art`.
+- Material colors. Use [material-colors](1) package instead.
 - Option `userAgent`.
 
 ### @avatars/avataaars
@@ -197,57 +180,4 @@
   - `gray` - use `gray01` and `gray02` instead.
   - `pastel` - use `pastelBlue`, `pastelGreen`, `pastelOrange`, `pastelRed` and `pastelYellow` instead.
 
-[8]: https://github.com/DiceBear/avatars/issues/68
-[9]: https://www.npmjs.com/package/material-colors
-[10]: https://github.com/DiceBear/avatars/issues/53
-
-# [4.2.0] - 2020-05-26
-
-## Changed
-
-- [#73][7] Update seedrandom package to 3.0.5
-
-[7]: https://github.com/DiceBear/avatars/pull/73
-
-# [4.1.1] - 2020-05-14
-
-## Changed
-
-- New API Path. `/api/` instead of `/v2/`
-
-## Fixed
-
-- `initials` more precisely centered
-- `avataaars` Background Color
-
-# [4.1.0] - 2020-05-09
-
-## Changed
-
-- [#55][1] Parameter key for the HTTP API flattened. It is now no longer necessary to nest the values in an `options` object.
-- [#61][6] Update `topChange` to `topChance`, clarify some documentation (thanks to @pennstatephil)
-- [Configurator][2] now always generates the smallest possible HTTP-API URL.
-- Reorganized dependencies in the repository.
-- Stackpath CDN configured for HTTP API. Saves 90% traffic to Cloudflare Workers and therefore also unnecessary costs. Unfortunately makes the initial call a bit slower.
-
-## Fixed
-
-- [#69][3] Initial avatars were displayed incorrectly in Firefox. Same solution implemented for all browsers.
-- [#58][4] Value `0` did not work for chance options in `bottts`.
-
-## Added
-
-- [#55][1] Aliases for `width`, `height`, `radius`, `background` and `margin`, to keep the URLs of the HTTP API shorter
-- [#66][5] `deterministic` for `gridy` avatars. (thanks to @elierotenberg)
-- This changelog
-
-## Removed
-
-- `bowser` dependency in initials avatars.
-
-[1]: https://github.com/DiceBear/avatars/issues/55
-[2]: https://avatars.dicebear.com
-[3]: https://github.com/DiceBear/avatars/issues/69
-[4]: https://github.com/DiceBear/avatars/issues/58
-[5]: https://github.com/DiceBear/avatars/pull/66
-[6]: https://github.com/DiceBear/avatars/pull/61
+[1]: https://www.npmjs.com/package/material-colors

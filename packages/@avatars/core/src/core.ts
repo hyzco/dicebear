@@ -1,30 +1,18 @@
 import * as dataUri from './dataUri';
 import * as svg from './svg';
-import * as options from './options';
-import type * as style from './style';
+import { process as processOptions, IOptions } from './options';
+import type { IStyle } from './style';
 import { IExprCollection } from './expr/interfaces';
 
-export function create<O>(
-  styleObject: style.IStyle<O>,
-  optionsOrSeed: string | Partial<IExprCollection<options.IOptions<O>>> = {}
-) {
-  let seed = Math.random().toString();
-  let optionsObject: Partial<IExprCollection<options.IOptions<O>>> = {};
-
-  if (typeof optionsOrSeed === 'string') {
-    seed = optionsOrSeed;
-  } else {
-    optionsObject = optionsOrSeed;
-  }
-
+export function create<O>(style: IStyle<O>, options: Partial<IExprCollection<IOptions<O>>> = {}) {
   // Apply defaults and alias options and process config
-  let processedOptions = options.process<O>({
-    seed: seed,
-    ...styleObject.options,
-    ...optionsObject,
+  let processedOptions = processOptions<O>({
+    seed: Math.random().toString(),
+    ...style.defaultOptions,
+    ...options,
   });
 
-  let avatar = styleObject.generator(processedOptions);
+  let avatar = style.create(processedOptions);
 
   if (Object.keys(options).length > 0) {
     avatar = svg.parse(avatar);
