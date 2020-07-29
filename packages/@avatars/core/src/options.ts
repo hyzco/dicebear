@@ -1,7 +1,3 @@
-import * as expr from './expr';
-import * as prng from './prng';
-import { IExprCollection } from './expr/interfaces';
-
 export type IDefaultOptions = {
   seed?: string;
   radius?: number;
@@ -19,11 +15,8 @@ export type IDefaultOptions = {
 
 export type IOptions<O extends {}> = O & IDefaultOptions;
 
-export function process<O extends {}>(options: IExprCollection<IOptions<O>>): IOptions<O> {
-  let prngInstance = prng.create(typeof options.seed === 'string' ? options.seed : '');
-
-  // Apply aliases
-  options = {
+export function applyAliases<O extends {}>(options: IOptions<O>): IOptions<O> {
+  return {
     ...{
       radius: options.r,
       width: options.w,
@@ -33,6 +26,4 @@ export function process<O extends {}>(options: IExprCollection<IOptions<O>>): IO
     },
     ...options,
   };
-
-  return expr.resolve(options, prngInstance);
 }

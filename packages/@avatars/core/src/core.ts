@@ -1,44 +1,45 @@
 import * as dataUri from './dataUri';
 import * as svg from './svg';
-import { process as processOptions, IOptions } from './options';
+import { applyAliases, IOptions } from './options';
 import type { IStyle } from './style';
-import { IExprCollection } from './expr/interfaces';
+import * as prng from './prng';
 
-export function create<O>(style: IStyle<O>, options: Partial<IExprCollection<IOptions<O>>> = {}) {
-  // Apply defaults and alias options and process config
-  let processedOptions = processOptions<O>({
+export function create<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
+  options = applyAliases<O>({
     seed: Math.random().toString(),
     ...style.defaultOptions,
     ...options,
   });
 
-  let avatar = style.create(processedOptions);
+  let prngInstance = prng.create(typeof options.seed === 'string' ? options.seed : '');
+
+  let avatar = style.create(prngInstance, options);
 
   if (Object.keys(options).length > 0) {
     avatar = svg.parse(avatar);
 
-    if (typeof processedOptions.width === 'number') {
-      svg.addWidth(avatar, processedOptions.width as number);
+    if (typeof options.width === 'number') {
+      svg.addWidth(avatar, options.width as number);
     }
 
-    if (typeof processedOptions.height === 'number') {
-      svg.addHeight(avatar, processedOptions.height as number);
+    if (typeof options.height === 'number') {
+      svg.addHeight(avatar, options.height as number);
     }
 
-    if (typeof processedOptions.margin === 'number') {
-      svg.addMargin(avatar, processedOptions.margin as number);
+    if (typeof options.margin === 'number') {
+      svg.addMargin(avatar, options.margin as number);
     }
 
-    if (typeof processedOptions.background === 'string') {
-      svg.addBackground(avatar, processedOptions.background as string);
+    if (typeof options.background === 'string') {
+      svg.addBackground(avatar, options.background as string);
     }
 
-    if (typeof processedOptions.radius === 'number') {
-      svg.addRadius(avatar, processedOptions.radius as number);
+    if (typeof options.radius === 'number') {
+      svg.addRadius(avatar, options.radius as number);
     }
   }
 
   avatar = svg.stringify(avatar);
 
-  return processedOptions.dataUri ? dataUri.encode(avatar) : avatar;
+  return options.dataUri ? dataUri.encode(avatar) : avatar;
 }

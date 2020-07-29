@@ -1,19 +1,22 @@
-![DiceBear Avatars - Initials avatar style](https://raw.githubusercontent.com/DiceBear/avatars/master/packages/@avatars/initials/banner.svg?sanitize=true)
+<br />
+<br />
 
-![license](https://img.shields.io/npm/l/@avatars/initials.svg?style=flat-square)
-[![npm](https://img.shields.io/npm/v/@avatars/initials.svg?style=flat-square)](https://www.npmjs.com/package/@avatars/initials)
+<h1 align="center"><img src="https://avatars.dicebear.com/api/initials/John%20Die.svg" width="124" /> <br />@avatars/initials</h1>
+<p align="center"><strong>Initial avatars for DiceBear Avatars</strong></p>
 
-<p>
-    <img src="https://avatars.dicebear.com/api/initials/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Irene%20West.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Joshua%20Nelson.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Terrence%20Gomez.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Charlie%20Sanders.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Eli%20Chambers.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Carla%20Chavez.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Clarence%20Lawson.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/Vivan%20Wade.svg" width="60" />
+<p align="center">
+    <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/dicebear/avatars.svg?style=flat-square" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/@avatars/initials" target="_blank">
+        <img src="https://img.shields.io/npm/v/@avatars/initials.svg?style=flat-square" alt="Latest Version">
+    </a>
+    <a href="https://github.com/dicebear/avatars/stargazers" target="_blank">
+        <img src="https://img.shields.io/github/stars/dicebear/avatars?style=flat-square" alt="Stargazers">
+    </a>
 </p>
+<br />
+<br />
 
 ## Usage
 
@@ -43,12 +46,13 @@ Install the Avatars and this avatar style with the following command.
 Now you are ready to create your first Avatar.
 
 ```js
-import Avatars from '@avatars/core';
-import sprites from '@avatars/initials';
+import * as avatars from '@avatars/core';
+import * as avatarSprites from '@avatars/initials';
 
-let options = {};
-let avatars = new Avatars(sprites, options);
-let svg = avatars.create('custom-seed');
+let svg = avatars.create(avatarStyle, {
+  seed: 'custom-seed',
+  // ... and other options
+});
 ```
 
 ## Options

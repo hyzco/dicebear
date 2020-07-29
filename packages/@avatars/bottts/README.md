@@ -1,22 +1,22 @@
-![DiceBear Avatars - Bottts avatar style](https://raw.githubusercontent.com/DiceBear/avatars/master/packages/@avatars/bottts/banner.svg?sanitize=true)
+<br />
+<br />
 
-![license](https://img.shields.io/npm/l/@avatars/bottts.svg?style=flat-square)
-[![npm](https://img.shields.io/npm/v/@avatars/bottts.svg?style=flat-square)](https://www.npmjs.com/package/@avatars/bottts)
+<h1 align="center"><img src="https://avatars.dicebear.com/api/bottts/1.svg" width="124" /> <br />@avatars/bottts</h1>
+<p align="center"><strong>Bottts by <a href="https://twitter.com/pablostanley" target="_blank">Pablo Stanley</a> for DiceBear Avatars</strong></p>
 
-Designed by [Pablo Stanley](https://twitter.com/pablostanley), the Sketch library can be found on
-[bottts.com](https://bottts.com/).
-
-<p>
-    <img src="https://avatars.dicebear.com/api/bottts/1.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/2.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/3.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/4.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/5.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/6.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/7.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/8.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/9.svg" width="60" />
+<p align="center">
+    <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/dicebear/avatars.svg?style=flat-square" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/@avatars/bottts" target="_blank">
+        <img src="https://img.shields.io/npm/v/@avatars/bottts.svg?style=flat-square" alt="Latest Version">
+    </a>
+    <a href="https://github.com/dicebear/avatars/stargazers" target="_blank">
+        <img src="https://img.shields.io/github/stars/dicebear/avatars?style=flat-square" alt="Stargazers">
+    </a>
 </p>
+<br />
+<br />
 
 ## Usage
 
@@ -45,8 +45,8 @@ Install the Avatars and this avatar style with the following command.
 Now you are ready to create your first Avatar.
 
 ```js
-import Avatars from '@avatars/core';
-import sprites from '@avatars/bottts';
+import * as avatars from '@avatars/core';
+import * as avatarSprites from '@avatars/bottts';
 
 let avatars = new Avatars(sprites());
 let svg = avatars.create('custom-seed');

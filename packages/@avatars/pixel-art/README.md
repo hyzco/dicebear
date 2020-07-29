@@ -1,21 +1,22 @@
-![DiceBear Avatars - pixel-art avatar style](https://raw.githubusercontent.com/DiceBear/avatars/master/packages/@avatars/pixel-art/banner.svg?sanitize=true)
+<br />
+<br />
 
-![license](https://img.shields.io/npm/l/@avatars/pixel-art.svg?style=flat-square)
-[![npm](https://img.shields.io/npm/v/@avatars/pixel-art.svg?style=flat-square)](https://www.npmjs.com/package/@avatars/pixel-art)
+<h1 align="center"><img src="https://avatars.dicebear.com/api/male/10.svg" width="124" /> <br />@avatars/pixel-art</h1>
+<p align="center"><strong>Pixel art avatars for DiceBear Avatars</strong></p>
 
-This avatar style combines the avatar styles [male](https://www.npmjs.com/package/@avatars/male) and [female](https://www.npmjs.com/package/@avatars/female) and selects the gender randomly.
-
-<p>
-    <img src="https://avatars.dicebear.com/api/pixel-art/1.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/2.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/3.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/4.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/5.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/6.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/7.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/8.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/pixel-art/9.svg" width="60" />
+<p align="center">
+    <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/dicebear/avatars.svg?style=flat-square" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/@avatars/pixel-art" target="_blank">
+        <img src="https://img.shields.io/npm/v/@avatars/pixel-art.svg?style=flat-square" alt="Latest Version">
+    </a>
+    <a href="https://github.com/dicebear/avatars/stargazers" target="_blank">
+        <img src="https://img.shields.io/github/stars/dicebear/avatars?style=flat-square" alt="Stargazers">
+    </a>
 </p>
+<br />
+<br />
 
 ## Usage
 
@@ -45,12 +46,13 @@ Install the Avatars and this avatar style with the following command.
 Now you are ready to create your first Avatar.
 
 ```js
-import Avatars from '@avatars/core';
-import sprites from '@avatars/pixel-art';
+import * as avatars from '@avatars/core';
+import * as avatarSprites from '@avatars/pixel-art';
 
-let options = {};
-let avatars = new Avatars(sprites, options);
-let svg = avatars.create('custom-seed');
+let svg = avatars.create(avatarStyle, {
+  seed: 'custom-seed',
+  // ... and other options
+});
 ```
 
 ## Options

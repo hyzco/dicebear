@@ -1,19 +1,22 @@
-![DiceBear Avatars - Code avatar style](https://raw.githubusercontent.com/DiceBear/avatars/master/packages/@avatars/code/banner.svg?sanitize=true)
+<br />
+<br />
 
-![license](https://img.shields.io/npm/l/@avatars/code.svg?style=flat-square)
-[![npm](https://img.shields.io/npm/v/@avatars/code.svg?style=flat-square)](https://www.npmjs.com/package/@avatars/code)
+<h1 align="center"><img src="https://avatars.dicebear.com/api/code/1.svg" width="124" /> <br />@avatars/code</h1>
+<p align="center"><strong>Code style avatars for DiceBear Avatars</strong></p>
 
-<p>
-    <img src="https://avatars.dicebear.com/api/code/1.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/2.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/3.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/4.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/5.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/6.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/7.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/8.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/9.svg" width="60" />
+<p align="center">
+    <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/dicebear/avatars.svg?style=flat-square" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/@avatars/code" target="_blank">
+        <img src="https://img.shields.io/npm/v/@avatars/code.svg?style=flat-square" alt="Latest Version">
+    </a>
+    <a href="https://github.com/dicebear/avatars/stargazers" target="_blank">
+        <img src="https://img.shields.io/github/stars/dicebear/avatars?style=flat-square" alt="Stargazers">
+    </a>
 </p>
+<br />
+<br />
 
 ## Usage
 
@@ -42,12 +45,13 @@ Install the Avatars and this avatar style with the following command.
 Now you are ready to create your first Avatar.
 
 ```js
-import Avatars from '@avatars/core';
-import sprites from '@avatars/code';
+import * as avatars from '@avatars/core';
+import * as avatarSprites from '@avatars/code';
 
-let options = {};
-let avatars = new Avatars(sprites, options);
-let svg = avatars.create('custom-seed');
+let svg = avatars.create(avatarStyle, {
+  seed: 'custom-seed',
+  // ... and other options
+});
 ```
 
 ## Options

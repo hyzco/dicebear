@@ -1,12 +1,12 @@
 import type * as svgson from 'svgson';
 import type { IOptions } from './options';
-import type { IExprCollection } from './expr/interfaces';
+import { IPrng } from './prng';
 
 export interface IStyleCreateFunction<O> {
-  (options: Partial<IOptions<O>>): string | svgson.INode;
+  (prng: IPrng, options: Partial<IOptions<O>>): string | svgson.INode;
 }
 
 export interface IStyle<O> {
-  defaultOptions: IExprCollection<IOptions<O>>;
+  defaultOptions: IOptions<O>;
   create: IStyleCreateFunction<O>;
 }

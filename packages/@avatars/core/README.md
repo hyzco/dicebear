@@ -1,24 +1,22 @@
-![DiceBear Avatars](https://raw.githubusercontent.com/DiceBear/avatars/master/packages/@avatars/core/banner.svg?sanitize=true)
+<br />
+<br />
 
-![license](https://img.shields.io/npm/l/@avatars/core.svg?style=flat-square)
-[![npm](https://img.shields.io/npm/v/@avatars/core.svg?style=flat-square)](https://www.npmjs.com/package/@avatars/core)
+<h1 align="center"><img src="https://avatars.dicebear.com/api/male/1.svg" width="124" /> <br />DiceBear Avatars</h1>
+<p align="center"><strong>Avatars is an avatar placeholder library for designers and developers.</strong></p>
 
-Avatars is an avatar placeholder library for designers and developers. You can choose between simple identicons and lovely designed characters.
-And best of all: We provide a simple and free HTTP API that you can use right away!
-
-https://avatars.dicebear.com
-
-<p>
-    <img src="https://avatars.dicebear.com/api/male/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/female/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/identicon/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/initials/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/bottts/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/avataaars/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/jdenticon/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/John%20Doe.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/code/John%20Doe.svg" width="60" />
+<p align="center">
+    <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/dicebear/avatars.svg?style=flat-square" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/@avatars/code" target="_blank">
+        <img src="https://img.shields.io/npm/v/@avatars/code.svg?style=flat-square" alt="Latest Version">
+    </a>
+    <a href="https://github.com/dicebear/avatars/stargazers" target="_blank">
+        <img src="https://img.shields.io/github/stars/dicebear/avatars?style=flat-square" alt="Stargazers">
+    </a>
 </p>
+<br />
+<br />
 
 ## Usage
 
@@ -51,12 +49,13 @@ You also need to add a avatar style. In our example, we will use the male avatar
 Now you are ready to create your first Avatar.
 
 ```js
-import Avatars from '@avatars/core';
-import sprites from '@avatars/male';
+import * as avatars from '@avatars/core';
+import * as avatarSprites from '@avatars/male';
 
-let options = {};
-let avatars = new Avatars(sprites, options);
-let svg = avatars.create('custom-seed');
+let svg = avatars.create(avatarStyle, {
+  seed: 'custom-seed',
+  // ... and other options
+});
 ```
 
 ### Available options

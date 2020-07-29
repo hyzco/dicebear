@@ -1,21 +1,23 @@
-![DiceBear Avatars - Gridy avatar style](https://raw.githubusercontent.com/DiceBear/avatars/master/packages/@avatars/gridy/banner.svg?sanitize=true)
+<br />
+<br />
 
-![license](https://img.shields.io/npm/l/@avatars/gridy.svg?style=flat-square)
-[![npm](https://img.shields.io/npm/v/@avatars/gridy.svg?style=flat-square)](https://www.npmjs.com/package/@avatars/gridy)
+<h1 align="center"><img src="https://avatars.dicebear.com/api/gridy/1.svg" width="124" /> <br />@avatars/gridy</h1>
+<p align="center"><strong>Abstract monsters avatar style for DiceBear Avatars</strong></p>
 
-Designed by [Jan Forst](https://github.com/darosh/gridy-avatars).
-
-<p>
-    <img src="https://avatars.dicebear.com/api/gridy/1.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/2.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/3.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/4.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/5.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/6.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/7.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/8.svg" width="60" />
-    <img src="https://avatars.dicebear.com/api/gridy/9.svg" width="60" />
+<p align="center">
+    <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
+        <img src="https://img.shields.io/github/license/dicebear/avatars.svg?style=flat-square" alt="License">
+    </a>
+    <a href="https://www.npmjs.com/package/@avatars/gridy" target="_blank">
+        <img src="https://img.shields.io/npm/v/@avatars/gridy.svg?style=flat-square" alt="Latest Version">
+    </a>
+    <a href="https://github.com/dicebear/avatars/stargazers" target="_blank">
+        <img src="https://img.shields.io/github/stars/dicebear/avatars?style=flat-square" alt="Stargazers">
+    </a>
 </p>
+<br />
+<br />
+
 ## Usage
 
 ### HTTP-API (recommended)
@@ -43,12 +45,13 @@ Install the Avatars and this avatar style with the following command.
 Now you are ready to create your first Avatar.
 
 ```js
-import Avatars from '@avatars/core';
-import sprites from '@avatars/gridy';
+import * as avatars from '@avatars/core';
+import * as avatarSprites from '@avatars/gridy';
 
-let options = {};
-let avatars = new Avatars(sprites, options);
-let svg = avatars.create('custom-seed');
+let svg = avatars.create(avatarStyle, {
+  seed: 'custom-seed',
+  // ... and other options
+});
 ```
 
 ## Options
