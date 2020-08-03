@@ -1,0 +1,6 @@
+export default () => {
+  return `
+    <path d="M3 20V17H4V16H8V17H12V16H16V17H17V20H3Z" fill="black"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 20V18H4V20H3ZM6 20V18H8V20H6ZM10 20V18H12V20H10ZM14 20V18H16V20H14ZM16 17V18H17V17H16ZM14 18V16H12V18H14ZM8 17V18H10V17H8ZM4 16V18H6V16H4Z" fill="white" fill-opacity="0.2"/>
+  `;
+};

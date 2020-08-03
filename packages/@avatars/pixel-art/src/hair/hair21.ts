@@ -1,0 +1,5 @@
+export default () => {
+  return `
+    <path d="M3 8H4V5H6V3H14V4H15V5H16V8H17V3H15V2H13V1H12V2H10V1H9V2H8V1H7V2H5V3H4V4H3V8Z" fill="black"/>
+  `;
+};
