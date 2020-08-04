@@ -2,7 +2,7 @@
 <br />
 
 <h1 align="center"><img src="https://avatars.dicebear.com/api/personas/1.svg" width="124" /> <br />@avatars/personas</h1>
-<p align="center"><strong>personas by <a href="https://twitter.com/pablostanley" target="_blank">Pablo Stanley</a> for DiceBear Avatars</strong></p>
+<p align="center"><strong>personas by <a href="https://personas.draftbit.com/" target="_blank">draftbit</a> for DiceBear Avatars</strong></p>
 
 <p align="center">
     <a href="https://github.com/dicebear/avatars/blob/master/LICENSE" target="_blank">
