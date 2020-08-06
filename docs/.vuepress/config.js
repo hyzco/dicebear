@@ -32,7 +32,7 @@ module.exports = {
     docsDir: 'docs',
     editLinkText: '',
     lastUpdated: false,
-    docsBranch: 'avatars-v5',
+    docsBranch: 'v5',
     nav: [
       {
         text: 'Guide',
