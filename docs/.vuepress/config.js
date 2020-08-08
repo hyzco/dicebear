@@ -44,7 +44,7 @@ module.exports = {
         {
           title: 'Essentials',
           collapsable: false,
-          children: ['', 'installation', 'options'],
+          children: ['', 'how-to-use', 'options', 'faq'],
         },
         {
           title: 'Styles',
@@ -67,12 +67,7 @@ module.exports = {
         {
           title: 'Extensions',
           collapsable: false,
-          children: ['extensions/ui', 'extensions/cloud'],
-        },
-        {
-          title: 'Wrapper',
-          collapsable: false,
-          children: ['wrapper/react', 'wrapper/vue'],
+          children: ['extensions'],
         },
       ],
     },
