@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/DiceBear/avatars/tree/master/packages/@avatars/gridy#readme",
   "peerDependencies": {
-    "@avatars/core": "^4.0.0"
+    "@avatars/core": "^5.0.0"
   },
   "devDependencies": {
     "@avatars/core": "file:../core"

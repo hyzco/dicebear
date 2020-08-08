@@ -31,10 +31,10 @@ The value of `:seed` can be anything you like - but **don't** use any sensitive 
 
 #### Examples
 
-| preview                                                                                                                             | url                                                                                                        |
-| ----------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| <img src="https://avatars.dicebear.com/api/jdenticon/example.svg" width="60" />                                                     | https://avatars.dicebear.com/api/jdenticon/example.svg                                                     |
-| <img src="https://avatars.dicebear.com/api/jdenticon/example.svg?options[padding]=0.05&options[background]=%23f0f0f0" width="60" /> | https://avatars.dicebear.com/api/jdenticon/example.svg?options[padding]=0.05&options[background]=%23f0f0f0 |
+| preview                                                                                                                                  | url                                                                                                             |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| <img src="https://avatars.dicebear.com/api/jdenticon/example.svg" width="60" />                                                          | https://avatars.dicebear.com/api/jdenticon/example.svg                                                          |
+| <img src="https://avatars.dicebear.com/api/jdenticon/example.svg?options[padding]=0.05&options[backgroundColor]=%23f0f0f0" width="60" /> | https://avatars.dicebear.com/api/jdenticon/example.svg?options[padding]=0.05&options[backgroundColor]=%23f0f0f0 |
 
 ### NPM
 
@@ -63,7 +63,7 @@ let svg = avatars.create(avatarStyle, {
 | width               | w     | number                               | `null`  | Fixed width                                                                                                                                       |
 | height              | h     | number                               | `null`  | Fixed height                                                                                                                                      |
 | margin              | m     | number                               | `0`     | Avatar margin in percent<br> **HTTP-API limitation** Max value `25`                                                                               |
-| background          | b     | string                               | `null`  | Any valid color identifier<br> **HTTP-API limitation** Only hex _(3-digit, 6-digit and 8-digit)_ values are allowed. Use url encoded hash: `%23`. |
+| backgroundColor     | b     | string                               | `null`  | Any valid color identifier<br> **HTTP-API limitation** Only hex _(3-digit, 6-digit and 8-digit)_ values are allowed. Use url encoded hash: `%23`. |
 | hues                |       | array of numbers between 0 and 360   | `null`  | Icon hue                                                                                                                                          |
 | lightnessColor      |       | array of two numbers between 0 and 1 | `null`  | Colored shapes - Lightness                                                                                                                        |
 | lightnessGrayscale  |       | array of two numbers between 0 and 1 | `null`  | Grayscale shapes - Lightness                                                                                                                      |

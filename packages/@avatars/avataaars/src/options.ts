@@ -1,5 +1,5 @@
 type Options = {
-  background?: string;
+  backgroundColor?: string;
   mode?: 'include' | 'exclude';
   style?: 'transparent' | 'circle';
   top?: Array<'longHair' | 'shortHair' | 'eyepatch' | 'hat' | 'hijab' | 'turban'>;

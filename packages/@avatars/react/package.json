@@ -26,13 +26,9 @@
     "url": "https://github.com/DiceBear/avatars/issues"
   },
   "homepage": "https://github.com/DiceBear/avatars/tree/master/packages/@avatars/react#readme",
-  "dependencies": {
-    "react": "^1.2.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
-  },
+  "dependencies": {},
   "peerDependencies": {
-    "@avatars/core": "^4.0.0"
+    "@avatars/core": "^5.0.0"
   },
   "devDependencies": {
     "@avatars/core": "file:../core"

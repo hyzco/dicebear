@@ -44,7 +44,7 @@ module.exports = {
         {
           title: 'Essentials',
           collapsable: false,
-          children: ['', 'how-to-use', 'options', 'faq'],
+          children: ['', 'how-to-use', 'options', 'changelog', 'faq'],
         },
         {
           title: 'Styles',

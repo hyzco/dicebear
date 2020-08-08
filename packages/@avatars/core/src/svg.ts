@@ -82,7 +82,7 @@ export function addMargin(svg: svgson.INode, margin: number) {
   });
 }
 
-export function addBackground(svg: svgson.INode, background: string) {
+export function addBackground(svg: svgson.INode, backgroundColor: string) {
   let viewBox = getViewbox(svg);
 
   svg.children.unshift({
@@ -91,7 +91,7 @@ export function addBackground(svg: svgson.INode, background: string) {
     value: '',
     children: [],
     attributes: {
-      fill: background,
+      fill: backgroundColor,
       width: viewBox.width.toString(),
       height: viewBox.height.toString(),
       x: viewBox.x.toString(),

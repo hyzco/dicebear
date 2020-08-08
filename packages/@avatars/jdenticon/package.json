@@ -30,7 +30,7 @@
     "jdenticon": "^2.1.1"
   },
   "peerDependencies": {
-    "@avatars/core": "^4.0.0"
+    "@avatars/core": "^5.0.0"
   },
   "devDependencies": {
     "@avatars/core": "file:../core"

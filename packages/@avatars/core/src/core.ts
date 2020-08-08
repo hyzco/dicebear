@@ -30,8 +30,8 @@ export function create<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) 
       svg.addMargin(avatar, options.margin as number);
     }
 
-    if (typeof options.background === 'string') {
-      svg.addBackground(avatar, options.background as string);
+    if (typeof options.backgroundColor === 'string') {
+      svg.addBackground(avatar, options.backgroundColor as string);
     }
 
     if (typeof options.radius === 'number') {

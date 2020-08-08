@@ -46,19 +46,18 @@ The avatars are responsive by default. They always take up the space that is mad
 **type:** `number`  
 **default:** `0`
 
-This option can be used to create a padding within the avatar. The specifications are interpreted as a percentage. This means: At a value of `50` there is no picture to be seen anymore, because left and right as well as top and bottom 50% together make 100% and no space is left for the actual avatar. We recommend a maximum value of `25`.
+This option can be used to create a padding within the avatar. The specifications are interpreted as a percentage. The maximum value is `25`.
 
-::: warning HTTP-API Limitations
-Only values between `0` and `25` are allowed.
-:::
+## backgroundColor
 
-## background <Badge text="alias: b" type="tip" vertical="middle" />
-
-**type:** `string`  
+**type:** `string` or `string[]`  
 **default:** `undefined`
 
-Allows you to color the background of the avatar. Apart from possible restrictions of the application environment, all color spaces are possible here. We recommend specifying [hex colors](https://en.wikipedia.org/wiki/Web_colors) for maximum compatibility across applications.
+Allows you to color the background of the avatar. Allowed are [hexadecimal colors](https://en.wikipedia.org/wiki/Web_colors) with three, six and eight digits. Also allowed are color names from [Material Colors](https://material.io/design/color/the-color-system.html).
 
-::: warning HTTP-API Limitations
-Only hex _(3-digit, 6-digit and 8-digit)_ values are allowed. Use url encoded hash: `%23`. For example, `#ff0000` becomes `%23ff0000`.
-:::
+## backgroundColorVariation
+
+**type:** `number`
+**default:** `700`
+
+If a background color from [Material Colors](https://material.io/design/color/the-color-system.html) was selected, this value specifies the color variation.
