@@ -65,6 +65,12 @@ export const schema: JSONSchema7 = {
     backgroundColor: {
       type: 'string',
     },
+    base64: {
+      type: 'boolean',
+    },
+    userAgent: {
+      type: 'string',
+    },
   },
   properties: {
     seed: { $ref: '#/definitions/seed' },
@@ -80,6 +86,9 @@ export const schema: JSONSchema7 = {
     m: { $ref: '#/definitions/margin' },
     backgroundColor: { $ref: '#/definitions/backgroundColor' },
     b: { $ref: '#/definitions/backgroundColor' },
+    background: { $ref: '#/definitions/backgroundColor' },
+    base64: { $ref: '#/definitions/base64' },
+    userAgent: { $ref: '#/definitions/userAgent' },
   },
 };
 
