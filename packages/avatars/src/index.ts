@@ -1,4 +1,5 @@
 export * from './core';
+export * as base64 from './base64';
 export * as dataUri from './dataUri';
 export * as options from './options';
 export * as prng from './prng';
