@@ -1,0 +1,43 @@
+{
+  "name": "@dicebear/avatars-react",
+  "version": "4.2.0",
+  "description": "react avatar style for DiceBear Avatars",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "prebuild": "rm -rf lib/ || true",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiceBear/avatars.git"
+  },
+  "keywords": [
+    "dicebear",
+    "avatar",
+    "react",
+    "svg",
+    "sprites"
+  ],
+  "author": "DiceBear <opensource@dicebear.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DiceBear/avatars/issues"
+  },
+  "homepage": "https://github.com/DiceBear/avatars/tree/master/packages/@dicebear/avatars-react#readme",
+  "dependencies": {},
+  "peerDependencies": {
+    "@dicebear/avatars": "^5.0.0"
+  },
+  "devDependencies": {
+    "@dicebear/avatars": "file:../core"
+  },
+  "files": [
+    "LICENSE",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

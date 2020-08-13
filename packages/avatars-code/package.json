@@ -1,0 +1,46 @@
+{
+  "name": "@dicebear/avatars-code",
+  "version": "4.2.0",
+  "description": "Code avatar style for DiceBear Avatars",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "prebuild": "rm -rf lib/ || true",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiceBear/avatars.git"
+  },
+  "keywords": [
+    "dicebear",
+    "avatar",
+    "svg",
+    "sprites",
+    "qr-code"
+  ],
+  "author": "DiceBear <opensource@dicebear.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DiceBear/avatars/issues"
+  },
+  "homepage": "https://github.com/DiceBear/avatars/tree/master/packages/@dicebear/avatars-code#readme",
+  "dependencies": {
+    "@types/qr-image": "^3.2.1",
+    "qr-image": "^3.2.0"
+  },
+  "peerDependencies": {
+    "@dicebear/avatars": "^5.0.0"
+  },
+  "devDependencies": {
+    "@dicebear/avatars": "file:../core"
+  },
+  "files": [
+    "LICENSE",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

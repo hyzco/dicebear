@@ -35,12 +35,16 @@ module.exports = {
     docsBranch: 'v5',
     nav: [
       {
-        text: 'Guide',
-        link: '/guide/',
+        text: 'Developer Guide',
+        link: '/developer-guide/',
+      },
+      {
+        text: 'Designer Guide',
+        link: '/designer-guide/',
       },
     ],
     sidebar: {
-      '/guide/': [
+      '/developer-guide/': [
         {
           title: 'Essentials',
           collapsable: false,
@@ -67,7 +71,37 @@ module.exports = {
         {
           title: 'Extensions',
           collapsable: false,
-          children: ['extensions'],
+          children: ['extensions/', 'extensions/ui', 'extensions/vue', 'extensions/react', 'extensions/serverless'],
+        },
+      ],
+      '/designer-guide/': [
+        {
+          title: 'Essentials',
+          collapsable: false,
+          children: ['', 'how-to-use', 'options', 'changelog', 'faq'],
+        },
+        {
+          title: 'Styles',
+          collapsable: false,
+          children: [
+            'styles/',
+            'styles/avataaars',
+            'styles/bottts',
+            'styles/code',
+            'styles/gridy',
+            'styles/humaaans',
+            'styles/identicon',
+            'styles/initials',
+            'styles/jdenticon',
+            'styles/open-peeps',
+            'styles/personas',
+            'styles/pixel-art',
+          ],
+        },
+        {
+          title: 'Extensions',
+          collapsable: false,
+          children: ['extensions/', 'extensions/ui', 'extensions/vue', 'extensions/react', 'extensions/serverless'],
         },
       ],
     },
