@@ -2,7 +2,7 @@ import { style, legacy } from '@dicebear/avatars';
 import qrImage from 'qr-image';
 
 type Options = {
-  type?: string;
+  type?: 'qr';
   color?: string;
   correctionLevel?: 'L' | 'M' | 'Q' | 'H';
 };
