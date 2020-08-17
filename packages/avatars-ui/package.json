@@ -1,43 +1,17 @@
 {
   "name": "@dicebear/avatars-ui",
-  "version": "4.2.0",
-  "description": "ui avatar style for DiceBear Avatars",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "version": "1.0.0",
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "prebuild": "rm -rf lib/ || true",
-    "build": "tsc"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public",
+    "validate": "svelte-check"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DiceBear/avatars.git"
+  "dependencies": {
+    "clsx": "^1.1.1",
+    "sirv-cli": "^1.0.0"
   },
-  "keywords": [
-    "dicebear",
-    "avatar",
-    "ui",
-    "svg",
-    "sprites"
-  ],
-  "author": "DiceBear <opensource@dicebear.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DiceBear/avatars/issues"
-  },
-  "homepage": "https://github.com/DiceBear/avatars/tree/master/packages/@dicebear/avatars-ui#readme",
-  "dependencies": {},
   "peerDependencies": {
     "@dicebear/avatars": "^5.0.0"
-  },
-  "devDependencies": {
-    "@dicebear/avatars": "file:../core"
-  },
-  "files": [
-    "LICENSE",
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
   }
 }
