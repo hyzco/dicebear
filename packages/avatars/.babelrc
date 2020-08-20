@@ -1,8 +1,6 @@
 {
-  "presets": [["@babel/env", { "modules": false }], "@babel/typescript"],
+  "extends": "../../build/.babelrc",
   "plugins": [
-    "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread",
     [
       "module-resolver",
       {

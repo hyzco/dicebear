@@ -1,15 +1,4 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "es6",
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "lib",
-    "baseUrl": ".",
-    "resolveJsonModule": true,
-    "declaration": true
-  },
-  "include": ["src/**/*"]
+  "extends": "../../build/tsconfig.json",
+  "include": ["./src/**/*", "./tests/**/*"]
 }

@@ -1,12 +1,4 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "outDir": "./lib",
-    "moduleResolution": "node",
-    "declaration": true,
-    "lib": ["es2020", "dom"],
-    "noImplicitAny": true,
-    "sourceMap": true
-  },
+  "extends": "../../build/tsconfig.json",
   "include": ["./src/**/*", "./tests/**/*"]
 }
