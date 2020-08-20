@@ -1,5 +1,5 @@
 import { style, legacy } from '@dicebear/avatars';
-import qrImage from 'qr-image';
+import * as qrImage from 'qr-image';
 
 type Options = {
   type?: 'qr';

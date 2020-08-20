@@ -2,12 +2,14 @@
   "name": "@dicebear/avatars-jdenticon",
   "version": "4.2.0",
   "description": "Jdenticon avatar style for DiceBear Avatars",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/cjs/avatars-jdenticon.js",
+  "module": "dist/esm/avatars-jdenticon.js",
+  "browser": "dist/amd/avatars-jdenticon.min.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "prebuild": "rm -rf lib/ || true",
-    "build": "tsc"
+    "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
+    "build:js": "rollup -c",
+    "build": "npm run build:types && npm run build:js"
   },
   "repository": {
     "type": "git",

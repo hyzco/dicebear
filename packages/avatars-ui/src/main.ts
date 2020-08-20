@@ -1,10 +1,9 @@
-import App from './App.svelte';
+import app from './app';
+import * as code from '@dicebear/avatars-code';
 
-const app = new App({
-	target: document.body,
-	props: {
-		name: 'world'
-	}
+export default app({
+  target: document.body,
+  styles: {
+    code,
+  },
 });
-
-export default app;
