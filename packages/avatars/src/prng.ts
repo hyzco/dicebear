@@ -1,4 +1,8 @@
-const seedrandom = require('seedrandom');
+// @ts-ignore
+import * as seedrandom_ from 'seedrandom/seedrandom';
+
+// @see https://github.com/rollup/rollup/issues/670
+const seedrandom = seedrandom_;
 
 export interface IPrng {
   seed: string;

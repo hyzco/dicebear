@@ -1,9 +1,14 @@
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import autoExternal from 'rollup-plugin-auto-external';
 import bannerPlugin from 'rollup-plugin-banner';
+import svelte from 'rollup-plugin-svelte';
+import livereload from 'rollup-plugin-livereload';
+import sveltePreprocess from 'svelte-preprocess';
+import builtins from 'rollup-plugin-node-builtins';
+import typescript from '@rollup/plugin-typescript';
 
 export function getPackages(packageName, deep = true, filter = []) {
   let pkg = require(`${packageName}/package.json`);
@@ -92,40 +97,114 @@ export function getExtensions() {
   return ['.js', '.jsx', '.ts', '.tsx'];
 }
 
+export function getConfigDefaults() {
+  return {
+    watch: false,
+    svelte: false,
+  };
+}
+
+export function serve() {
+  let server;
+
+  function toExit() {
+    if (server) server.kill(0);
+  }
+
+  return {
+    writeBundle() {
+      if (server) return;
+      server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+        stdio: ['ignore', 'inherit', 'inherit'],
+        shell: true,
+      });
+
+      process.on('SIGTERM', toExit);
+      process.on('exit', toExit);
+    },
+  };
+}
+
 export function getUmdConfig(pkg, config = {}) {
   let extensions = getExtensions();
+
+  config = {
+    ...getConfigDefaults(),
+    ...config,
+  };
+
+  let plugins = [];
+
+  if (config.svelte) {
+    plugins.push(
+      svelte({
+        preprocess: sveltePreprocess({ postcss: true, dev: config.watch }),
+      })
+    );
+  }
+
+  plugins.push(
+    resolve({ extensions, dedupe: ['svelte'], browser: true }),
+    commonjs(),
+    typescript(),
+    //builtins(),
+    babel({ extensions, include: ['src/**/*'] })
+  );
+
+  if (config.watch) {
+    plugins.push(serve(), livereload('public'));
+  } else {
+    plugins.push(bannerPlugin(createBanner(pkg.name)), terser());
+  }
+
   return {
-    input: './src/index.ts',
-    plugins: [
-      resolve({ extensions }),
-      commonjs(),
-      babel({ extensions, include: ['src/**/*'] }),
-      terser(),
-      bannerPlugin(createBanner(pkg.name)),
-    ],
+    input: config.watch ? './src/watch.ts' : './src/index.ts',
+    plugins,
     output: [
       {
-        file: pkg.browser,
+        file: config.watch ? 'public/build/bundle.js' : pkg.browser,
         format: 'umd',
         name: getUmdName(pkg.name),
         exports: 'named',
+        sourcemap: config.watch,
       },
     ],
-    ...config,
+    external: ['crypto'],
+    watch: {
+      clearScreen: false,
+    },
   };
 }
 
 export function getCjsAndEsConfig(pkg, config = {}) {
   let extensions = getExtensions();
 
+  config = {
+    ...getConfigDefaults(),
+    ...config,
+  };
+
+  let plugins = [];
+
+  if (config.svelte) {
+    plugins.push(
+      svelte({
+        preprocess: sveltePreprocess({ postcss: true }),
+      })
+    );
+  }
+
+  plugins.push(
+    resolve({ extensions }),
+    typescript(),
+    babel({ extensions, include: ['src/**/*'] }),
+    autoExternal(),
+    bannerPlugin(createBanner(pkg.name, false))
+  );
+
   return {
     input: './src/index.ts',
-    plugins: [
-      resolve({ extensions }),
-      babel({ extensions, include: ['src/**/*'] }),
-      autoExternal(),
-      bannerPlugin(createBanner(pkg.name, false)),
-    ],
+    plugins,
     output: [
       {
         file: pkg.main,
@@ -138,6 +217,5 @@ export function getCjsAndEsConfig(pkg, config = {}) {
         exports: 'named',
       },
     ],
-    ...config,
   };
 }
