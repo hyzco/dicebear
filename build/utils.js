@@ -1,6 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import autoExternal from 'rollup-plugin-auto-external';
 import svelte from 'rollup-plugin-svelte';
@@ -9,6 +9,17 @@ import sveltePreprocess from 'svelte-preprocess';
 import builtins from 'rollup-plugin-node-builtins';
 import typescript from '@rollup/plugin-typescript';
 import visualizer from 'rollup-plugin-visualizer';
+import rootPkg from '../package.json';
+
+export function getGlobals() {
+  let globals = {};
+
+  Object.keys(rootPkg.dependencies).forEach((name) => {
+    globals[name] = getUmdName(name);
+  });
+
+  return globals;
+}
 
 export function getPackages(packageName, deep = true, filter = []) {
   let pkg = require(`${packageName}/package.json`);
@@ -133,6 +144,8 @@ export function getUmdConfig(pkg, config = {}) {
     ...config,
   };
 
+  let globals = config.svelte && config.watch ? {} : getGlobals();
+
   let plugins = [];
 
   if (config.svelte) {
@@ -179,9 +192,10 @@ export function getUmdConfig(pkg, config = {}) {
         exports: 'named',
         sourcemap: true,
         banner: createBanner(pkg.name),
+        globals: globals,
       },
     ],
-    external: ['crypto'],
+    external: ['crypto', ...Object.keys(globals)],
     watch: {
       clearScreen: false,
     },
