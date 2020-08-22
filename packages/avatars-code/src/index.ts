@@ -1,5 +1,5 @@
 import { style, legacy } from '@dicebear/avatars';
-import * as qrImage from 'qr-image';
+import * as QRCode from 'qrcode-svg';
 
 type Options = {
   type?: 'qr';
@@ -10,19 +10,11 @@ type Options = {
 export const defaultOptions: style.IStyleDefaultOptions<Options> = {};
 export const schema: style.IstyleSchema = {};
 export const create: style.IStyleCreate<Options> = (prng, options = {}) => {
-  let svg = qrImage
-    .imageSync(prng.seed, {
-      type: 'svg',
-      ec_level: options.correctionLevel,
-      margin: 0,
-    })
-    .toString();
-
-  if (options.color) {
-    svg = svg.replace('<path ', `<path fill="${options.color}" `);
-  }
-
-  return svg;
+  return new QRCode({
+    content: prng.seed,
+    color: options.color,
+    ecl: options.correctionLevel,
+  }).svg();
 };
 
 export default legacy.createStyleDefault({

@@ -29,8 +29,8 @@
   },
   "homepage": "https://github.com/DiceBear/avatars/tree/master/packages/@dicebear/avatars-code#readme",
   "dependencies": {
-    "@types/qr-image": "^3.2.1",
-    "qr-image": "^3.2.0"
+    "@types/qrcode-svg": "^1.1.0",
+    "qrcode-svg": "^1.1.0"
   },
   "peerDependencies": {
     "@dicebear/avatars": "^5.0.0"
