@@ -97,7 +97,9 @@ export function createBanner(pkgName, deep = true) {
 }
 
 export function getUmdName(pkgName) {
-  return pkgName.replace('@dicebear/', '').split('-').map(ucfirst).join('');
+  let [name, ...parts] = pkgName.replace('@dicebear/', '').split('-').map(ucfirst);
+
+  return [name, parts.join('')].filter((v) => v).join('.');
 }
 
 export function ucfirst(val) {
