@@ -3,12 +3,12 @@ import resolve from '@rollup/plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import autoExternal from 'rollup-plugin-auto-external';
-import bannerPlugin from 'rollup-plugin-banner';
 import svelte from 'rollup-plugin-svelte';
 import livereload from 'rollup-plugin-livereload';
 import sveltePreprocess from 'svelte-preprocess';
 import builtins from 'rollup-plugin-node-builtins';
 import typescript from '@rollup/plugin-typescript';
+import visualizer from 'rollup-plugin-visualizer';
 
 export function getPackages(packageName, deep = true, filter = []) {
   let pkg = require(`${packageName}/package.json`);
@@ -60,20 +60,20 @@ export function getPackages(packageName, deep = true, filter = []) {
 export function createLicenseText(pkg) {
   let rows = [];
 
-  rows.push(`${pkg.name}:`);
+  rows.push(` * ${pkg.name}:`);
 
   if (pkg.license) {
-    rows.push(`  license: ${pkg.license}`);
+    rows.push(` *  license: ${pkg.license}`);
   } else {
     console.warn(`${pkg.name} has no license!`);
   }
 
   if (pkg.author) {
-    rows.push(`  author: ${pkg.author}`);
+    rows.push(` *  author: ${pkg.author}`);
   }
 
   if (pkg.homepage) {
-    rows.push(`  homepage: ${pkg.homepage}`);
+    rows.push(` *  homepage: ${pkg.homepage}`);
   }
 
   return rows.join('\n');
@@ -82,7 +82,7 @@ export function createLicenseText(pkg) {
 export function createBanner(pkgName, deep = true) {
   let packages = getPackages(pkgName, deep);
 
-  return Object.values(packages).map(createLicenseText).join('\n\n');
+  return ['/*!', Object.values(packages).map(createLicenseText).join('\n *\n'), ' */'].join('\n');
 }
 
 export function getUmdName(pkgName) {
@@ -144,17 +144,28 @@ export function getUmdConfig(pkg, config = {}) {
   }
 
   plugins.push(
+    builtins(),
     resolve({ extensions, dedupe: ['svelte'], browser: true }),
     commonjs(),
     typescript(),
-    //builtins(),
     babel({ extensions, include: ['src/**/*'] })
   );
 
   if (config.watch) {
-    plugins.push(serve(), livereload('public'));
+    // prettier-ignore
+    plugins.push(
+      serve(),
+      livereload('public')
+    );
   } else {
-    plugins.push(bannerPlugin(createBanner(pkg.name)), terser());
+    plugins.push(
+      terser(),
+      visualizer({
+        open: true,
+        sourcemap: true,
+        gzipSize: true,
+      })
+    );
   }
 
   return {
@@ -166,7 +177,8 @@ export function getUmdConfig(pkg, config = {}) {
         format: 'umd',
         name: getUmdName(pkg.name),
         exports: 'named',
-        sourcemap: config.watch,
+        sourcemap: true,
+        banner: createBanner(pkg.name),
       },
     ],
     external: ['crypto'],
@@ -178,6 +190,7 @@ export function getUmdConfig(pkg, config = {}) {
 
 export function getCjsAndEsConfig(pkg, config = {}) {
   let extensions = getExtensions();
+  let banner = createBanner(pkg.name, false);
 
   config = {
     ...getConfigDefaults(),
@@ -194,12 +207,12 @@ export function getCjsAndEsConfig(pkg, config = {}) {
     );
   }
 
+  // prettier-ignore
   plugins.push(
     resolve({ extensions }),
     typescript(),
     babel({ extensions, include: ['src/**/*'] }),
     autoExternal(),
-    bannerPlugin(createBanner(pkg.name, false))
   );
 
   return {
@@ -210,11 +223,13 @@ export function getCjsAndEsConfig(pkg, config = {}) {
         file: pkg.main,
         format: 'cjs',
         exports: 'named',
+        banner,
       },
       {
         file: pkg.module,
         format: 'es',
         exports: 'named',
+        banner,
       },
     ],
   };
