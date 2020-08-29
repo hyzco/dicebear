@@ -8,9 +8,7 @@
   "types": "dist/types/index.d.ts",
   "dependencies": {
     "@types/json-schema": "^7.0.5",
-    "seedrandom": "^3.0.5",
-    "svgson": "^4.0.0",
-    "utility-types": "^3.10.0"
+    "svgson": "^4.0.0"
   },
   "scripts": {
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",

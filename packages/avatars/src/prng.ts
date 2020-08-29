@@ -1,8 +1,5 @@
-// @ts-ignore
-import * as seedrandom_ from 'seedrandom/seedrandom';
-
-// @see https://github.com/rollup/rollup/issues/670
-const seedrandom = seedrandom_;
+const MIN = -2147483648;
+const MAX = 2147483647;
 
 export interface IPrng {
   seed: string;
@@ -11,14 +8,42 @@ export interface IPrng {
   pick<T>(arr: T[]): T;
 }
 
-export function create(seed: string): IPrng {
-  const prng = seedrandom(seed);
-  const integer = (min: number, max: number) => Math.floor(prng() * (max - min + 1) + min);
+function hashSeed(seed: string) {
+  let hash = 0;
+
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
+    hash |= 0;
+  }
+
+  return hash;
+}
+
+function randomSeed() {
+  return MIN + Math.floor((MAX - MIN) * Math.random());
+}
+
+export function create(seed?: string): IPrng {
+  let value = (seed ? hashSeed(seed) : randomSeed()) || 1;
+
+  const next = () => {
+    let newValue = value;
+
+    newValue ^= newValue << 13;
+    newValue ^= newValue >> 17;
+    newValue ^= newValue << 5;
+
+    return newValue;
+  };
+
+  const integer = (min: number, max: number) => {
+    return Math.floor(((next() - MIN) / (MAX - MIN)) * (max - min) + min);
+  };
 
   return {
     seed,
     bool(likelihood: number = 50) {
-      return prng() * 100 < likelihood;
+      return integer(0, 100) < likelihood;
     },
     integer(min: number, max: number) {
       return integer(min, max);
