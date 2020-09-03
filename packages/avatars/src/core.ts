@@ -1,6 +1,17 @@
-import { IStyleCreateResult, IOptions } from './interfaces';
+import { applyAliases } from './options';
+import type { IStyle, IOptions, IStyleCreateResult } from './interfaces';
+import * as prng from './prng';
 
-export function create<O>(result: IStyleCreateResult, options: IOptions<O>) {
+export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
+  options = applyAliases<O>({
+    seed: Math.random().toString(),
+    ...style.defaultOptions,
+    ...options,
+  });
+
+  let prngInstance = prng.create(options.seed);
+  let result = style.create(prngInstance, options);
+
   if (options.width) {
     result.attributes.width = options.width.toString();
   }
@@ -10,29 +21,35 @@ export function create<O>(result: IStyleCreateResult, options: IOptions<O>) {
   }
 
   if (options.margin) {
-    result.body = this.addMargin(result, options);
+    result.body = addMargin(result, options);
   }
 
   if (options.backgroundColor) {
-    result.body = this.addBackgroundColor(result, options);
+    result.body = addBackgroundColor(result, options);
   }
 
   if (options.radius) {
-    result.body = this.addRadius(result, options);
+    result.body = addRadius(result, options);
   }
 
   let attributes = Object.keys(result.attributes)
     .map((attr) => `${attr}="${result.attributes[attr].replace('"', '&quot;')}"`)
     .join(' ');
 
-  return `
+  let avatar = `
     <svg ${attributes}>
       ${result.head}${result.body}
     </svg>
   `;
+
+  if (options.dataUri) {
+    return `data:image/svg+xml;utf8,${encodeURIComponent(avatar)}`;
+  }
+
+  return avatar;
 }
 
-export function getViewBox(result: IStyleCreateResult) {
+function getViewBox(result: IStyleCreateResult) {
   let viewBox = result.attributes['viewBox'].split(' ');
   let x = parseInt(viewBox[0]);
   let y = parseInt(viewBox[1]);
@@ -47,7 +64,7 @@ export function getViewBox(result: IStyleCreateResult) {
   };
 }
 
-export function addMargin<O>(result: IStyleCreateResult, options: IOptions<O>) {
+function addMargin<O>(result: IStyleCreateResult, options: IOptions<O>) {
   let viewBox = getViewBox(result);
   let translateX = (viewBox.width * options.margin) / 100;
   let translateY = (viewBox.height * options.margin) / 100;
@@ -67,7 +84,7 @@ export function addMargin<O>(result: IStyleCreateResult, options: IOptions<O>) {
   `;
 }
 
-export function addBackgroundColor<O>(result: IStyleCreateResult, options: IOptions<O>) {
+function addBackgroundColor<O>(result: IStyleCreateResult, options: IOptions<O>) {
   let viewBox = getViewBox(result);
   let width = viewBox.width.toString();
   let height = viewBox.height.toString();
@@ -80,7 +97,7 @@ export function addBackgroundColor<O>(result: IStyleCreateResult, options: IOpti
   `;
 }
 
-export function addRadius<O>(result: IStyleCreateResult, options: IOptions<O>) {
+function addRadius<O>(result: IStyleCreateResult, options: IOptions<O>) {
   let viewBox = getViewBox(result);
   let width = viewBox.width.toString();
   let height = viewBox.height.toString();
