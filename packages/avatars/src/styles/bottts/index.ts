@@ -1,4 +1,4 @@
-import type { utils, IStyle } from '@dicebear/avatars';
+import type { utils, IStyle } from '../styles/gridy/node_modules/@dicebear/avatars';
 import Options from './options';
 
 import materialColors from 'material-colors/dist/colors.json';

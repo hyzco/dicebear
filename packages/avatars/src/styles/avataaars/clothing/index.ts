@@ -8,7 +8,7 @@ import shirtCrewNeck from './shirtCrewNeck';
 import shirtScoopNeck from './shirtScoopNeck';
 import shirtVNeck from './shirtVNeck';
 import type Options from '../options';
-import type { utils } from '@dicebear/avatars';
+import type { utils } from '../../styles/gridy/node_modules/@dicebear/avatars';
 import * as filter from '../utils/filter';
 
 export default (prng: utils.prng.IPrng, options: Options) => {

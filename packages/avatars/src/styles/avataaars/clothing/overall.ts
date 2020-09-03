@@ -1,4 +1,4 @@
-import type { utils } from '@dicebear/avatars';
+import type { utils } from '../../styles/gridy/node_modules/@dicebear/avatars';
 import type Options from '../options';
 import * as color from '../utils/color';
 import * as mask from '../utils/mask';

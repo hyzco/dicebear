@@ -1,0 +1,9 @@
+export * as avataaars from './avataaars';
+export * as bottts from './bottts';
+export * as gridy from './gridy';
+export * as humaaans from './humaaans';
+export * as identicon from './identicon';
+export * as initials from './initials';
+export * as openPeeps from './open-peeps';
+export * as personas from './personas';
+export * as pixelArt from './pixel-art';

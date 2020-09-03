@@ -1,5 +1,5 @@
 import graphic from './graphic';
-import type { utils } from '@dicebear/avatars';
+import type { utils } from '../../styles/gridy/node_modules/@dicebear/avatars';
 import * as group from '../utils/group';
 import type Options from '../options';
 import * as color from '../utils/color';

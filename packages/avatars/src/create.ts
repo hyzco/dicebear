@@ -1,10 +1,9 @@
-import * as dataUri from './dataUri';
 import * as svg from './svg';
-import { applyAliases, IOptions } from './options';
-import type { IStyle } from './style';
+import { applyAliases } from './options';
+import type { IStyle, IOptions } from './interfaces';
 import * as prng from './prng';
 
-export function create<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
+export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
   options = applyAliases<O>({
     seed: Math.random().toString(),
     ...style.defaultOptions,
@@ -42,9 +41,7 @@ export function create<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) 
   avatar = svg.stringify(avatar);
 
   if (options.dataUri) {
-    return dataUri.encode(avatar);
-  } else if (options.base64) {
-    return options.base64 ? `data:image/svg+xml;base64,${this.base64EncodeUnicode(svg)}` : svg;
+    return `data:image/svg+xml;utf8,${encodeURIComponent(avatar)}`;
   }
 
   return avatar;

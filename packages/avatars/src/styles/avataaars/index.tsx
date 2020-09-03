@@ -1,4 +1,4 @@
-import { IStyle } from '@dicebear/avatars';
+import { IStyle } from '../styles/gridy/node_modules/@dicebear/avatars';
 import Options from './options';
 import * as mask from './utils/mask';
 import * as group from './utils/group';

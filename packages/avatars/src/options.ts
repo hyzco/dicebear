@@ -1,28 +1,5 @@
 import { JSONSchema7 } from 'json-schema';
-
-export type IDefaultOptions = {
-  seed?: string;
-  s?: string;
-  radius?: number;
-  r?: number;
-  dataUri?: boolean;
-  width?: number;
-  w?: number;
-  height?: number;
-  h?: number;
-  margin?: number;
-  m?: number;
-  backgroundColor?: string;
-  b?: string;
-  /** @deprecated use `backgroundColor instead` */
-  background?: string;
-  /** @deprecated use `dataUri` instead */
-  base64?: boolean;
-  /** @deprecated **/
-  userAgent?: string;
-};
-
-export type IOptions<O extends {}> = O & IDefaultOptions;
+import { IOptions } from './interfaces';
 
 export function applyAliases<O extends {}>(options: IOptions<O>): IOptions<O> {
   return {
@@ -65,12 +42,6 @@ export const schema: JSONSchema7 = {
     backgroundColor: {
       type: 'string',
     },
-    base64: {
-      type: 'boolean',
-    },
-    userAgent: {
-      type: 'string',
-    },
   },
   properties: {
     seed: { $ref: '#/definitions/seed' },
@@ -86,14 +57,5 @@ export const schema: JSONSchema7 = {
     m: { $ref: '#/definitions/margin' },
     backgroundColor: { $ref: '#/definitions/backgroundColor' },
     b: { $ref: '#/definitions/backgroundColor' },
-    background: { $ref: '#/definitions/backgroundColor' },
-    base64: { $ref: '#/definitions/base64' },
-    userAgent: { $ref: '#/definitions/userAgent' },
   },
 };
-
-// hatProbability wird durch ein hat = '' deaktiviert.
-// Welche Gruppen es in der UI gibt, gibt der Name vor. hat, hatColor,...
-// Es werden nur solche Felder in der UI angezeigt, die entweder enum sind oder examples haben.
-// Jedes Feld muss benannt werden. Steht im Feld der Begriff Color impliziert das ein color input.
-// Aliase werden automatisch anhand identischer refs ermittelt.

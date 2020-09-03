@@ -1,12 +1,7 @@
+import { IPrng } from './interfaces';
+
 const MIN = -2147483648;
 const MAX = 2147483647;
-
-export interface IPrng {
-  seed: string;
-  bool(likelihood?: number): boolean;
-  integer(min: number, max: number): number;
-  pick<T>(arr: T[]): T;
-}
 
 function hashSeed(seed: string) {
   let hash = 0;

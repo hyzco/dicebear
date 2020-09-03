@@ -8,7 +8,7 @@ Are you looking for a user interface for user-generated avatars? Or are you look
 
 ## NPM <Badge text="recommended" type="tip" vertical="middle" />
 
-Avatars can be used on the client and server side. You need the core package and an avatar style. If you want to create pixel art avatars, you need to install the package `@dicebear/avatars` and the package `@dicebear/avatars-pixel-art`.
+Avatars can be used on the client and server side.
 
 ```bash
 # With npm
@@ -23,16 +23,15 @@ yarn add @avaatars/core @dicebear/avatars-pixel-art
 Now you can create your first avatar.
 
 ```js
-import * as avatars from '@dicebear/avatars';
-import * as avatarStyle from '@dicebear/avatars-pixel-art';
+import { createAvatar, pixelArt } from '@dicebear/avatars';
 
-let svg = avatars.create(avatarStyle, {
+let svg = createAvatar(pixelArt, {
   seed: 'custom-seed',
   // ... and other options
 });
 ```
 
-You can get an overview of all available avatar styles under [Styles => Overview](/guide/styles). There you can also find out which packages you have to install exactly for your preferred avatar style and how to use them. There you will also find out which [options](/guide/options) are available to you.
+You can get an overview of all available avatar styles under [Styles => Overview](/guide/styles). There you will also find out which [options](/guide/options) are available to you.
 
 ::: tip Typescript user?
 Then you will be happy to know that each of our packages already has a declaration file. You can start immediately. Happy typing!
@@ -92,14 +91,13 @@ Just load the core library and an additional avatar style and you are ready to g
 
 ```html
 <script src="https://avatars.dicebear.com/cdn/latest/@dicebear/avatars.min.js"></script>
-<script src="https://avatars.dicebear.com/cdn/latest/@dicebear/avatars-pixel-art.min.js"></script>
 ```
 
 Now you can create avatars as follows:
 
 ```html
 <script>
-  let svg = Avatars.create(Avatars.PixelArt, {
+  let svg = avatars.createAvatar(avatars.pixelArt, {
     seed: 'custom-seed',
     // ... and other options
   });

@@ -1,4 +1,4 @@
-import type { utils } from '@dicebear/avatars';
+import type { utils } from '../../../styles/gridy/node_modules/@dicebear/avatars';
 import bat from './bat';
 import bear from './bear';
 import cumbia from './cumbia';
