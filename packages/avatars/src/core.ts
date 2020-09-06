@@ -1,6 +1,7 @@
 import { applyAliases } from './options';
 import type { IStyle, IOptions, IStyleCreateResult } from './interfaces';
 import * as prng from './prng';
+import { getXmlnsAttributes, getMetadata } from './utils';
 
 export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
   options = applyAliases<O>({
@@ -32,13 +33,16 @@ export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> 
     result.body = addRadius(result, options);
   }
 
-  let attributes = Object.keys(result.attributes)
-    .map((attr) => `${attr}="${result.attributes[attr].replace('"', '&quot;')}"`)
+  let attributes: Record<string, string> = { ...getXmlnsAttributes(), ...result.attributes };
+  let attributesAsString = Object.keys(attributes)
+    .map((attr) => `${attr}="${attributes[attr].replace('"', '&quot;')}"`)
     .join(' ');
 
   let avatar = `
-    <svg ${attributes}>
-      ${result.head}${result.body}
+    <svg ${attributesAsString}>
+      ${getMetadata(style)}
+      ${result.head}
+      ${result.body}
     </svg>
   `;
 

@@ -14,12 +14,21 @@ export type IStyleCreateResult = {
 };
 
 export interface IStyle<O> {
+  name: string;
+  title: string;
+  creator: string;
+  source: string;
+  license: {
+    name: string;
+    link: string;
+  };
   defaultOptions: IStyleDefaultOptions<O>;
   schema: IStyleSchema;
   create: IStyleCreate<O>;
 }
 
 export type IDefaultOptions = {
+  mode?: 'include' | 'exclude';
   seed?: string;
   s?: string;
   radius?: number;
@@ -35,7 +44,7 @@ export type IDefaultOptions = {
   b?: string;
 };
 
-export type IOptions<O extends {}> = O & IDefaultOptions;
+export type IOptions<O extends Record<string, any>> = O & IDefaultOptions;
 
 export interface IPrng {
   seed: string;

@@ -3,3 +3,4 @@ export * from './styles';
 export * as options from './options';
 export * as colors from './colors';
 export * as prng from './prng';
+export * as interfaces from './interfaces';
