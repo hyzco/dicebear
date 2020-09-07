@@ -6,7 +6,7 @@ import eyelashesUp from './eyelashesUp';
 import down from './down';
 import up from './up';
 
-export default <O>(options: IOptions<O>, prng: IPrng) =>
+export default <O>(prng: IPrng, options: IOptions<O>) =>
   prng.pick(
     filterByOption(options, 'eyebrows', {
       eyelashesDown,

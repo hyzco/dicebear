@@ -4,5 +4,5 @@ import { filterByOption } from '../../../utils';
 import beard from './beard';
 import scruff from './scruff';
 
-export default <O>(options: IOptions<O>, prng: IPrng) =>
+export default <O>(prng: IPrng, options: IOptions<O>) =>
   prng.pick(filterByOption(options, 'ears', { beard, scruff }))();

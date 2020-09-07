@@ -6,7 +6,7 @@ import eyes from './eyes';
 import eyeshadow from './eyeshadow';
 import round from './round';
 
-export default <O>(options: IOptions<O>, prng: IPrng) =>
+export default <O>(prng: IPrng, options: IOptions<O>) =>
   prng.pick(
     filterByOption(options, 'eyes', {
       smiling,

@@ -10,7 +10,7 @@ import mrClean from './mrClean';
 import mrT from './mrT';
 import turban from './turban';
 
-export default <O>(options: IOptions<O>, prng: IPrng) =>
+export default <O>(prng: IPrng, options: IOptions<O>) =>
   prng.pick(
     filterByOption(options, 'tops', {
       pixie,

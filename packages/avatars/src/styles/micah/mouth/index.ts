@@ -10,7 +10,7 @@ import smirk from './smirk';
 import surprised from './surprised';
 import frown from './frown';
 
-export default <O>(options: IOptions<O>, prng: IPrng) =>
+export default <O>(prng: IPrng, options: IOptions<O>) =>
   prng.pick(
     filterByOption(options, 'mouth', {
       laughing,
