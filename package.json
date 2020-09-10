@@ -59,18 +59,6 @@
   },
   "dependencies": {
     "@dicebear/avatars": "file:packages/avatars",
-    "@dicebear/avatars-avataaars": "file:packages/avatars-avataaars",
-    "@dicebear/avatars-bottts": "file:packages/avatars-bottts",
-    "@dicebear/avatars-code": "file:packages/avatars-code",
-    "@dicebear/avatars-gridy": "file:packages/avatars-gridy",
-    "@dicebear/avatars-humaaans": "file:packages/avatars-humaaans",
-    "@dicebear/avatars-identicon": "file:packages/avatars-identicon",
-    "@dicebear/avatars-initials": "file:packages/avatars-initials",
-    "@dicebear/avatars-jdenticon": "file:packages/avatars-jdenticon",
-    "@dicebear/avatars-open-peeps": "file:packages/avatars-open-peeps",
-    "@dicebear/avatars-personas": "file:packages/avatars-personas",
-    "@dicebear/avatars-pixel-art": "file:packages/avatars-pixel-art",
-    "@dicebear/avatars-react": "file:packages/avatars-react",
     "@dicebear/avatars-ui": "file:packages/avatars-ui"
   }
 }
