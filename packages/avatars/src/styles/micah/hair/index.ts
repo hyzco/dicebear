@@ -10,16 +10,16 @@ import mrClean from './mrClean';
 import mrT from './mrT';
 import turban from './turban';
 
+export const parts = {
+  pixie,
+  dannyPhantom,
+  dougFunny,
+  fonze,
+  full,
+  mrClean,
+  mrT,
+  turban,
+};
+
 export default <O>(prng: IPrng, options: IOptions<O>, hairColor: string) =>
-  prng.pick(
-    filterByOption(options, 'tops', {
-      pixie,
-      dannyPhantom,
-      dougFunny,
-      fonze,
-      full,
-      mrClean,
-      mrT,
-      turban,
-    })
-  )(hairColor);
+  prng.pick(filterByOption(options, 'tops', parts))(hairColor);

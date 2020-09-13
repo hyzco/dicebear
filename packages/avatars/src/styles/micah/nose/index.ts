@@ -5,5 +5,6 @@ import curve from './curve';
 import pointed from './pointed';
 import round from './round';
 
-export default <O>(prng: IPrng, options: IOptions<O>) =>
-  prng.pick(filterByOption(options, 'ears', { curve, pointed, round }))();
+export const parts = { curve, pointed, round };
+
+export default <O>(prng: IPrng, options: IOptions<O>) => prng.pick(filterByOption(options, 'ears', parts))();

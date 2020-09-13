@@ -5,5 +5,7 @@ import collared from './collared';
 import crew from './crew';
 import open from './open';
 
+export const parts = { collared, crew, open };
+
 export default <O>(prng: IPrng, options: IOptions<O>, shirtColor: string) =>
-  prng.pick(filterByOption(options, 'ears', { collared, crew, open }))(shirtColor);
+  prng.pick(filterByOption(options, 'ears', parts))(shirtColor);

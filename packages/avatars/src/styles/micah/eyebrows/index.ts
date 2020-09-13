@@ -6,12 +6,12 @@ import eyelashesUp from './eyelashesUp';
 import down from './down';
 import up from './up';
 
+export const parts = {
+  eyelashesDown,
+  eyelashesUp,
+  down,
+  up,
+};
+
 export default <O>(prng: IPrng, options: IOptions<O>, eyebrowColor: string) =>
-  prng.pick(
-    filterByOption(options, 'eyebrows', {
-      eyelashesDown,
-      eyelashesUp,
-      down,
-      up,
-    })
-  )(eyebrowColor);
+  prng.pick(filterByOption(options, 'eyebrows', parts))(eyebrowColor);

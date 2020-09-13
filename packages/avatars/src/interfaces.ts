@@ -1,6 +1,5 @@
 import type { JSONSchema7 } from 'json-schema';
 
-export type IStyleDefaultOptions<O> = IOptions<O>;
 export type IStyleSchema = JSONSchema7;
 export type IStyleCreate<O> = (prng: IPrng, options: Partial<IOptions<O>>) => IStyleCreateResult;
 export type IStyleCreateResultAttributes = {
@@ -22,7 +21,6 @@ export interface IStyle<O> {
     name: string;
     link: string;
   };
-  defaultOptions: IStyleDefaultOptions<O>;
   schema: IStyleSchema;
   create: IStyleCreate<O>;
 }

@@ -1,18 +1,19 @@
-import { IStyleDefaultOptions, IStyleSchema, IStyleCreate } from '../../interfaces';
+import { IStyleSchema, IStyleCreate } from '../../interfaces';
 import { createGroup, filterByOption } from '../../utils';
+import { defaultSchema } from '../../schema';
 import { filterBaseColor } from './utils';
 
 import base from './base';
-import earrings from './earrings';
-import ears from './ears';
-import eyebrows from './eyebrows';
-import eyes from './eyes';
-import facialHair from './facialHair';
-import glasses from './glasses';
-import mouth from './mouth';
-import nose from './nose';
-import shirt from './shirt';
-import hair from './hair';
+import earrings, { parts as earringParts } from './earrings';
+import ears, { parts as earParts } from './ears';
+import eyebrows, { parts as eyebrowParts } from './eyebrows';
+import eyes, { parts as eyeParts } from './eyes';
+import facialHair, { parts as facialHairParts } from './facialHair';
+import glasses, { parts as glassesParts } from './glasses';
+import mouth, { parts as mouthParts } from './mouth';
+import nose, { parts as noseParts } from './nose';
+import shirt, { parts as shirtParts } from './shirt';
+import hair, { parts as hairParts } from './hair';
 
 export const name = 'micah';
 export const title = 'Avatar Illustration System';
@@ -23,75 +24,235 @@ export const license = {
   link: 'https://creativecommons.org/licenses/by/4.0/',
 };
 
-type Colors = 'lavender' | 'sky' | 'salmon' | 'canary' | 'calm' | 'azure' | 'seashell' | 'mellow' | 'black' | 'white';
+const colors = {
+  apricot: '#F9C9B6',
+  coast: '#AC6651',
+  topaz: '#77311D',
+  lavender: '#9287FF',
+  sky: '#6BD9E9',
+  salmon: '#FC909F',
+  canary: '#F4D150',
+  calm: '#E0DDFF',
+  azure: '#D2EFF3',
+  seashell: '#FFEDEF',
+  mellow: '#FFEBA4',
+  black: '#000000',
+  white: '#FFFFFF',
+};
 
-type Options = {
-  baseColor: Colors[];
-  earringColor: Colors[];
-  earrings: Array<'hoop' | 'stud'>;
+type IColors = keyof typeof colors;
+
+export type Options = {
+  baseColor: IColors[];
+  earringColor: IColors[];
+  earrings: Array<keyof typeof earringParts>;
   earringsProbability: number;
-  ears: Array<'attached' | 'detached'>;
-  eyebrowColor: Colors[];
-  eyebrows: Array<'down' | 'eyelashesDown' | 'eyelashesUp' | 'up'>;
-  eyeColor: Colors[];
-  eyes: Array<'eyes' | 'eyesShadow' | 'round' | 'smiling' | 'smilingShadow'>;
-  facialHair: Array<'beard' | 'scruff'>;
+  ears: Array<keyof typeof earParts>;
+  eyebrowColor: IColors[];
+  eyebrows: Array<keyof typeof eyebrowParts>;
+  eyeColor: IColors[];
+  eyes: Array<keyof typeof eyeParts>;
+  facialHair: Array<keyof typeof facialHairParts>;
   facialHairProbability: number;
-  glassesColor: Colors[];
-  glasses: Array<'square' | 'round'>;
+  glassesColor: IColors[];
+  glasses: Array<keyof typeof glassesParts>;
   glassesProbability: number;
-  mouth: Array<'frown' | 'laughing' | 'nervous' | 'pucker' | 'sad' | 'smile' | 'smirk' | 'surprised'>;
-  nose: Array<'round' | 'pointed' | 'curve'>;
-  shirtColor: Colors[];
-  shirt: Array<'open' | 'crew' | 'collared'>;
-  hairColor: Colors[];
-  hair: Array<'dannyPhantom' | 'dougFunny' | 'fonze' | 'full' | 'mrClean' | 'mrT' | 'pixie' | 'turban'>;
+  mouth: Array<keyof typeof mouthParts>;
+  nose: Array<keyof typeof noseParts>;
+  shirtColor: IColors[];
+  shirt: Array<keyof typeof shirtParts>;
+  hairColor: IColors[];
+  hair: Array<keyof typeof hairParts>;
   hairProbability: number;
 };
 
-export const defaultOptions: IStyleDefaultOptions<Options> = {
-  baseColor: [],
-  earringColor: [],
-  earrings: [],
-  earringsProbability: 30,
-  ears: [],
-  eyebrowColor: ['black'],
-  eyebrows: [],
-  eyeColor: [],
-  eyes: [],
-  facialHair: [],
-  facialHairProbability: 30,
-  glassesColor: [],
-  glasses: [],
-  glassesProbability: 30,
-  mouth: [],
-  nose: [],
-  shirtColor: [],
-  shirt: [],
-  hairColor: [],
-  hair: [],
-  hairProbability: 90,
+export const schema: IStyleSchema = {
+  ...defaultSchema,
+  definitions: {
+    ...defaultSchema.definitions,
+    colors: {
+      type: 'array',
+      items: {
+        oneOf: [
+          {
+            type: 'string',
+            enum: Object.keys(colors),
+          },
+          {
+            $ref: '#/definitions/color',
+          },
+        ],
+      },
+    },
+  },
+  properties: {
+    ...defaultSchema.properties,
+    baseColor: {
+      $ref: '#/definitions/colors',
+      title: 'Base Color',
+      default: ['apricot', 'coast', 'topaz'],
+      examples: [[colors.apricot], [colors.coast], [colors.topaz]],
+    },
+    earringColor: {
+      $ref: '#/definitions/colors',
+      title: 'Earring Color',
+      default: [],
+      examples: Object.keys(colors).map((color) => [color]),
+    },
+    earrings: {
+      type: 'array',
+      title: 'Earrings',
+      items: {
+        type: 'string',
+        enum: Object.keys(earringParts),
+      },
+      default: [],
+      examples: Object.keys(earringParts).map((part) => [part]),
+    },
+    earringsProbability: {
+      $ref: '#/definitions/probability',
+      title: 'Earrings Probability',
+      default: 30,
+    },
+    ears: {
+      type: 'array',
+      title: 'Ears',
+      items: {
+        type: 'string',
+        enum: Object.keys(earParts),
+      },
+      default: [],
+      examples: Object.keys(earParts).map((part) => [part]),
+    },
+    eyebrowColor: {
+      $ref: '#/definitions/colors',
+      title: 'Eyebrow Color',
+      default: ['black'],
+      examples: [Object.values(colors).map((color) => [color])],
+    },
+    eyebrows: {
+      type: 'array',
+      title: 'Eyebrows',
+      items: {
+        type: 'string',
+        enum: Object.keys(eyebrowParts),
+      },
+      default: [],
+      examples: Object.keys(eyebrowParts).map((color) => [color]),
+    },
+    eyeColor: {
+      $ref: '#/definitions/colors',
+      title: 'Eye Color',
+      default: [],
+      examples: Object.values(colors).map((color) => [color]),
+    },
+    eyes: {
+      type: 'array',
+      title: 'Eyes',
+      items: {
+        type: 'string',
+        enum: Object.keys(eyeParts),
+      },
+      default: [],
+      examples: Object.keys(eyeParts).map((part) => [part]),
+    },
+    facialHair: {
+      type: 'array',
+      title: 'Facial Hair',
+      items: {
+        type: 'string',
+        enum: Object.keys(facialHairParts),
+      },
+      default: [],
+      examples: Object.keys(facialHairParts).map((part) => [part]),
+    },
+    facialHairProbability: {
+      $ref: '#/definitions/probability',
+      title: 'Facial Hair Probability',
+      default: 30,
+    },
+    glassesColor: {
+      $ref: '#/definitions/colors',
+      title: 'Glasses Color',
+      default: [],
+      examples: Object.values(colors).map((color) => [color]),
+    },
+    glasses: {
+      type: 'array',
+      title: 'Glasses',
+      items: {
+        type: 'string',
+        enum: Object.keys(glassesParts),
+      },
+      default: [],
+      examples: Object.keys(glassesParts).map((part) => [part]),
+    },
+    glassesProbability: {
+      $ref: '#/definitions/probability',
+      title: 'Glasses Probability',
+      default: 30,
+    },
+    mouth: {
+      type: 'array',
+      title: 'Mouth',
+      items: {
+        type: 'string',
+        enum: Object.keys(mouthParts),
+      },
+      default: [],
+      examples: Object.keys(mouthParts).map((part) => [part]),
+    },
+    nose: {
+      type: 'array',
+      title: 'Nose',
+      items: {
+        type: 'string',
+        enum: Object.keys(noseParts),
+      },
+      default: [],
+      examples: Object.keys(noseParts).map((part) => [part]),
+    },
+    shirtColor: {
+      $ref: '#/definitions/colors',
+      title: 'Shirt Color',
+      default: [],
+      examples: Object.keys(colors).map((color) => [color]),
+    },
+    shirt: {
+      type: 'array',
+      title: 'Shirt',
+      items: {
+        type: 'string',
+        enum: Object.keys(shirtParts),
+      },
+      default: [],
+      examples: Object.keys(shirtParts).map((part) => [part]),
+    },
+    hairColor: {
+      $ref: '#/definitions/colors',
+      title: 'Hair Color',
+      default: [],
+      examples: Object.keys(colors).map((color) => [color]),
+    },
+    hair: {
+      type: 'array',
+      title: 'Hair',
+      items: {
+        type: 'string',
+        enum: Object.keys(hairParts),
+      },
+      default: [],
+      examples: Object.keys(hairParts).map((part) => [part]),
+    },
+    hairProbability: {
+      $ref: '#/definitions/probability',
+      title: 'Hair Probability',
+      default: 30,
+    },
+  },
 };
 
-export const schema: IStyleSchema = {};
-
 export const create: IStyleCreate<Options> = (prng, options) => {
-  let colors = {
-    apricot: '#F9C9B6',
-    coast: '#AC6651',
-    topaz: '#77311D',
-    lavender: '#9287FF',
-    sky: '#6BD9E9',
-    salmon: '#FC909F',
-    canary: '#F4D150',
-    calm: '#E0DDFF',
-    azure: '#D2EFF3',
-    seashell: '#FFEDEF',
-    mellow: '#FFEBA4',
-    black: '#000000',
-    white: '#FFFFFF',
-  };
-
   let baseColor = prng.pick(filterByOption(options, 'baseColor', colors));
   let earringColor = prng.pick(filterBaseColor(filterByOption(options, 'earringColor', colors), baseColor));
   let eyebrowColor = prng.pick(filterBaseColor(filterByOption(options, 'eyebrowColor', colors), baseColor));

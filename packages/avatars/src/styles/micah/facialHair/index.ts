@@ -4,5 +4,6 @@ import { filterByOption } from '../../../utils';
 import beard from './beard';
 import scruff from './scruff';
 
-export default <O>(prng: IPrng, options: IOptions<O>) =>
-  prng.pick(filterByOption(options, 'ears', { beard, scruff }))();
+export const parts = { beard, scruff };
+
+export default <O>(prng: IPrng, options: IOptions<O>) => prng.pick(filterByOption(options, 'ears', parts))();
