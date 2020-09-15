@@ -1,5 +1,5 @@
 import type { IOptions, IPrng } from '../../../interfaces';
-import { filterByOption } from '../../../utils';
+import { getValuesByOption } from '../../../utils';
 
 import smiling from './smiling';
 import smilingShadow from './smilingShadow';
@@ -16,4 +16,4 @@ export const parts = {
 };
 
 export default <O>(prng: IPrng, options: IOptions<O>, eyeColor: string) =>
-  prng.pick(filterByOption(options, 'eyes', parts))(eyeColor);
+  prng.pick(getValuesByOption(options, 'eyes', parts))(eyeColor);

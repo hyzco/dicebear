@@ -26,7 +26,6 @@ export interface IStyle<O> {
 }
 
 export type IDefaultOptions = {
-  mode?: 'include' | 'exclude';
   seed?: string;
   s?: string;
   radius?: number;

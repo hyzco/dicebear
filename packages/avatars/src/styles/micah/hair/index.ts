@@ -1,5 +1,5 @@
 import type { IOptions, IPrng } from '../../../interfaces';
-import { filterByOption } from '../../../utils';
+import { getValuesByOption } from '../../../utils';
 
 import pixie from './pixie';
 import dannyPhantom from './dannyPhantom';
@@ -22,4 +22,4 @@ export const parts = {
 };
 
 export default <O>(prng: IPrng, options: IOptions<O>, hairColor: string) =>
-  prng.pick(filterByOption(options, 'tops', parts))(hairColor);
+  prng.pick(getValuesByOption(options, 'tops', parts))(hairColor);

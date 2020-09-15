@@ -1,7 +1,6 @@
 import { IStyleSchema, IStyleCreate } from '../../interfaces';
-import { createGroup, filterByOption } from '../../utils';
+import { svg } from '../../utils';
 import { defaultSchema } from '../../schema';
-import { filterBaseColor } from './utils';
 
 import base from './base';
 import earrings, { parts as earringParts } from './earrings';
@@ -14,6 +13,7 @@ import mouth, { parts as mouthParts } from './mouth';
 import nose, { parts as noseParts } from './nose';
 import shirt, { parts as shirtParts } from './shirt';
 import hair, { parts as hairParts } from './hair';
+import { resolveReferences } from '../../utils/schema';
 
 export const name = 'micah';
 export const title = 'Avatar Illustration System';
@@ -66,7 +66,7 @@ export type Options = {
   hairProbability: number;
 };
 
-export const schema: IStyleSchema = {
+export const schema: IStyleSchema = resolveReferences({
   ...defaultSchema,
   definitions: {
     ...defaultSchema.definitions,
@@ -250,33 +250,39 @@ export const schema: IStyleSchema = {
       default: 30,
     },
   },
-};
+});
 
 export const create: IStyleCreate<Options> = (prng, options) => {
-  let baseColor = prng.pick(filterByOption(options, 'baseColor', colors));
-  let earringColor = prng.pick(filterBaseColor(filterByOption(options, 'earringColor', colors), baseColor));
-  let eyebrowColor = prng.pick(filterBaseColor(filterByOption(options, 'eyebrowColor', colors), baseColor));
-  let eyeColor = prng.pick(filterBaseColor(filterByOption(options, 'eyeColor', colors), baseColor));
-  let glassesColor = prng.pick(filterBaseColor(filterByOption(options, 'glassesColor', colors), baseColor));
-  let shirtColor = prng.pick(filterBaseColor(filterByOption(options, 'shirtColor', colors), baseColor));
-  let hairColor = prng.pick(filterBaseColor(filterByOption(options, 'hairColor', colors), baseColor));
+  let baseColor = prng.pick(mapAliases(colors, options.baseColor));
+  let earringColor = prng.pick(filterValue(mapAliases(colors, options.earringColor), baseColor));
+  let eyebrowColor = prng.pick(filterValue(mapAliases(colors, options.eyebrowColor), baseColor));
+  let eyeColor = prng.pick(filterValue(mapAliases(colors, options.eyeColor), baseColor));
+  let glassesColor = prng.pick(filterValue(mapAliases(colors, options.glassesColor), baseColor));
+  let shirtColor = prng.pick(filterValue(mapAliases(colors, options.shirtColor), baseColor));
+  let hairColor = prng.pick(filterValue(mapAliases(colors, options.hairColor), baseColor));
 
   return {
     attributes: {
       viewBox: '0 0 639 639',
     },
     body: `
-      ${createGroup(shirt(prng, options, shirtColor), 105.94, 491.02)}
-      ${prng.bool(options.earringsProbability) ? createGroup(earrings(prng, options, earringColor), 163.11, 52) : ''}
-      ${createGroup(ears(prng, options), 158.07, 351.46)}
-      ${createGroup(nose(prng, options), 313.4, 283.21)}
-      ${prng.bool(options.glassesProbability) ? createGroup(glasses(prng, options, glassesColor), 188.34, 220.29) : ''}
-      ${createGroup(eyes(prng, options, eyeColor), 255.6, 233.74)}
-      ${createGroup(eyebrows(prng, options, eyebrowColor), 201.79, 205.15)}
-      ${createGroup(mouth(prng, options), 302.68, 341.36)}
-      ${prng.bool(options.hairProbability) ? createGroup(hair(prng, options, hairColor), 99.21, 52.13) : ''}
-      ${prng.bool(options.facialHairProbability) ? createGroup(facialHair(prng, options), 208.51, 244.34) : ''}
-      ${createGroup(base(baseColor), 151.34, 72.31)}
+      ${svg.createGroup(shirt(prng, options, shirtColor), 105.94, 491.02)}
+      ${
+        prng.bool(options.earringsProbability) ? svg.createGroup(earrings(prng, options, earringColor), 163.11, 52) : ''
+      }
+      ${svg.createGroup(ears(prng, options), 158.07, 351.46)}
+      ${svg.createGroup(nose(prng, options), 313.4, 283.21)}
+      ${
+        prng.bool(options.glassesProbability)
+          ? csvg.reateGroup(glasses(prng, options, glassesColor), 188.34, 220.29)
+          : ''
+      }
+      ${svg.createGroup(eyes(prng, options, eyeColor), 255.6, 233.74)}
+      ${svg.createGroup(eyebrows(prng, options, eyebrowColor), 201.79, 205.15)}
+      ${svg.createGroup(mouth(prng, options), 302.68, 341.36)}
+      ${prng.bool(options.hairProbability) ? svg.createGroup(hair(prng, options, hairColor), 99.21, 52.13) : ''}
+      ${prng.bool(options.facialHairProbability) ? svg.createGroup(facialHair(prng, options), 208.51, 244.34) : ''}
+      ${svg.createGroup(base(baseColor), 151.34, 72.31)}
     `,
   };
 };

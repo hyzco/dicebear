@@ -1,5 +1,5 @@
 import type { IOptions, IPrng } from '../../../interfaces';
-import { filterByOption } from '../../../utils';
+import { getValuesByOption } from '../../../utils';
 
 import laughing from './laughing';
 import nervous from './nervous';
@@ -21,4 +21,4 @@ export const parts = {
   frown,
 };
 
-export default <O>(prng: IPrng, options: IOptions<O>) => prng.pick(filterByOption(options, 'mouth', parts))();
+export default <O>(prng: IPrng, options: IOptions<O>) => prng.pick(getValuesByOption(options, 'mouth', parts))();

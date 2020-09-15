@@ -1,5 +1,5 @@
 import type { IOptions, IPrng } from '../../../interfaces';
-import { filterByOption } from '../../../utils';
+import { getValuesByOption } from '../../../utils';
 
 import eyelashesDown from './eyelashesDown';
 import eyelashesUp from './eyelashesUp';
@@ -14,4 +14,4 @@ export const parts = {
 };
 
 export default <O>(prng: IPrng, options: IOptions<O>, eyebrowColor: string) =>
-  prng.pick(filterByOption(options, 'eyebrows', parts))(eyebrowColor);
+  prng.pick(getValuesByOption(options, 'eyebrows', parts))(eyebrowColor);
