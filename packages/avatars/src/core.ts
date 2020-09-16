@@ -1,11 +1,11 @@
 import type { IStyle, IOptions } from './interfaces';
 import * as prng from './prng';
-import { svg, schema, collection } from './utils';
+import { svg, schema, object } from './utils';
 
 export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
   let defaultOptions = schema.defaults(style.schema) as any;
 
-  options = collection.applyAliases(
+  options = object.applyAliases(
     {
       seed: Math.random().toString(),
       ...defaultOptions,

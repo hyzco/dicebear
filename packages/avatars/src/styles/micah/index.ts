@@ -1,5 +1,5 @@
 import { IStyleSchema, IStyleCreate } from '../../interfaces';
-import { svg } from '../../utils';
+import { svg, array } from '../../utils';
 import { defaultSchema } from '../../schema';
 
 import base from './base';
@@ -24,44 +24,42 @@ export const license = {
   link: 'https://creativecommons.org/licenses/by/4.0/',
 };
 
-const colors = {
-  apricot: '#F9C9B6',
-  coast: '#AC6651',
-  topaz: '#77311D',
-  lavender: '#9287FF',
-  sky: '#6BD9E9',
-  salmon: '#FC909F',
-  canary: '#F4D150',
-  calm: '#E0DDFF',
-  azure: '#D2EFF3',
-  seashell: '#FFEDEF',
-  mellow: '#FFEBA4',
-  black: '#000000',
-  white: '#FFFFFF',
-};
-
-type IColors = keyof typeof colors;
+enum Color {
+  apricot = '#F9C9B6',
+  coast = '#AC6651',
+  topaz = '#77311D',
+  lavender = '#9287FF',
+  sky = '#6BD9E9',
+  salmon = '#FC909F',
+  canary = '#F4D150',
+  calm = '#E0DDFF',
+  azure = '#D2EFF3',
+  seashell = '#FFEDEF',
+  mellow = '#FFEBA4',
+  black = '#000000',
+  white = '#FFFFFF',
+}
 
 export type Options = {
-  baseColor: IColors[];
-  earringColor: IColors[];
+  baseColor: Color[];
+  earringColor: Color[];
   earrings: Array<keyof typeof earringParts>;
   earringsProbability: number;
   ears: Array<keyof typeof earParts>;
-  eyebrowColor: IColors[];
+  eyebrowColor: Color[];
   eyebrows: Array<keyof typeof eyebrowParts>;
-  eyeColor: IColors[];
+  eyeColor: Color[];
   eyes: Array<keyof typeof eyeParts>;
   facialHair: Array<keyof typeof facialHairParts>;
   facialHairProbability: number;
-  glassesColor: IColors[];
+  glassesColor: Color[];
   glasses: Array<keyof typeof glassesParts>;
   glassesProbability: number;
   mouth: Array<keyof typeof mouthParts>;
   nose: Array<keyof typeof noseParts>;
-  shirtColor: IColors[];
+  shirtColor: Color[];
   shirt: Array<keyof typeof shirtParts>;
-  hairColor: IColors[];
+  hairColor: Color[];
   hair: Array<keyof typeof hairParts>;
   hairProbability: number;
 };
@@ -76,7 +74,7 @@ export const schema: IStyleSchema = resolveReferences({
         oneOf: [
           {
             type: 'string',
-            enum: Object.keys(colors),
+            enum: Object.keys(Color),
           },
           {
             $ref: '#/definitions/color',
@@ -91,13 +89,13 @@ export const schema: IStyleSchema = resolveReferences({
       $ref: '#/definitions/colors',
       title: 'Base Color',
       default: ['apricot', 'coast', 'topaz'],
-      examples: [[colors.apricot], [colors.coast], [colors.topaz]],
+      examples: [[Color.apricot], [Color.coast], [Color.topaz]],
     },
     earringColor: {
       $ref: '#/definitions/colors',
       title: 'Earring Color',
       default: [],
-      examples: Object.keys(colors).map((color) => [color]),
+      examples: Object.keys(Color).map((color) => [color]),
     },
     earrings: {
       type: 'array',
@@ -128,7 +126,7 @@ export const schema: IStyleSchema = resolveReferences({
       $ref: '#/definitions/colors',
       title: 'Eyebrow Color',
       default: ['black'],
-      examples: [Object.values(colors).map((color) => [color])],
+      examples: [Object.values(Color).map((color) => [color])],
     },
     eyebrows: {
       type: 'array',
@@ -144,7 +142,7 @@ export const schema: IStyleSchema = resolveReferences({
       $ref: '#/definitions/colors',
       title: 'Eye Color',
       default: [],
-      examples: Object.values(colors).map((color) => [color]),
+      examples: Object.values(Color).map((color) => [color]),
     },
     eyes: {
       type: 'array',
@@ -175,7 +173,7 @@ export const schema: IStyleSchema = resolveReferences({
       $ref: '#/definitions/colors',
       title: 'Glasses Color',
       default: [],
-      examples: Object.values(colors).map((color) => [color]),
+      examples: Object.values(Color).map((color) => [color]),
     },
     glasses: {
       type: 'array',
@@ -216,7 +214,7 @@ export const schema: IStyleSchema = resolveReferences({
       $ref: '#/definitions/colors',
       title: 'Shirt Color',
       default: [],
-      examples: Object.keys(colors).map((color) => [color]),
+      examples: Object.keys(Color).map((color) => [color]),
     },
     shirt: {
       type: 'array',
@@ -232,7 +230,7 @@ export const schema: IStyleSchema = resolveReferences({
       $ref: '#/definitions/colors',
       title: 'Hair Color',
       default: [],
-      examples: Object.keys(colors).map((color) => [color]),
+      examples: Object.keys(Color).map((color) => [color]),
     },
     hair: {
       type: 'array',
@@ -253,13 +251,16 @@ export const schema: IStyleSchema = resolveReferences({
 });
 
 export const create: IStyleCreate<Options> = (prng, options) => {
-  let baseColor = prng.pick(mapAliases(colors, options.baseColor));
-  let earringColor = prng.pick(filterValue(mapAliases(colors, options.earringColor), baseColor));
-  let eyebrowColor = prng.pick(filterValue(mapAliases(colors, options.eyebrowColor), baseColor));
-  let eyeColor = prng.pick(filterValue(mapAliases(colors, options.eyeColor), baseColor));
-  let glassesColor = prng.pick(filterValue(mapAliases(colors, options.glassesColor), baseColor));
-  let shirtColor = prng.pick(filterValue(mapAliases(colors, options.shirtColor), baseColor));
-  let hairColor = prng.pick(filterValue(mapAliases(colors, options.hairColor), baseColor));
+  let baseColor = prng.pick(array.applyAliases(options.baseColor, Color));
+
+  const pickColor = (colors: string[]) => prng.pick(array.filter(array.applyAliases(colors, Color), baseColor, true));
+
+  let earringColor = pickColor(options.earringColor);
+  let eyebrowColor = pickColor(options.eyebrowColor);
+  let eyeColor = pickColor(options.eyeColor);
+  let glassesColor = pickColor(options.glassesColor);
+  let shirtColor = pickColor(options.shirtColor);
+  let hairColor = pickColor(options.hairColor);
 
   return {
     attributes: {
@@ -274,7 +275,7 @@ export const create: IStyleCreate<Options> = (prng, options) => {
       ${svg.createGroup(nose(prng, options), 313.4, 283.21)}
       ${
         prng.bool(options.glassesProbability)
-          ? csvg.reateGroup(glasses(prng, options, glassesColor), 188.34, 220.29)
+          ? svg.createGroup(glasses(prng, options, glassesColor), 188.34, 220.29)
           : ''
       }
       ${svg.createGroup(eyes(prng, options, eyeColor), 255.6, 233.74)}
