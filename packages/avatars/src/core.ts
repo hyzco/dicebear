@@ -5,14 +5,14 @@ import { svg, schema, object } from './utils';
 export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
   let defaultOptions = schema.defaults(style.schema) as any;
 
-  options = object.applyAliases(
-    {
+  options = object.alias({
+    object: {
       seed: Math.random().toString(),
       ...defaultOptions,
       ...options,
     },
-    schema.aliases(style.schema)
-  );
+    aliases: schema.aliases(style.schema),
+  });
 
   let prngInstance = prng.create(options.seed);
   let result = style.create(prngInstance, options);

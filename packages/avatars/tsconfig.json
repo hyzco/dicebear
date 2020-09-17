@@ -7,5 +7,18 @@
     "sourceMap": true,
     "esModuleInterop": true
   },
-  "include": ["./src/**/*", "./tests/**/*"]
+  "include": ["./src/**/*", "./tests/**/*"],
+  "exclude": [
+    "./src/styles/ashley/**",
+    "./src/styles/avataaars/**",
+    "./src/styles/bottts/**",
+    "./src/styles/gridy/**",
+    "./src/styles/humaaans/**",
+    "./src/styles/identicon/**",
+    "./src/styles/initials/**",
+    "./src/styles/kyite/**",
+    "./src/styles/open-peeps/**",
+    "./src/styles/personas/**",
+    "./src/styles/pixel-art/**"
+  ]
 }
