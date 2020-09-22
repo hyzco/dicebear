@@ -14,15 +14,14 @@
   <div class="container mx-auto">
     {#if withWrapper}
       <Card variant="secondary" size="large" class="p-5 h-128 flex text-sm">
-        <Core />
+        <Core {mode} {styles} />
       </Card>
     {:else}
-      <Core />
+      <Core {mode} {styles} />
     {/if}
     <p class="text-right px-1">
       <a href="https://avatars.dicebear.com/" target="_blank" class="text-xs text-gray-400 hover:underline">
-        Powered by
-        <span class="font-medium">DiceBear Avatars</span>
+        Powered by <span class="font-medium">DiceBear Avatars</span>
       </a>
     </p>
   </div>

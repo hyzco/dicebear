@@ -1,4 +1,4 @@
-import { IStyleSchema } from '../../interfaces';
+import type { IStyleSchema } from '../../interfaces';
 import { defaultSchema } from '../../schema';
 import { resolveReferences } from '../../utils/schema';
 
@@ -35,7 +35,7 @@ const schema: IStyleSchema = resolveReferences({
     earringColor: {
       $ref: '#/definitions/colors',
       title: 'Earring Color',
-      default: [],
+      default: Object.keys(Color),
       examples: Object.keys(Color).map((color) => [color]),
     },
     earrings: {
@@ -45,13 +45,13 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.earrings.aliases),
       },
-      default: [],
+      default: Object.keys(paths.earrings.aliases),
       examples: Object.keys(paths.earrings.aliases).map((part) => [part]),
     },
     earringsProbability: {
       $ref: '#/definitions/probability',
       title: 'Earrings Probability',
-      default: 30,
+      default: 95,
     },
     ears: {
       type: 'array',
@@ -60,7 +60,7 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.ears.aliases),
       },
-      default: [],
+      default: Object.keys(paths.ears.aliases),
       examples: Object.keys(paths.ears.aliases).map((part) => [part]),
     },
     eyebrowColor: {
@@ -76,13 +76,13 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.eyebrows.aliases),
       },
-      default: [],
+      default: Object.keys(paths.eyebrows.aliases),
       examples: Object.keys(paths.eyebrows.aliases).map((color) => [color]),
     },
     eyeColor: {
       $ref: '#/definitions/colors',
       title: 'Eye Color',
-      default: [],
+      default: Object.values(Color),
       examples: Object.values(Color).map((color) => [color]),
     },
     eyes: {
@@ -92,7 +92,7 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.eyes.aliases),
       },
-      default: [],
+      default: Object.keys(paths.eyes.aliases),
       examples: Object.keys(paths.eyes.aliases).map((part) => [part]),
     },
     facialHair: {
@@ -102,7 +102,7 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.facialHair.aliases),
       },
-      default: [],
+      default: Object.keys(paths.facialHair.aliases),
       examples: Object.keys(paths.facialHair.aliases).map((part) => [part]),
     },
     facialHairProbability: {
@@ -113,7 +113,7 @@ const schema: IStyleSchema = resolveReferences({
     glassesColor: {
       $ref: '#/definitions/colors',
       title: 'Glasses Color',
-      default: [],
+      default: Object.values(Color),
       examples: Object.values(Color).map((color) => [color]),
     },
     glasses: {
@@ -123,7 +123,7 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.glasses.aliases),
       },
-      default: [],
+      default: Object.keys(paths.glasses.aliases),
       examples: Object.keys(paths.glasses.aliases).map((part) => [part]),
     },
     glassesProbability: {
@@ -138,7 +138,7 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.mouth.aliases),
       },
-      default: [],
+      default: Object.keys(paths.mouth.aliases),
       examples: Object.keys(paths.mouth.aliases).map((part) => [part]),
     },
     nose: {
@@ -148,13 +148,13 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.nose.aliases),
       },
-      default: [],
+      default: Object.keys(paths.nose.aliases),
       examples: Object.keys(paths.nose.aliases).map((part) => [part]),
     },
     shirtColor: {
       $ref: '#/definitions/colors',
       title: 'Shirt Color',
-      default: [],
+      default: Object.keys(Color),
       examples: Object.keys(Color).map((color) => [color]),
     },
     shirt: {
@@ -164,13 +164,13 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.shirt.aliases),
       },
-      default: [],
+      default: Object.keys(paths.shirt.aliases),
       examples: Object.keys(paths.shirt.aliases).map((part) => [part]),
     },
     hairColor: {
       $ref: '#/definitions/colors',
       title: 'Hair Color',
-      default: [],
+      default: Object.keys(Color),
       examples: Object.keys(Color).map((color) => [color]),
     },
     hair: {
@@ -180,7 +180,7 @@ const schema: IStyleSchema = resolveReferences({
         type: 'string',
         enum: Object.keys(paths.hair.aliases),
       },
-      default: [],
+      default: Object.keys(paths.hair.aliases),
       examples: Object.keys(paths.hair.aliases).map((part) => [part]),
     },
     hairProbability: {

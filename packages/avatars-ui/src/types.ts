@@ -1,5 +1,5 @@
-import type { style } from '@dicebear/avatars';
+import type { interfaces } from '@dicebear/avatars';
 
 export type ModeTypes = 'seed' | 'creator';
 export type Mode = ModeTypes | ModeTypes[];
-export type Styles = Record<string, style.IStyle<any>>;
+export type Styles = Record<string, interfaces.IStyle<any>>;

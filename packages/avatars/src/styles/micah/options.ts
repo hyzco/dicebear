@@ -1,6 +1,5 @@
-import Color from './colors';
-
-import * as paths from './paths';
+import type Color from './colors';
+import type * as paths from './paths';
 
 type Options = {
   baseColor: Color[];

@@ -17,10 +17,11 @@ type Props = {
   color: string;
 };
 
-export const create = ({ values, color, prng }: Props) =>
-  prng.pick(
+export const create = ({ values, color, prng }: Props) => {
+  return prng.pick(
     array.alias({
       values,
       aliases,
     })
   )({ color });
+};

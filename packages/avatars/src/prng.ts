@@ -1,4 +1,4 @@
-import { IPrng } from './interfaces';
+import type { IPrng } from './interfaces';
 
 const MIN = -2147483648;
 const MAX = 2147483647;

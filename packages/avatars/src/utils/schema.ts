@@ -1,4 +1,4 @@
-import { JSONSchema7, JSONSchema7Type } from 'json-schema';
+import type { JSONSchema7, JSONSchema7Type } from 'json-schema';
 
 export function resolveReferences(schema: JSONSchema7) {
   return JSON.parse(

@@ -12,12 +12,13 @@ export const aliases = {
 type Props = {
   prng: IPrng;
   values: string[];
+  color: string;
 };
 
-export const create = ({ values, prng }: Props) =>
+export const create = ({ values, prng, color }: Props) =>
   prng.pick(
     array.alias({
       values,
       aliases,
     })
-  )();
+  )({ color });

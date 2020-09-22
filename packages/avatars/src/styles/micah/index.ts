@@ -1,4 +1,4 @@
-import { IStyleCreate } from '../../interfaces';
+import type { IStyleCreate } from '../../interfaces';
 import { svg, array } from '../../utils';
 
 import Color from './colors';
@@ -52,6 +52,7 @@ export const create: IStyleCreate<Options> = (prng, options) => {
   const ears = paths.ears.create({
     prng,
     values: options.ears,
+    color: baseColor,
   });
 
   const nose = paths.nose.create({
@@ -99,20 +100,21 @@ export const create: IStyleCreate<Options> = (prng, options) => {
 
   return {
     attributes: {
-      viewBox: '0 0 639 639',
+      viewBox: '0 0 380 380',
+      fill: 'none',
     },
     body: `
-      ${svg.createGroup(shirt, 105.94, 491.02)}
-      ${prng.bool(options.earringsProbability) ? svg.createGroup(earrings, 163.11, 52) : ''}
-      ${svg.createGroup(ears, 158.07, 351.46)}
-      ${svg.createGroup(nose, 313.4, 283.21)}
-      ${prng.bool(options.glassesProbability) ? svg.createGroup(glasses, 188.34, 220.29) : ''}
-      ${svg.createGroup(eyes, 255.6, 233.74)}
-      ${svg.createGroup(eyebrows, 201.79, 205.15)}
-      ${svg.createGroup(mouth, 302.68, 341.36)}
-      ${prng.bool(options.hairProbability) ? svg.createGroup(hair, 99.21, 52.13) : ''}
-      ${prng.bool(options.facialHairProbability) ? svg.createGroup(facialHair, 208.51, 244.34) : ''}
-      ${svg.createGroup(base, 151.34, 72.31)}
+      ${svg.createGroup({ children: base, x: 90, y: 43 })}
+      ${prng.bool(options.facialHairProbability) ? svg.createGroup({ children: facialHair, x: 124, y: 145.3 }) : ''}
+      ${svg.createGroup({ children: mouth, x: 180, y: 203 })}
+      ${svg.createGroup({ children: eyebrows, x: 120, y: 122 })}
+      ${prng.bool(options.hairProbability) ? svg.createGroup({ children: hair, x: 59, y: 31 }) : ''}
+      ${svg.createGroup({ children: eyes, x: 152, y: 139 })}
+      ${prng.bool(options.glassesProbability) ? svg.createGroup({ children: glasses, x: 112, y: 131 }) : ''}
+      ${svg.createGroup({ children: nose, x: 186.37, y: 168.42 })}
+      ${svg.createGroup({ children: ears, x: 94, y: 174 })}
+      ${prng.bool(options.earringsProbability) ? svg.createGroup({ children: earrings, x: 97, y: 199 }) : ''}
+      ${svg.createGroup({ children: shirt, x: 63, y: 292 })}
     `,
   };
 };

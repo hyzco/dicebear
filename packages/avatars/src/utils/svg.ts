@@ -1,7 +1,13 @@
 import type { IOptions, IStyle, IStyleCreateResult } from '../interfaces';
 
-export function createGroup(content: string, x: number, y: number) {
-  return `<g transform="translate(${x}, ${y})">${content}</g>`;
+type CreateGroupProps = {
+  children: string;
+  x: number;
+  y: number;
+};
+
+export function createGroup({ children, x, y }: CreateGroupProps) {
+  return `<g transform="translate(${x}, ${y})">${children}</g>`;
 }
 
 export function getXmlnsAttributes() {
