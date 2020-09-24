@@ -17,41 +17,42 @@ export const license = {
 export { default as schema } from './schema';
 
 export const create: IStyleCreate<Options> = (prng, options) => {
-  const baseColor = prng.pick(
-    array.alias({
-      values: options.baseColor,
-      aliases: Color,
-    })
-  );
-
-  const pickColor = (colors: string[]) => {
+  const pickColor = (colors: string[], filter: string[]) => {
     return prng.pick(
       array.filter({
         array: array.alias({
           values: colors,
           aliases: Color,
+          fallback: (v) => v as Color,
         }),
-        values: [baseColor],
+        values: filter,
         preventEmpty: true,
       })
     );
   };
 
+  const baseColor = pickColor(options.baseColor, []);
+  const hairColor = pickColor(options.hairColor, [baseColor]);
+  const shirtColor = pickColor(options.shirtColor, [baseColor]);
+  const earringColor = pickColor(options.earringColor, [baseColor, hairColor]);
+  const glassesColor = pickColor(options.glassesColor, [baseColor, hairColor]);
+  const eyeColor = pickColor(options.eyeColor, [baseColor, glassesColor]);
+  const eyebrowColor = pickColor(options.eyebrowColor, [baseColor, glassesColor, eyeColor]);
+  const facialHairColor = pickColor(options.facialHairColor, [baseColor]);
+
   const shirt = paths.shirt.create({
     prng,
     values: options.shirt,
-    color: pickColor(options.shirtColor),
+    color: shirtColor,
   });
 
   const earrings = paths.earrings.create({
     prng,
     values: options.earrings,
-    color: pickColor(options.earringColor),
+    color: earringColor,
   });
 
   const ears = paths.ears.create({
-    prng,
-    values: options.ears,
     color: baseColor,
   });
 
@@ -63,19 +64,19 @@ export const create: IStyleCreate<Options> = (prng, options) => {
   const glasses = paths.glasses.create({
     prng,
     values: options.glasses,
-    color: pickColor(options.glassesColor),
+    color: glassesColor,
   });
 
   const eyes = paths.eyes.create({
     prng,
     values: options.eyes,
-    color: pickColor(options.eyeColor),
+    color: eyeColor,
   });
 
   const eyebrows = paths.eyebrows.create({
     prng,
     values: options.eyebrows,
-    color: pickColor(options.eyebrowColor),
+    color: eyebrowColor,
   });
 
   const mouth = paths.mouth.create({
@@ -86,12 +87,13 @@ export const create: IStyleCreate<Options> = (prng, options) => {
   const hair = paths.hair.create({
     prng,
     values: options.hair,
-    color: pickColor(options.hairColor),
+    color: hairColor,
   });
 
   const facialHair = paths.facialHair.create({
     prng,
     values: options.facialHair,
+    color: facialHairColor,
   });
 
   const base = paths.base.create({
@@ -113,7 +115,7 @@ export const create: IStyleCreate<Options> = (prng, options) => {
       ${prng.bool(options.glassesProbability) ? svg.createGroup({ children: glasses, x: 112, y: 131 }) : ''}
       ${svg.createGroup({ children: nose, x: 186.37, y: 168.42 })}
       ${svg.createGroup({ children: ears, x: 94, y: 174 })}
-      ${prng.bool(options.earringsProbability) ? svg.createGroup({ children: earrings, x: 97, y: 199 }) : ''}
+      ${prng.bool(options.earringsProbability) ? svg.createGroup({ children: earrings, x: 97, y: 209 }) : ''}
       ${svg.createGroup({ children: shirt, x: 63, y: 292 })}
     `,
   };

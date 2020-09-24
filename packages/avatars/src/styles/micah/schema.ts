@@ -51,17 +51,7 @@ const schema: IStyleSchema = resolveReferences({
     earringsProbability: {
       $ref: '#/definitions/probability',
       title: 'Earrings Probability',
-      default: 95,
-    },
-    ears: {
-      type: 'array',
-      title: 'Ears',
-      items: {
-        type: 'string',
-        enum: Object.keys(paths.ears.aliases),
-      },
-      default: Object.keys(paths.ears.aliases),
-      examples: Object.keys(paths.ears.aliases).map((part) => [part]),
+      default: 30,
     },
     eyebrowColor: {
       $ref: '#/definitions/colors',
@@ -82,8 +72,8 @@ const schema: IStyleSchema = resolveReferences({
     eyeColor: {
       $ref: '#/definitions/colors',
       title: 'Eye Color',
-      default: Object.values(Color),
-      examples: Object.values(Color).map((color) => [color]),
+      default: ['calm', 'azure', 'seahell', 'mellow', 'white'],
+      examples: Object.keys(Color).map((color) => [color]),
     },
     eyes: {
       type: 'array',
@@ -94,6 +84,12 @@ const schema: IStyleSchema = resolveReferences({
       },
       default: Object.keys(paths.eyes.aliases),
       examples: Object.keys(paths.eyes.aliases).map((part) => [part]),
+    },
+    facialHairColor: {
+      $ref: '#/definitions/colors',
+      title: 'Facial Hair Color',
+      default: ['topaz'],
+      examples: Object.values(Color).map((color) => [color]),
     },
     facialHair: {
       type: 'array',
@@ -186,7 +182,7 @@ const schema: IStyleSchema = resolveReferences({
     hairProbability: {
       $ref: '#/definitions/probability',
       title: 'Hair Probability',
-      default: 30,
+      default: 100,
     },
   },
 });

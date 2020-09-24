@@ -6,11 +6,11 @@ type Options = {
   earringColor: Color[];
   earrings: Array<keyof typeof paths.earrings.aliases>;
   earringsProbability: number;
-  ears: Array<keyof typeof paths.ears.aliases>;
   eyebrowColor: Color[];
   eyebrows: Array<keyof typeof paths.eyebrows.aliases>;
   eyeColor: Color[];
   eyes: Array<keyof typeof paths.eyes.aliases>;
+  facialHairColor: Color[];
   facialHair: Array<keyof typeof paths.facialHair.aliases>;
   facialHairProbability: number;
   glassesColor: Color[];

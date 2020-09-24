@@ -21,17 +21,15 @@ export function create(seed?: string): IPrng {
   let value = (seed ? hashSeed(seed) : randomSeed()) || 1;
 
   const next = () => {
-    let newValue = value;
+    value ^= value << 13;
+    value ^= value >> 17;
+    value ^= value << 5;
 
-    newValue ^= newValue << 13;
-    newValue ^= newValue >> 17;
-    newValue ^= newValue << 5;
-
-    return newValue;
+    return value;
   };
 
   const integer = (min: number, max: number) => {
-    return Math.floor(((next() - MIN) / (MAX - MIN)) * (max - min) + min);
+    return Math.floor(((next() - MIN) / (MAX - MIN)) * (max + 1 - min) + min);
   };
 
   return {

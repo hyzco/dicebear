@@ -4,7 +4,7 @@ import { svg, schema, object } from './utils';
 
 export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
   let defaultOptions = schema.defaults(style.schema) as any;
-  console.log(defaultOptions);
+
   options = object.alias({
     object: {
       seed: Math.random().toString(),
@@ -45,7 +45,7 @@ export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> 
   let avatar = `
     <svg ${attributesAsString}>
       ${svg.getMetadata(style)}
-      ${result.head}
+      ${result.head ?? ''}
       ${result.body}
     </svg>
   `;
