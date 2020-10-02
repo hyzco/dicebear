@@ -1,4 +1,9 @@
-import type { IPrng } from './interfaces';
+export interface IPrng {
+  seed: string;
+  bool(likelihood?: number): boolean;
+  integer(min: number, max: number): number;
+  pick<T>(arr: T[]): T;
+}
 
 const MIN = -2147483648;
 const MAX = 2147483647;

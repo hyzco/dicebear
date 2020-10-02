@@ -10,6 +10,7 @@
     "@types/json-schema": "^7.0.5"
   },
   "scripts": {
+    "build:schema": "node build/schema.js",
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",
     "build:js": "rollup -c",
     "build": "npm run build:types && npm run build:js"

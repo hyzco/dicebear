@@ -1,18 +1,16 @@
-import type { IStyle, IOptions } from './interfaces';
+import type { Style } from './style';
 import * as prng from './prng';
-import { svg, schema, object } from './utils';
+import { svg, schema } from './utils';
+import type { Options } from './options';
 
-export function createAvatar<O>(style: IStyle<O>, options: Partial<IOptions<O>> = {}) {
+export function createAvatar<O extends Options>(style: Style<O>, options: O) {
   let defaultOptions = schema.defaults(style.schema) as any;
 
-  options = object.alias({
-    object: {
-      seed: Math.random().toString(),
-      ...defaultOptions,
-      ...options,
-    },
-    aliases: schema.aliases(style.schema),
-  });
+  options = {
+    seed: Math.random().toString(),
+    ...defaultOptions,
+    ...options,
+  };
 
   let prngInstance = prng.create(options.seed);
   let result = style.create(prngInstance, options);

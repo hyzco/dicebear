@@ -1,4 +1,5 @@
-import type { IOptions, IStyle, IStyleCreateResult } from '../interfaces';
+import type { Options } from '../options';
+import type { Style, StyleCreateResult } from '../style';
 
 type CreateGroupProps = {
   children: string;
@@ -20,9 +21,9 @@ export function getXmlnsAttributes() {
   };
 }
 
-export function getMetadata<O>(style: IStyle<O>) {
-  let isCcBy40 = 'CC BY 4.0' === style.license.name;
-  let isCcZero10 = 'CC0 1.0' === style.license.name;
+export function getMetadata<O extends Options>(style: Style<O>) {
+  let isCcBy40 = 'CC BY 4.0' === style.meta.license.name;
+  let isCcZero10 = 'CC0 1.0' === style.meta.license.name;
   let isCc = isCcBy40 || isCcZero10;
 
   return `
@@ -31,19 +32,19 @@ export function getMetadata<O>(style: IStyle<O>) {
         <cc:Work rdf:about="">
           <dc:format>image/svg+xml</dc:format>
           <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-          <dc:title>${style.title}</dc:title>
-          <cc:license rdf:resource="${style.license.link}" />
+          <dc:title>${style.meta.title}</dc:title>
+          <cc:license rdf:resource="${style.meta.license.link}" />
           <dc:creator>
             <cc:Agent>
-              <dc:title>${style.creator}</dc:title>
+              <dc:title>${style.meta.creator}</dc:title>
             </cc:Agent>
           </dc:creator>
-          <dc:source>${style.source}</dc:source>
+          <dc:source>${style.meta.source}</dc:source>
         </cc:Work>
         ${
           isCc
             ? `
-              <cc:License rdf:about="${style.license.link}">
+              <cc:License rdf:about="${style.meta.license.link}">
                 <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction" />
                 <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution" />
                 ${isCcBy40 ? '<cc:requires rdf:resource="http://creativecommons.org/ns#Notice" />' : ''}
@@ -58,7 +59,7 @@ export function getMetadata<O>(style: IStyle<O>) {
   `;
 }
 
-export function getViewBox(result: IStyleCreateResult) {
+export function getViewBox(result: StyleCreateResult) {
   let viewBox = result.attributes['viewBox'].split(' ');
   let x = parseInt(viewBox[0]);
   let y = parseInt(viewBox[1]);
@@ -73,7 +74,7 @@ export function getViewBox(result: IStyleCreateResult) {
   };
 }
 
-export function addMargin<O>(result: IStyleCreateResult, options: IOptions<O>) {
+export function addMargin<O extends Options>(result: StyleCreateResult, options: O) {
   let viewBox = getViewBox(result);
   let translateX = (viewBox.width * options.margin) / 100;
   let translateY = (viewBox.height * options.margin) / 100;
@@ -93,7 +94,7 @@ export function addMargin<O>(result: IStyleCreateResult, options: IOptions<O>) {
   `;
 }
 
-export function addBackgroundColor<O>(result: IStyleCreateResult, options: IOptions<O>) {
+export function addBackgroundColor<O extends Options>(result: StyleCreateResult, options: O) {
   let viewBox = getViewBox(result);
   let width = viewBox.width.toString();
   let height = viewBox.height.toString();
@@ -106,7 +107,7 @@ export function addBackgroundColor<O>(result: IStyleCreateResult, options: IOpti
   `;
 }
 
-export function addRadius<O>(result: IStyleCreateResult, options: IOptions<O>) {
+export function addRadius<O extends Options>(result: StyleCreateResult, options: O) {
   let viewBox = getViewBox(result);
   let width = viewBox.width.toString();
   let height = viewBox.height.toString();

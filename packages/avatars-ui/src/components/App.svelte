@@ -1,7 +1,5 @@
 <script lang="ts">
   import type { Mode, Styles } from '../types';
-  import type * as Avatars from '@dicebear/avatars';
-  import Theme from './Theme.svelte';
   import Core from './Core.svelte';
   import Card from './Card.svelte';
 
@@ -10,19 +8,22 @@
   export let styles: Styles;
 </script>
 
-<Theme>
-  <div class="container mx-auto">
-    {#if withWrapper}
-      <Card variant="secondary" size="large" class="p-5 h-128 flex text-sm">
-        <Core {mode} {styles} />
-      </Card>
-    {:else}
+<style type="postcss">
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
+
+<div class="container mx-auto">
+  {#if withWrapper}
+    <Card variant="secondary" size="large" class="p-5 h-128 flex text-sm">
       <Core {mode} {styles} />
-    {/if}
-    <p class="text-right px-1">
-      <a href="https://avatars.dicebear.com/" target="_blank" class="text-xs text-gray-400 hover:underline">
-        Powered by <span class="font-medium">DiceBear Avatars</span>
-      </a>
-    </p>
-  </div>
-</Theme>
+    </Card>
+  {:else}
+    <Core {mode} {styles} />
+  {/if}
+  <p class="text-right p-1 text-xs text-gray-400">
+    Powered by <a href="https://avatars.dicebear.com/" target="_blank" class="font-medium hover:underline"> DiceBear
+      Avatars</a>
+  </p>
+</div>

@@ -6,7 +6,8 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "error"
+    "importsNotUsedAsValues": "error",
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*", "./tests/**/*"],
   "exclude": [

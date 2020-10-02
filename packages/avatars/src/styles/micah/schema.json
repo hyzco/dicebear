@@ -1,0 +1,195 @@
+{
+  "$id": "https://avatars.dicebear.com/styles/micah/schema.json",
+  "type": "object",
+  "definitions": {
+    "colors": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "apricot",
+              "coast",
+              "topaz",
+              "lavender",
+              "sky",
+              "salmon",
+              "canary",
+              "calm",
+              "azure",
+              "seashell",
+              "mellow",
+              "black",
+              "white"
+            ]
+          },
+          {
+            "$ref": "../../schema.json#/definitions/color"
+          }
+        ]
+      },
+      "default": [
+        "apricot",
+        "coast",
+        "topaz",
+        "lavender",
+        "sky",
+        "salmon",
+        "canary",
+        "calm",
+        "azure",
+        "seashell",
+        "mellow",
+        "black",
+        "white"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "properties": {
+        "baseColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Base Color",
+          "default": ["apricot", "coast", "topaz"]
+        },
+        "earringColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Earring Color"
+        },
+        "earrings": {
+          "type": "array",
+          "title": "Earrings",
+          "items": {
+            "type": "string",
+            "enum": ["hoop", "stud"]
+          },
+          "default": ["hoop", "stud"]
+        },
+        "earringsProbability": {
+          "$ref": "../../schema.json#/definitions/probability",
+          "title": "Earrings Probability",
+          "default": 30
+        },
+        "eyebrowColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Eyebrow Color",
+          "default": ["black"]
+        },
+        "eyebrows": {
+          "type": "array",
+          "title": "Eyebrows",
+          "items": {
+            "type": "string",
+            "enum": ["eyelashesDown", "eyelashesUp", "down", "up"]
+          },
+          "default": ["eyelashesDown", "eyelashesUp", "down", "up"]
+        },
+        "eyeColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Eye Color",
+          "default": ["calm", "azure", "seahell", "mellow", "white"]
+        },
+        "eyes": {
+          "type": "array",
+          "title": "Eyes",
+          "items": {
+            "type": "string",
+            "enum": ["smiling", "eyes", "eyesShadow", "round"]
+          },
+          "default": ["smiling", "eyes", "eyesShadow", "round"]
+        },
+        "facialHairColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Facial Hair Color",
+          "default": ["topaz"]
+        },
+        "facialHair": {
+          "type": "array",
+          "title": "Facial Hair",
+          "items": {
+            "type": "string",
+            "enum": ["beard", "scruff"]
+          },
+          "default": ["beard", "scruff"]
+        },
+        "facialHairProbability": {
+          "$ref": "../../schema.json#/definitions/probability",
+          "title": "Facial Hair Probability",
+          "default": 10
+        },
+        "glassesColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Glasses Color"
+        },
+        "glasses": {
+          "type": "array",
+          "title": "Glasses",
+          "items": {
+            "type": "string",
+            "enum": ["round", "square"]
+          },
+          "default": ["round", "square"]
+        },
+        "glassesProbability": {
+          "$ref": "../../schema.json#/definitions/probability",
+          "title": "Glasses Probability",
+          "default": 30
+        },
+        "mouth": {
+          "type": "array",
+          "title": "Mouth",
+          "items": {
+            "type": "string",
+            "enum": ["laughing", "nervous", "pucker", "sad", "smile", "smirk", "surprised", "frown"]
+          },
+          "default": ["laughing", "nervous", "pucker", "sad", "smile", "smirk", "surprised", "frown"]
+        },
+        "nose": {
+          "type": "array",
+          "title": "Nose",
+          "items": {
+            "type": "string",
+            "enum": ["curve", "pointed", "round"]
+          },
+          "default": ["curve", "pointed", "round"]
+        },
+        "shirtColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Shirt Color"
+        },
+        "shirt": {
+          "type": "array",
+          "title": "Shirt",
+          "items": {
+            "type": "string",
+            "enum": ["collared", "crew", "open"]
+          },
+          "default": ["collared", "crew", "open"]
+        },
+        "hairColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Hair Color"
+        },
+        "hair": {
+          "type": "array",
+          "title": "Hair",
+          "items": {
+            "type": "string",
+            "enum": ["pixie", "dannyPhantom", "dougFunny", "fonze", "full", "mrClean", "mrT", "turban"]
+          },
+          "default": ["pixie", "dannyPhantom", "dougFunny", "fonze", "full", "mrClean", "mrT", "turban"]
+        },
+        "hairProbability": {
+          "$ref": "../../schema.json#/definitions/probability",
+          "title": "Hair Probability",
+          "default": 100
+        }
+      }
+    },
+    {
+      "$ref": "../../schema.json"
+    }
+  ]
+}

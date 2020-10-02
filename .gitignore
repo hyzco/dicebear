@@ -1,6 +1,6 @@
 lib
 dist
-build
+packages/avatars-ui/public/build
 node_modules
 .DS_Store
 pids
