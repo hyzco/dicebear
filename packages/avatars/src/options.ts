@@ -11,21 +11,16 @@ export type DataURI = boolean;
 export type Width = number;
 export type Height = number;
 export type Margin = number;
-export type BackgroundColor = string[];
+export type Color = string;
+export type BackgroundColor = Color[];
 
 export interface Options {
   seed?: Seed;
-  s?: Seed;
   radius?: Radius;
-  r?: Radius;
   dataUri?: DataURI;
   width?: Width;
-  w?: Width;
   height?: Height;
-  h?: Height;
   margin?: Margin;
-  m?: Margin;
   backgroundColor?: BackgroundColor;
-  b?: BackgroundColor;
   [k: string]: unknown;
 }

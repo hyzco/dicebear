@@ -1,6 +1,6 @@
 import type { Style } from './style';
 import * as prng from './prng';
-import { svg, schema } from './utils';
+import { svg, schema, array } from './utils';
 import type { Options } from './options';
 
 export function createAvatar<O extends Options>(style: Style<O>, options: O) {
@@ -11,9 +11,17 @@ export function createAvatar<O extends Options>(style: Style<O>, options: O) {
     ...defaultOptions,
     ...options,
   };
-
+  /**
+  if (options.backgroundColor) {
+    options.backgroundColor = array.alias({
+      values: options.backgroundColor,
+      aliases: style.colors,
+      fallback: (v) => v,
+    });
+  }
+  */
   let prngInstance = prng.create(options.seed);
-  let result = style.create(prngInstance, options);
+  let result = style.create({ prng: prngInstance, options });
 
   if (options.width) {
     result.attributes.width = options.width.toString();

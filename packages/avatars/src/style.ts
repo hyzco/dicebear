@@ -44,22 +44,9 @@ export interface StylePathCreateProps {
 
 export type StylePathCreate = (props: StylePathCreateProps) => string;
 
-export interface StylePath {
-  create: StylePathCreate;
-}
-
-export interface StylePathCollection {
-  [name: string]: StylePath;
-}
-
-export interface StylePaths {
-  [type: string]: StylePathCollection;
-}
-
 export interface Style<O extends Options> {
   meta: StyleMeta;
   schema: StyleSchema;
   colors: StyleColors;
-  paths: StylePaths;
   create: StyleCreate<O>;
 }

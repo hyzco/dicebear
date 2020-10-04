@@ -55,13 +55,33 @@ export function resolve(schema: JSONSchema7, dependencies: JSONSchema7[] = []): 
 }
 
 export function defaults(schema: JSONSchema7) {
-  return Object.keys(schema.properties).reduce<Record<string, JSONSchema7Type>>((result, key) => {
-    let val = schema.properties[key];
+  let defaults: Record<string, unknown> = {};
 
-    if (typeof val === 'object' && val.default) {
-      result[key] = val.default;
-    }
+  const traverse = (obj: Record<string, any>, isProperties: boolean = false) => {
+    Object.keys(obj).forEach((key) => {
+      if (key === 'properties') {
+        traverse(obj[key], true);
+      } else if (['oneOf', 'allOf', 'anyOf'].includes(key)) {
+        obj[key].forEach((child: any) => traverse(child, isProperties));
+      }
 
-    return result;
-  }, {});
+      if (isProperties && obj[key].default) {
+        if (isProperties) {
+          defaults = {
+            ...defaults,
+            [key]: obj[key].default,
+          };
+        } else {
+          defaults = {
+            ...obj[key].default,
+            ...defaults,
+          };
+        }
+      }
+    });
+  };
+
+  traverse(schema);
+
+  return defaults;
 }

@@ -6,44 +6,48 @@
  */
 
 export type Options = {
+  seed?: Seed;
+  radius?: Radius;
+  dataUri?: DataURI;
+  width?: Width;
+  height?: Height;
+  margin?: Margin;
+  backgroundColor?: BackgroundColor;
+  [k: string]: unknown;
+} & {
+  base?: Base;
   baseColor?: BaseColor;
-  earringColor?: EarringColor;
   earrings?: Earrings;
+  earringColor?: EarringColor;
   earringsProbability?: EarringsProbability;
-  eyebrowColor?: EyebrowColor;
   eyebrows?: Eyebrows;
-  eyeColor?: EyeColor;
+  eyebrowColor?: EyebrowColor;
+  ears?: Ears;
   eyes?: Eyes;
-  facialHairColor?: FacialHairColor;
+  eyeColor?: EyeColor;
   facialHair?: FacialHair;
+  facialHairColor?: FacialHairColor;
   facialHairProbability?: FacialHairProbability;
-  glassesColor?: GlassesColor;
   glasses?: Glasses;
+  glassesColor?: GlassesColor;
   glassesProbability?: GlassesProbability;
   mouth?: Mouth;
   nose?: Nose;
-  shirtColor?: ShirtColor;
   shirt?: Shirt;
-  hairColor?: HairColor;
+  shirtColor?: ShirtColor;
   hair?: Hair;
+  hairColor?: HairColor;
   hairProbability?: HairProbability;
   [k: string]: unknown;
-} & {
-  seed?: Seed;
-  s?: Seed;
-  radius?: Radius;
-  r?: Radius;
-  dataUri?: DataURI;
-  width?: Width;
-  w?: Width;
-  height?: Height;
-  h?: Height;
-  margin?: Margin;
-  m?: Margin;
-  backgroundColor?: BackgroundColor;
-  b?: BackgroundColor;
-  [k: string]: unknown;
 };
+export type Seed = string;
+export type Radius = number;
+export type DataURI = boolean;
+export type Width = number;
+export type Height = number;
+export type Margin = number;
+export type BackgroundColor = string[];
+export type Base = "standard"[];
 export type BaseColor = (
   | (
       | "apricot"
@@ -62,6 +66,7 @@ export type BaseColor = (
     )
   | string
 )[];
+export type Earrings = ("hoop" | "stud")[];
 export type EarringColor = (
   | (
       | "apricot"
@@ -80,8 +85,8 @@ export type EarringColor = (
     )
   | string
 )[];
-export type Earrings = ("hoop" | "stud")[];
 export type EarringsProbability = number;
+export type Eyebrows = ("eyelashesDown" | "eyelashesUp" | "down" | "up")[];
 export type EyebrowColor = (
   | (
       | "apricot"
@@ -100,7 +105,8 @@ export type EyebrowColor = (
     )
   | string
 )[];
-export type Eyebrows = ("eyelashesDown" | "eyelashesUp" | "down" | "up")[];
+export type Ears = "attached"[];
+export type Eyes = ("smiling" | "eyes" | "eyesShadow" | "round")[];
 export type EyeColor = (
   | (
       | "apricot"
@@ -119,7 +125,7 @@ export type EyeColor = (
     )
   | string
 )[];
-export type Eyes = ("smiling" | "eyes" | "eyesShadow" | "round")[];
+export type FacialHair = ("beard" | "scruff")[];
 export type FacialHairColor = (
   | (
       | "apricot"
@@ -138,8 +144,8 @@ export type FacialHairColor = (
     )
   | string
 )[];
-export type FacialHair = ("beard" | "scruff")[];
 export type FacialHairProbability = number;
+export type Glasses = ("round" | "square")[];
 export type GlassesColor = (
   | (
       | "apricot"
@@ -158,10 +164,10 @@ export type GlassesColor = (
     )
   | string
 )[];
-export type Glasses = ("round" | "square")[];
 export type GlassesProbability = number;
 export type Mouth = ("laughing" | "nervous" | "pucker" | "sad" | "smile" | "smirk" | "surprised" | "frown")[];
 export type Nose = ("curve" | "pointed" | "round")[];
+export type Shirt = ("collared" | "crew" | "open")[];
 export type ShirtColor = (
   | (
       | "apricot"
@@ -180,7 +186,7 @@ export type ShirtColor = (
     )
   | string
 )[];
-export type Shirt = ("collared" | "crew" | "open")[];
+export type Hair = ("pixie" | "dannyPhantom" | "dougFunny" | "fonze" | "full" | "mrClean" | "mrT" | "turban")[];
 export type HairColor = (
   | (
       | "apricot"
@@ -199,12 +205,4 @@ export type HairColor = (
     )
   | string
 )[];
-export type Hair = ("pixie" | "dannyPhantom" | "dougFunny" | "fonze" | "full" | "mrClean" | "mrT" | "turban")[];
 export type HairProbability = number;
-export type Seed = string;
-export type Radius = number;
-export type DataURI = boolean;
-export type Width = number;
-export type Height = number;
-export type Margin = number;
-export type BackgroundColor = string[];

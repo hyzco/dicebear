@@ -10,6 +10,7 @@ import builtins from 'rollup-plugin-node-builtins';
 import typescript from '@rollup/plugin-typescript';
 import visualizer from 'rollup-plugin-visualizer';
 import rootPkg from '../package.json';
+import json from '@rollup/plugin-json';
 
 export function getGlobals() {
   let globals = {};
@@ -148,7 +149,7 @@ export function getUmdConfig(pkg, config = {}) {
 
   let globals = config.svelte && config.watch ? {} : getGlobals();
 
-  let plugins = [];
+  let plugins = [json()];
 
   if (config.svelte) {
     plugins.push(
@@ -213,7 +214,7 @@ export function getCjsAndEsConfig(pkg, config = {}) {
     ...config,
   };
 
-  let plugins = [];
+  let plugins = [json()];
 
   if (config.svelte) {
     plugins.push(

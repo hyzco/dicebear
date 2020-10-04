@@ -6,7 +6,7 @@
 //export * from './identicon';
 //export * from './initials';
 //export * from './kyute';
-export * as micah from './micah';
+export { default as micah } from './micah';
 //export * from './open-peeps';
 //export * from './personas';
 //export * from './pixel-art';

@@ -48,15 +48,23 @@
   },
   "allOf": [
     {
+      "$ref": "../../schema.json"
+    },
+    {
       "properties": {
+        "base": {
+          "type": "array",
+          "title": "Base",
+          "items": {
+            "type": "string",
+            "enum": ["standard"]
+          },
+          "default": ["standard"]
+        },
         "baseColor": {
           "$ref": "#/definitions/colors",
           "title": "Base Color",
           "default": ["apricot", "coast", "topaz"]
-        },
-        "earringColor": {
-          "$ref": "#/definitions/colors",
-          "title": "Earring Color"
         },
         "earrings": {
           "type": "array",
@@ -67,15 +75,14 @@
           },
           "default": ["hoop", "stud"]
         },
+        "earringColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Earring Color"
+        },
         "earringsProbability": {
           "$ref": "../../schema.json#/definitions/probability",
           "title": "Earrings Probability",
           "default": 30
-        },
-        "eyebrowColor": {
-          "$ref": "#/definitions/colors",
-          "title": "Eyebrow Color",
-          "default": ["black"]
         },
         "eyebrows": {
           "type": "array",
@@ -86,10 +93,19 @@
           },
           "default": ["eyelashesDown", "eyelashesUp", "down", "up"]
         },
-        "eyeColor": {
+        "eyebrowColor": {
           "$ref": "#/definitions/colors",
-          "title": "Eye Color",
-          "default": ["calm", "azure", "seahell", "mellow", "white"]
+          "title": "Eyebrow Color",
+          "default": ["black"]
+        },
+        "ears": {
+          "type": "array",
+          "title": "Ears",
+          "items": {
+            "type": "string",
+            "enum": ["attached"]
+          },
+          "default": ["attached"]
         },
         "eyes": {
           "type": "array",
@@ -100,10 +116,10 @@
           },
           "default": ["smiling", "eyes", "eyesShadow", "round"]
         },
-        "facialHairColor": {
+        "eyeColor": {
           "$ref": "#/definitions/colors",
-          "title": "Facial Hair Color",
-          "default": ["topaz"]
+          "title": "Eye Color",
+          "default": ["calm", "azure", "seahell", "mellow", "white"]
         },
         "facialHair": {
           "type": "array",
@@ -114,14 +130,15 @@
           },
           "default": ["beard", "scruff"]
         },
+        "facialHairColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Facial Hair Color",
+          "default": ["topaz"]
+        },
         "facialHairProbability": {
           "$ref": "../../schema.json#/definitions/probability",
           "title": "Facial Hair Probability",
           "default": 10
-        },
-        "glassesColor": {
-          "$ref": "#/definitions/colors",
-          "title": "Glasses Color"
         },
         "glasses": {
           "type": "array",
@@ -131,6 +148,10 @@
             "enum": ["round", "square"]
           },
           "default": ["round", "square"]
+        },
+        "glassesColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Glasses Color"
         },
         "glassesProbability": {
           "$ref": "../../schema.json#/definitions/probability",
@@ -155,10 +176,6 @@
           },
           "default": ["curve", "pointed", "round"]
         },
-        "shirtColor": {
-          "$ref": "#/definitions/colors",
-          "title": "Shirt Color"
-        },
         "shirt": {
           "type": "array",
           "title": "Shirt",
@@ -168,9 +185,9 @@
           },
           "default": ["collared", "crew", "open"]
         },
-        "hairColor": {
+        "shirtColor": {
           "$ref": "#/definitions/colors",
-          "title": "Hair Color"
+          "title": "Shirt Color"
         },
         "hair": {
           "type": "array",
@@ -181,15 +198,16 @@
           },
           "default": ["pixie", "dannyPhantom", "dougFunny", "fonze", "full", "mrClean", "mrT", "turban"]
         },
+        "hairColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Hair Color"
+        },
         "hairProbability": {
           "$ref": "../../schema.json#/definitions/probability",
           "title": "Hair Probability",
           "default": 100
         }
       }
-    },
-    {
-      "$ref": "../../schema.json"
     }
   ]
 }
