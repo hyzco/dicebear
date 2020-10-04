@@ -1,4 +1,4 @@
-import type { JSONSchema7Type, JSONSchema7 } from 'json-schema';
+import type { JSONSchema7 } from 'json-schema';
 
 export function clone<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj));
@@ -55,7 +55,15 @@ export function resolve(schema: JSONSchema7, dependencies: JSONSchema7[] = []): 
 }
 
 export function defaults(schema: JSONSchema7) {
-  let defaults: Record<string, unknown> = {};
+  return propertyValueMap(schema, 'default');
+}
+
+export function examples(schema: JSONSchema7) {
+  return propertyValueMap(schema, 'examples');
+}
+
+export function propertyValueMap(schema: JSONSchema7, valueName: string) {
+  let result: Record<string, unknown> = {};
 
   const traverse = (obj: Record<string, any>, isProperties: boolean = false) => {
     Object.keys(obj).forEach((key) => {
@@ -65,16 +73,16 @@ export function defaults(schema: JSONSchema7) {
         obj[key].forEach((child: any) => traverse(child, isProperties));
       }
 
-      if (isProperties && obj[key].default) {
+      if (isProperties && obj[key][valueName]) {
         if (isProperties) {
-          defaults = {
-            ...defaults,
-            [key]: obj[key].default,
+          result = {
+            ...result,
+            [key]: obj[key][valueName],
           };
         } else {
-          defaults = {
-            ...obj[key].default,
-            ...defaults,
+          result = {
+            ...obj[key][valueName],
+            ...result,
           };
         }
       }
@@ -83,5 +91,5 @@ export function defaults(schema: JSONSchema7) {
 
   traverse(schema);
 
-  return defaults;
+  return result;
 }

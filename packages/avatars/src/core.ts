@@ -11,15 +11,7 @@ export function createAvatar<O extends Options>(style: Style<O>, options: O) {
     ...defaultOptions,
     ...options,
   };
-  /**
-  if (options.backgroundColor) {
-    options.backgroundColor = array.alias({
-      values: options.backgroundColor,
-      aliases: style.colors,
-      fallback: (v) => v,
-    });
-  }
-  */
+
   let prngInstance = prng.create(options.seed);
   let result = style.create({ prng: prngInstance, options });
 
