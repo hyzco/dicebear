@@ -1,6 +1,6 @@
 import type { Style } from './style';
 import * as prng from './prng';
-import { svg, schema, array } from './utils';
+import { svg, schema } from './utils';
 import type { Options } from './options';
 
 export function createAvatar<O extends Options>(style: Style<O>, options: O) {
