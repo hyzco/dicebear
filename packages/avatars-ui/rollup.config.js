@@ -11,6 +11,27 @@ import typescript from '@rollup/plugin-typescript';
 import visualizer from 'rollup-plugin-visualizer';
 import pkg from './package.json';
 
+export function serve() {
+  let server;
+
+  function toExit() {
+    if (server) server.kill(0);
+  }
+
+  return {
+    writeBundle() {
+      if (server) return;
+      server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+        stdio: ['ignore', 'inherit', 'inherit'],
+        shell: true,
+      });
+
+      process.on('SIGTERM', toExit);
+      process.on('exit', toExit);
+    },
+  };
+}
+
 const watch = !!process.env.ROLLUP_WATCH;
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
@@ -45,8 +66,12 @@ export default async () => {
           name: 'AvatarsUI',
           exports: 'named',
           sourcemap: true,
+          globals: {
+            '@dicebear/avatars': 'Avatars',
+          },
         },
       ],
+      external: ['@dicebear/avatars'],
       watch: {
         clearScreen: false,
       },

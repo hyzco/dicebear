@@ -1,6 +1,11 @@
 {
   "name": "@dicebear/avatars-ui",
   "version": "1.0.0",
+  "description": "Avatar generator library for designers and developers.",
+  "main": "dist/cjs/avatars-ui.js",
+  "module": "dist/esm/avatars-ui.js",
+  "browser": "dist/amd/avatars-ui.min.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -8,8 +13,6 @@
     "validate": "svelte-check"
   },
   "dependencies": {
-    "clsx": "^1.1.1",
-    "sirv-cli": "^1.0.0"
   },
   "peerDependencies": {
     "@dicebear/avatars": "^5.0.0"
