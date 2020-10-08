@@ -1,6 +1,6 @@
 import type { JSONSchema7 } from 'json-schema';
 
-export function clone<T>(obj: T): T {
+export function clone(obj: JSONSchema7): JSONSchema7 {
   return JSON.parse(JSON.stringify(obj));
 }
 
@@ -55,41 +55,71 @@ export function resolve(schema: JSONSchema7, dependencies: JSONSchema7[] = []): 
 }
 
 export function defaults(schema: JSONSchema7) {
-  return propertyValueMap(schema, 'default');
+  let result: Record<string, unknown> = {};
+
+  iterateProperties(schema, (val, key) => {
+    let defaultValue = val['default'];
+
+    if (defaultValue) {
+      result = {
+        ...result,
+        [key]: defaultValue
+      }
+    }
+  })
+
+  return result;
 }
 
 export function examples(schema: JSONSchema7) {
-  return propertyValueMap(schema, 'examples');
-}
-
-export function propertyValueMap(schema: JSONSchema7, valueName: string) {
   let result: Record<string, unknown> = {};
 
+  iterateProperties(schema, (val, key) => {
+    let examples = val['examples'];
+
+    if (examples) {
+      result = {
+        ...result,
+        [key]: examples
+      }
+    }
+  })
+
+  return result;
+}
+
+export function aliases(schema: JSONSchema7) {
+  let result: Record<string, string[]> = {};
+
+  iterateProperties(schema, (val, key) => {
+    let title = val['title'];
+
+    if (title) {
+      result = {
+        ...result,
+        [title]: [
+          ...result[title] || [],
+          key
+        ]
+      }
+    }
+  })
+
+  return Object.values(result).filter(val => val.length > 1);
+}
+
+export function iterateProperties(schema: JSONSchema7, callback: (val: JSONSchema7, key: string) => unknown) {
   const traverse = (obj: Record<string, any>, isProperties: boolean = false) => {
     Object.keys(obj).forEach((key) => {
       if (key === 'properties') {
         traverse(obj[key], true);
       } else if (['oneOf', 'allOf', 'anyOf'].includes(key)) {
         obj[key].forEach((child: any) => traverse(child, isProperties));
-      }
-
-      if (isProperties && obj[key][valueName]) {
-        if (isProperties) {
-          result = {
-            ...result,
-            [key]: obj[key][valueName],
-          };
-        } else {
-          result = {
-            ...obj[key][valueName],
-            ...result,
-          };
-        }
+      } else if (isProperties) {
+        callback(obj[key], key);
       }
     });
   };
 
   traverse(schema);
-
-  return result;
 }

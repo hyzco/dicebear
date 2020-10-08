@@ -66,12 +66,14 @@ export default async () => {
           name: 'AvatarsUI',
           exports: 'named',
           sourcemap: true,
-          globals: {
-            '@dicebear/avatars': 'Avatars',
-          },
+          globals: watch
+            ? {}
+            : {
+              '@dicebear/avatars': 'Avatars',
+            },
         },
       ],
-      external: ['@dicebear/avatars'],
+      external: watch ? [] : ['@dicebear/avatars'],
       watch: {
         clearScreen: false,
       },

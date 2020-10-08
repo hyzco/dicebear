@@ -23,6 +23,9 @@
       "minimum": 0,
       "maximum": 50
     },
+    "r": {
+      "$ref": "#/properties/radius"
+    },
     "dataUri": {
       "type": "boolean",
       "title": "Data URI"
@@ -32,10 +35,16 @@
       "title": "Width",
       "minimum": 0
     },
+    "w": {
+      "$ref": "#/properties/width"
+    },
     "height": {
       "type": "number",
       "title": "Height",
       "minimum": 0
+    },
+    "h": {
+      "$ref": "#/properties/height"
     },
     "margin": {
       "type": "number",
@@ -43,10 +52,16 @@
       "minimum": 0,
       "maximum": 25
     },
+    "m": {
+      "$ref": "#/properties/margin"
+    },
     "backgroundColor": {
       "type": "array",
       "title": "Background Color",
       "items": { "$ref": "#/definitions/color" }
+    },
+    "b": {
+      "$ref": "#/properties/backgroundColor"
     }
   }
 }

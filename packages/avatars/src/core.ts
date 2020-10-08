@@ -1,7 +1,6 @@
-import type { Style } from './style';
-import * as prng from './prng';
-import { svg, schema } from './utils';
+import type { Style } from './types';
 import type { Options } from './options';
+import { svg, schema, prng } from './utils';
 
 export function createAvatar<O extends Options>(style: Style<O>, options: O) {
   let defaultOptions = schema.defaults(style.schema) as any;
@@ -11,6 +10,16 @@ export function createAvatar<O extends Options>(style: Style<O>, options: O) {
     ...defaultOptions,
     ...options,
   };
+
+  schema.aliases(style.schema).forEach((aliases) => {
+    let val: any = aliases.reduce((current, alias) => {
+      return current || options[alias];
+    }, undefined);
+
+    aliases.forEach((alias: keyof O) => {
+      options[alias] = val;
+    })
+  })
 
   let prngInstance = prng.create(options.seed);
   let result = style.create({ prng: prngInstance, options });

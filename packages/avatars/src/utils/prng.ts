@@ -1,9 +1,4 @@
-export interface IPrng {
-  seed: string;
-  bool(likelihood?: number): boolean;
-  integer(min: number, max: number): number;
-  pick<T>(arr: T[]): T;
-}
+import type { Prng } from '../types';
 
 const MIN = -2147483648;
 const MAX = 2147483647;
@@ -22,7 +17,7 @@ function randomSeed() {
   return MIN + Math.floor((MAX - MIN) * Math.random());
 }
 
-export function create(seed?: string): IPrng {
+export function create(seed?: string): Prng {
   let value = (seed ? hashSeed(seed) : randomSeed()) || 1;
 
   const next = () => {

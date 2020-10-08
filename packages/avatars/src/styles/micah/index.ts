@@ -1,8 +1,8 @@
-import type { Style } from '../../style';
-import { svg, array } from '../../utils';
+import type { Style } from '../../types';
+import { svg } from '../../utils';
 import type { Options } from './options';
 import * as paths from './paths';
-import * as colors from './colors';
+import colors from './colors';
 import schema from './schema';
 
 const style: Style<Options> = {
@@ -18,27 +18,18 @@ const style: Style<Options> = {
   schema,
   colors,
   create: ({ prng, options }) => {
-    const pickColor = (values: string[], filter: string[] = []) => {
-      return prng.pick(
-        array.filter({
-          array: array.alias({
-            values,
-            aliases: colors,
-            fallback: (v) => v,
-          }),
-          values: filter,
-          preventEmpty: true,
-        })
-      );
+    const pickColor = (values: string[], filter: string[] = []): string => {
+      let result = values
+        .map(val => colors[val] || val)
+        .filter(val => false === filter.includes(val));
+
+      return result.length > 0 ? prng.pick(result) : values[0] || 'transparent';
     };
 
-    const pickPath = (paths: Record<string, (color: string) => string>, values: string[] = []) => {
-      return prng.pick(
-        array.alias({
-          values,
-          aliases: paths,
-        })
-      );
+    const pickPath = <T>(paths: Record<string, T>, values: string[] = []): T | undefined => {
+      let result = values.map(val => paths[val]);
+
+      return result.length > 0 ? prng.pick(result) : undefined;
     };
 
     const baseColor = pickColor(options.baseColor);

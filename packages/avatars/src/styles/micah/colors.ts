@@ -1,13 +1,17 @@
-export const apricot: string = '#F9C9B6';
-export const coast: string = '#AC6651';
-export const topaz: string = '#77311D';
-export const lavender: string = '#9287FF';
-export const sky: string = '#6BD9E9';
-export const salmon: string = '#FC909F';
-export const canary: string = '#F4D150';
-export const calm: string = '#E0DDFF';
-export const azure: string = '#D2EFF3';
-export const seashell: string = '#FFEDEF';
-export const mellow: string = '#FFEBA4';
-export const black: string = '#000000';
-export const white: string = '#FFFFFF';
+const colors: Record<string, string> = {
+  apricot: '#F9C9B6',
+  coast: '#AC6651',
+  topaz: '#77311D',
+  lavender: '#9287FF',
+  sky: '#6BD9E9',
+  salmon: '#FC909F',
+  canary: '#F4D150',
+  calm: '#E0DDFF',
+  azure: '#D2EFF3',
+  seashell: '#FFEDEF',
+  mellow: '#FFEBA4',
+  black: '#000000',
+  white: '#FFFFFF'
+}
+
+export default colors;

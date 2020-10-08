@@ -17,10 +17,15 @@ export type BackgroundColor = Color[];
 export interface Options {
   seed?: Seed;
   radius?: Radius;
+  r?: Radius;
   dataUri?: DataURI;
   width?: Width;
+  w?: Width;
   height?: Height;
+  h?: Height;
   margin?: Margin;
+  m?: Margin;
   backgroundColor?: BackgroundColor;
+  b?: BackgroundColor;
   [k: string]: unknown;
 }

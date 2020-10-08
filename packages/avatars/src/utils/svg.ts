@@ -1,5 +1,5 @@
 import type { Options } from '../options';
-import type { Style, StyleCreateResult } from '../style';
+import type { Style, StyleCreateResult } from '../types';
 
 type CreateGroupProps = {
   children: string;

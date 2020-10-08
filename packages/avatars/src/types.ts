@@ -1,11 +1,17 @@
 import type { JSONSchema7 } from 'json-schema';
-import type { IPrng } from './prng';
 import type { Options } from './options';
+
+export interface Prng {
+  seed: string;
+  bool(likelihood?: number): boolean;
+  integer(min: number, max: number): number;
+  pick<T>(arr: T[]): T;
+}
 
 export type StyleSchema = JSONSchema7;
 
 export interface StyleCreateProps<O> {
-  prng: IPrng;
+  prng: Prng;
   options: O;
 }
 
