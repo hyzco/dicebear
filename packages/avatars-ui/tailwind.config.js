@@ -1,3 +1,11 @@
+const plugin = require('tailwindcss/plugin');
+const fs = require('fs');
+const path = require('path');
+
+let transparent = fs.readFileSync(path.join(__dirname, 'src/transparent.svg'), {
+  encoding: 'utf-8'
+});
+
 module.exports = {
   purge: [],
   theme: {
@@ -12,5 +20,13 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.bg-transparent-shape': {
+          'background-image': `url(data:image/svg+xml;utf8,${encodeURIComponent(transparent)})`
+        }
+      })
+    }),
+  ],
 }

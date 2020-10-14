@@ -8,6 +8,7 @@
   "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
+    "build:styles": "tailwindcss build -o src/styles.css",
     "dev": "rollup -c -w",
     "start": "sirv public",
     "validate": "svelte-check"

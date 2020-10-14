@@ -41,7 +41,7 @@ export default async () => {
       input: watch ? './src/watch.ts' : './src/index.ts',
       plugins: [
         svelte({
-          preprocess: sveltePreprocess({ postcss: true, dev: watch }),
+          preprocess: sveltePreprocess({ dev: watch }),
         }),
         builtins(),
         resolve({ extensions, dedupe: ['svelte'], browser: true }),
@@ -85,7 +85,7 @@ export default async () => {
             input: './src/index.ts',
             plugins: [
               svelte({
-                preprocess: sveltePreprocess({ postcss: true }),
+                preprocess: sveltePreprocess({  }),
               }),
               resolve({ extensions }),
               typescript(),

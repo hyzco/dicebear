@@ -7,7 +7,7 @@
   //export let styles: Styles;
 </script>
 
-<style type="postcss" src="../style.css">
+<style src="../styles.css">
 </style>
 
 <div class="bg-gray-200 border-8 rounded-lg border-gray-200">
@@ -39,7 +39,7 @@
     <div class="text-center">
       <img
         src="https://avatars.dicebear.com/api/male/.svg"
-        class="w-32 h-32 -mt-16 inline-block bg-transparent border-2 border-white rounded-lg"
+        class="w-32 h-32 -mt-16 inline-block bg-transparent-shape border-2 border-white rounded-lg"
         alt="Your Avatar" />
     </div>
     <div class="grid grid-cols-parts gap-16 p-12">
