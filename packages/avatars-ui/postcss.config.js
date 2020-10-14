@@ -13,8 +13,6 @@ const production = !process.env.ROLLUP_WATCH;
 module.exports = {
   plugins: [
     tailwindcss('./tailwind.config.js'),
-    require('postcss-nested'),
-    require('postcss-extend'),
     ...(production ? [purgecss] : []),
   ],
 };

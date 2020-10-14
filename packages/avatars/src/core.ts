@@ -3,7 +3,7 @@ import type { Options } from './options';
 import { svg, schema, prng } from './utils';
 
 export function createAvatar<O extends Options>(style: Style<O>, options: O) {
-  let defaultOptions = schema.defaults(style.schema) as any;
+  let defaultOptions = schema.defaults(style.schema);
 
   options = {
     seed: Math.random().toString(),
