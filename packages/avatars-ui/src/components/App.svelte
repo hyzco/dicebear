@@ -1,13 +1,17 @@
 <script lang="ts">
-  import Button from '@dicebear/avatars-ui/src/components/Button.svelte';
-  import Icon from '@dicebear/avatars-ui/src/components/Icon.svelte';
+  import Button from './Button.svelte';
+  import Icon from './Icon.svelte';
   //import type { Mode, Styles } from '../types';
 
   //export let mode: Mode = ['creator', 'seed'];
   //export let styles: Styles;
 </script>
 
-<style src="../styles.css">
+<style>
+  /** App (<= Fixes https://github.com/sveltejs/svelte/issues/4313) */
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 </style>
 
 <div class="bg-gray-200 border-8 rounded-lg border-gray-200">

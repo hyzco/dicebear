@@ -4,33 +4,12 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import autoExternal from 'rollup-plugin-auto-external';
 import svelte from 'rollup-plugin-svelte';
-import livereload from 'rollup-plugin-livereload';
 import sveltePreprocess from 'svelte-preprocess';
 import builtins from 'rollup-plugin-node-builtins';
 import typescript from '@rollup/plugin-typescript';
 import visualizer from 'rollup-plugin-visualizer';
+import serve from 'rollup-plugin-serve';
 import pkg from './package.json';
-
-export function serve() {
-  let server;
-
-  function toExit() {
-    if (server) server.kill(0);
-  }
-
-  return {
-    writeBundle() {
-      if (server) return;
-      server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-        stdio: ['ignore', 'inherit', 'inherit'],
-        shell: true,
-      });
-
-      process.on('SIGTERM', toExit);
-      process.on('exit', toExit);
-    },
-  };
-}
 
 const watch = !!process.env.ROLLUP_WATCH;
 const extensions = ['.js', '.jsx', '.ts', '.tsx'];
@@ -41,7 +20,7 @@ export default async () => {
       input: watch ? './src/watch.ts' : './src/index.ts',
       plugins: [
         svelte({
-          preprocess: sveltePreprocess({ dev: watch }),
+          preprocess: sveltePreprocess({ postcss: true, dev: false }),
         }),
         builtins(),
         resolve({ extensions, dedupe: ['svelte'], browser: true }),
@@ -49,7 +28,7 @@ export default async () => {
         typescript(),
         babel({ extensions, include: ['src/**/*'] }),
         ...(watch
-          ? [serve(), livereload('public')]
+          ? [serve('public')]
           : [
               terser(),
               visualizer({
@@ -69,8 +48,8 @@ export default async () => {
           globals: watch
             ? {}
             : {
-              '@dicebear/avatars': 'Avatars',
-            },
+                '@dicebear/avatars': 'Avatars',
+              },
         },
       ],
       external: watch ? [] : ['@dicebear/avatars'],
@@ -85,7 +64,7 @@ export default async () => {
             input: './src/index.ts',
             plugins: [
               svelte({
-                preprocess: sveltePreprocess({  }),
+                preprocess: sveltePreprocess({ postcss: true }),
               }),
               resolve({ extensions }),
               typescript(),
