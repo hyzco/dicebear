@@ -1,10 +1,29 @@
 <script lang="ts">
+  import type { Styles, Mode, Scene } from '../types';
+
+  import { afterUpdate } from 'svelte';
+  import { fly, fade } from 'svelte/transition';
+
   import Button from './Button.svelte';
   import Icon from './Icon.svelte';
-  //import type { Mode, Styles } from '../types';
+  import Layout from './Layout.svelte';
+  import CreatorScene from './scenes/Creator.svelte';
+  import ExpertScene from './scenes/Expert.svelte';
+  import ModeScene from './scenes/Mode.svelte';
+  import StyleScene from './scenes/Style.svelte';
+import { createAvatar, micah } from '@dicebear/avatars';
 
   //export let mode: Mode = ['creator', 'seed'];
   //export let styles: Styles;
+
+  let scene: Scene = 'mode';
+  let content: HTMLDivElement;
+  let contentScene: HTMLDivElement;
+  $: contentHeight = content ? contentScene.offsetHeight : 0;
+
+  function changeScene(newScene: Scene) {
+    scene = newScene;
+  }
 </script>
 
 <style>
@@ -14,103 +33,41 @@
   @tailwind utilities;
 </style>
 
-<div class="bg-gray-200 border-8 rounded-lg border-gray-200">
-  <div class="h-16 flex items-start justify-between">
-    <div class="flex">
-      <div class="mr-2">
-        <Button>
-          <Icon name="chevron-left" />
-        </Button>
-      </div>
-    </div>
-    <div class="flex">
-      <div class="ml-2">
-        <Button>
-          <Icon name="refresh" />
-        </Button>
-      </div>
-      <div class="ml-2">
-        <Button>
-          <Icon name="download" />
-        </Button>
-      </div>
+<Layout>
+  <div class="flex" slot="buttonsLeft">
+    <div class="mr-2">
+      <Button on:click={() => changeScene('style')}>
+        <Icon name="chevron-left" />
+      </Button>
     </div>
   </div>
-  <div class="text-center absolute left-0 right-0">
-    <div class="w-32 h-32 -mt-16 inline-block border-2 border-white rounded-lg shadow-md" />
-  </div>
-  <div class="rounded bg-white shadow-md relative">
-    <div class="text-center">
-      <img
-        src="https://avatars.dicebear.com/api/male/.svg"
-        class="w-32 h-32 -mt-16 inline-block bg-transparent-shape border-2 border-white rounded-lg"
-        alt="Your Avatar" />
+
+  <div class="flex" slot="buttonsRight">
+    <div class="ml-2">
+      <Button>
+        <Icon name="refresh" />
+      </Button>
     </div>
-    <div class="grid grid-cols-parts gap-16 p-12">
-      <div>
-        <div class="text-center text-gray-600 text-sm">BASE</div>
-        <div class="flex items-center pt-3">
-          <div class="w-5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-full">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </div>
-          <div class="flex-grow"><img src="https://avatars.dicebear.com/api/male/.svg?b=%23fbefef" alt="" /></div>
-          <div class="w-5">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              class="w-full">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </div>
-        </div>
-        <div class="grid grid-cols-colors gap-2 pt-4">
-          <div>
-            <div class="pt-full bg-red-300 rounded shadow" />
-          </div>
-          <div>
-            <div class="relative pt-full bg-white rounded shadow">
-              <div class="absolute inset-0 flex items-center justify-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  class="w-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="pt-full bg-orange-300 rounded shadow" />
-          </div>
-          <div>
-            <div class="pt-full bg-yellow-300 rounded shadow" />
-          </div>
-          <div>
-            <div class="pt-full bg-green-300 rounded shadow" />
-          </div>
-          <div>
-            <div class="pt-full bg-blue-300 rounded shadow" />
-          </div>
-          <div>
-            <div class="pt-full bg-gray-300 rounded shadow" />
-          </div>
-        </div>
+    <div class="ml-2">
+      <Button>
+        <Icon name="download" />
+      </Button>
+    </div>
+  </div>
+
+  <div slot="content" class="relative overflow-hidden" bind:this={content} style="height: {contentHeight}px;">
+    {#key scene}
+      <div in:fly={{duration: 1000}} out:fade class="absolute top-0 left-0 right-0" bind:this={contentScene}>
+        {#if scene === 'creator'}
+          <CreatorScene />
+        {:else if scene === 'expert'}
+          <ExpertScene />
+        {:else if scene === 'mode'}
+          <ModeScene />
+        {:else if scene === 'style'}
+          <StyleScene />
+        {/if}
       </div>
-    </div>
+    {/key}
   </div>
-</div>
-<p class="text-right text-xs text-gray-400 pr-2 pt-1">
-  Powered By
-  <a href="https://avatars.dicebear.com" class="font-semibold hover:underline">DiceBear Avatars</a>
-</p>
+</Layout>

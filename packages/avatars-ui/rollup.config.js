@@ -21,6 +21,7 @@ export default async () => {
       plugins: [
         svelte({
           preprocess: sveltePreprocess({ postcss: true, dev: false }),
+          dev: watch
         }),
         builtins(),
         resolve({ extensions, dedupe: ['svelte'], browser: true }),
