@@ -14,12 +14,6 @@
   @tailwind utilities;
 </style>
 
-<div class="text-center">
-  <img
-    src="https://avatars.dicebear.com/api/male/.svg"
-    class="w-32 h-32 -mt-16 inline-block bg-transparent-shape border-2 border-white rounded-lg"
-    alt="Your Avatar" />
-</div>
 <div class="grid grid-cols-parts gap-16 p-12">
   <div>
     <div class="text-center text-gray-600 text-sm">CREATOR</div>
