@@ -1,10 +1,9 @@
 import App from './components/App.svelte';
-import type { Mode, Styles } from './types';
+import type { Modes, Styles } from './types';
 
 type Options = {
   target: Element;
-  withWrapper?: boolean;
-  mode?: Mode;
+  modes?: Modes;
   styles: Styles;
 };
 

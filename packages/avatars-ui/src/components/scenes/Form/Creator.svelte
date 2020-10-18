@@ -2,10 +2,10 @@
 </script>
 
 <style>
-  /** Scenes/Style (<= Fixes https://github.com/sveltejs/svelte/issues/4313) */
+  /** Scenes/Form/Creator (<= Fixes https://github.com/sveltejs/svelte/issues/4313) */
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
 </style>
 
-<div>Style</div>
+Creator

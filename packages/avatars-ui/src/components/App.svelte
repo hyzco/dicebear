@@ -1,25 +1,27 @@
 <script lang="ts">
-  import type { Styles, Mode, Scene } from '../types';
+  import type { Styles, Modes, Scene, Mode, StyleContext, OptionsContext, ModeContext } from '../types';
 
-  import { createAvatar } from '@dicebear/avatars';
+  import { createAvatar, Style } from '@dicebear/avatars';
   import Button from './Button.svelte';
   import Icon from './Icon.svelte';
-  import CreatorScene from './scenes/Creator.svelte';
-  import DeterministicScene from './scenes/Deterministic.svelte';
+  import FormScene from './scenes/Form.svelte';
   import ModeScene from './scenes/Mode.svelte';
   import StyleScene from './scenes/Style.svelte';
+  import { afterUpdate, setContext } from 'svelte';
 
-  export let mode: Mode = ['creator', 'deterministic'];
+  export let modes: Modes = ['creator'];
   export let styles: Styles;
 
-  let scene = getInitialScene();
-  let style = getInitialStyle();
+  let mode: Mode = modes[0];
+  let style = styles[0];
+  let scene = getPossibleScenes()[0];
   let options: any = {};
   let contentHeight = 0;
+  let contentTransitions = false;
 
   $: backScene = getBackScene();
-  $: avatar = style
-    ? createAvatar(styles[style], {
+  $: avatar = scene === 'form'
+    ? createAvatar(style, {
         ...options,
         width: undefined,
         height: undefined,
@@ -27,50 +29,68 @@
       })
     : undefined;
 
-  function getPossibleModes() {
-    return Array.isArray(mode) ? mode : [mode];
+  setContext<ModeContext>('mode', {
+    get: () => mode,
+    set: changeMode,
+  });
+
+  setContext<StyleContext>('style', {
+    get: () => style,
+    set: changeStyle,
+  });
+
+  setContext<OptionsContext>('options', {
+    get: () => options,
+    set: changeOptions,
+  });
+
+  afterUpdate(async () => {
+    setTimeout(() => {
+      contentTransitions = contentHeight > 0;
+    }, 100);
+  });
+
+  function changeMode(newMode: Mode) {
+    mode = newMode;
+    scene = getPossibleScenes().filter((v) => v !== 'mode')[0];
+    options = {};
+  }
+
+  function changeStyle(newStyle: Style<any>) {
+    style = newStyle;
+    scene = 'form';
+    options = {};
   }
 
   function changeScene(newScene: Scene) {
     scene = newScene;
   }
 
-  function getInitialStyle(): string | undefined {
-    let possibleModes = getPossibleModes();
-
-    return possibleModes.length === 1 && Object.keys(styles).length === 1 ? Object.keys(styles)[0] : undefined;
+  function changeOptions(newOptions: any) {
+    options = newOptions;
   }
 
-  function getInitialScene(): Scene {
-    let possibleModes = getPossibleModes();
+  function getPossibleScenes() {
+    let scenes: Scene[] = [];
 
-    if (possibleModes.length > 1) {
-      return 'mode';
-    } else if (Object.keys(styles).length > 1) {
-      return 'style';
-    } else {
-      return possibleModes[0];
-    }
-  }
-
-  function getBackScene(): Scene {
-    let possibleModes = getPossibleModes();
-
-    switch (scene) {
-      case 'mode':
-        return undefined;
-
-      case 'style':
-        return possibleModes.length > 1 ? 'mode' : undefined;
+    if (modes.length > 1) {
+      scenes.push('mode');
     }
 
     if (Object.keys(styles).length > 1) {
-      return 'style';
-    } else if (possibleModes.length > 1) {
-      return 'mode';
-    } else {
-      return undefined;
+      scenes.push('style');
     }
+
+    scenes.push('form');
+
+    return scenes;
+  }
+
+  function getBackScene(): Scene {
+    let possibleScenes = getPossibleScenes();
+    let currentSceneIndex = possibleScenes.indexOf(scene);
+
+    return currentSceneIndex === 0 ? undefined : possibleScenes[currentSceneIndex - 1];
   }
 </script>
 
@@ -115,18 +135,16 @@
   {/if}
   <div class="rounded bg-white shadow-md relative">
     <div
-      class="relative overflow-hidden transition-all ease-out duration-150"
+      class="relative overflow-hidden ${contentTransitions ? 'transition-all ease-out duration-150' : ''}"
       style="height: {contentHeight}px;">
       {#key scene}
         <div class="absolute top-0 left-0 right-0" bind:offsetHeight={contentHeight}>
-          {#if scene === 'creator'}
-            <CreatorScene />
-          {:else if scene === 'deterministic'}
-            <DeterministicScene />
-          {:else if scene === 'mode'}
-            <ModeScene />
+          {#if scene === 'mode'}
+            <ModeScene modes={modes} />
           {:else if scene === 'style'}
             <StyleScene />
+          {:else if scene === 'form'}
+            <FormScene />
           {/if}
         </div>
       {/key}
