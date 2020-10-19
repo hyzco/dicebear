@@ -8,16 +8,25 @@ export type Scene = 'form' | 'mode' | 'style';
 export type IconName = 'refresh' | 'download' | 'chevron-left' | 'chevron-right' | 'check';
 
 export type ModeContext = {
-  get: () => Mode,
-  set: (mode: Mode) => unknown
-}
+  get: () => Mode;
+  set: (mode: Mode) => unknown;
+};
 
 export type StyleContext = {
-  get: () => Style<any>,
-  set: (style: Style<any>) => unknown
-}
+  get: () => Style<any>;
+  set: (style: Style<any>) => unknown;
+};
 
 export type OptionsContext = {
-  get: () => any,
-  set: (options: any) => unknown
-}
+  get: () => any;
+  set: (options: any) => unknown;
+};
+
+export type I18n = {
+  modeHeadline: string;
+  styleHeadline: string;
+  creatorModeDescription: string;
+  deterministicModeDescription: string;
+};
+
+export type TransContext = I18n;

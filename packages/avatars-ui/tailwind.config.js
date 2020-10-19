@@ -17,6 +17,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
+        cards: 'repeat(auto-fill, minmax(240px, 1fr))',
         parts: 'repeat(auto-fill, minmax(120px, 1fr))',
         colors: 'repeat(auto-fill, minmax(22px, 1fr))',
       },

@@ -1,10 +1,11 @@
 import App from './components/App.svelte';
-import type { Modes, Styles } from './types';
+import type { I18n, Modes, Styles } from './types';
 
 type Options = {
   target: Element;
   modes?: Modes;
   styles: Styles;
+  i18n?: I18n;
 };
 
 export default (options: Options) => {
