@@ -1,0 +1,45 @@
+{
+  "name": "test3",
+  "version": "1.0.0",
+  "description": "Test3 Avatar Style for DiceBear Avatars.",
+  "source": "src/index.ts",
+  "main": "dist/test3.js",
+  "umd:main": "dist/test3.umd.js",
+  "module": "dist/test3.m.js",
+  "esmodule": "dist/test3.modern.js",
+  "types": "dist/test3.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@dicebear/avatars": "^4.2.5",
+    "@dicebear/avatars-cli": "^4.2.5",
+    "microbundle": "^0.12.4"
+  },
+  "peerDependencies": {
+    "@dicebear/avatars": "^4.2.5"
+  },
+  "scripts": {
+    "watch": "microbundle watch --name Test3 --globals @dicebear/avatars=Avatars",
+    "build": "npm run build:schema && npm run build:js",
+    "build:schema": "avatars build/schema.js",
+    "build:js": "microbundle --name Test3 --globals @dicebear/avatars=Avatars"
+  },
+  "author": "John Doe ",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{user}}/user/repo.git"
+  },
+  "keywords": [
+    "avatars-style"
+  ],
+  "bugs": {
+    "url": "https://github.com/user/repo/issues"
+  },
+  "homepage": "https://github.com/user/repo#readme",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

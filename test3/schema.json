@@ -1,0 +1,89 @@
+{
+  "$id": "https://avatars.dicebear.com/styles/test3/schema.json",
+  "type": "object",
+  "definitions": {
+    "colors": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "apricot",
+              "coast",
+              "topaz",
+              "lavender",
+              "sky",
+              "salmon",
+              "canary",
+              "calm",
+              "azure",
+              "seashell",
+              "mellow",
+              "black",
+              "white"
+            ]
+          },
+          {
+            "$ref": "https://avatars.dicebear.com/schema.json#/definitions/color"
+          }
+        ]
+      },
+      "default": [
+        "apricot",
+        "coast",
+        "topaz",
+        "lavender",
+        "sky",
+        "salmon",
+        "canary",
+        "calm",
+        "azure",
+        "seashell",
+        "mellow",
+        "black",
+        "white"
+      ],
+      "examples": [
+        ["apricot"],
+        ["coast"],
+        ["topaz"],
+        ["lavender"],
+        ["sky"],
+        ["salmon"],
+        ["canary"],
+        ["calm"],
+        ["azure"],
+        ["seashell"],
+        ["mellow"],
+        ["black"],
+        ["white"]
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "https://avatars.dicebear.com/schema.json"
+    },
+    {
+      "properties": {
+        "shape": {
+          "type": "array",
+          "title": "Base",
+          "items": {
+            "type": "string",
+            "enum": ["standard"]
+          },
+          "default": ["standard"],
+          "examples": ["standard"]
+        },
+        "shapeColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Base Color",
+          "default": ["apricot", "coast", "topaz"],
+          "examples": [["apricot"], ["coast"], ["topaz"]]
+        }
+      }
+    }
+  ]
+}

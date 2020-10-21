@@ -1,12 +1,1 @@
-//export * from './ashley';
-//export * from './avataaars';
-//export * from './bottts';
-//export * from './gridy';
-//export * from './humaaans';
-//export * from './identicon';
-//export * from './initials';
-//export * from './kyute';
 export { default as micah } from './micah';
-//export * from './open-peeps';
-//export * from './personas';
-//export * from './pixel-art';

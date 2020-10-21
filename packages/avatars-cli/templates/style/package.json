@@ -1,0 +1,45 @@
+{
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "description": "{{uc_name}} Avatar Style for DiceBear Avatars.",
+  "source": "src/index.ts",
+  "main": "dist/{{name}}.js",
+  "umd:main": "dist/{{name}}.umd.js",
+  "module": "dist/{{name}}.m.js",
+  "esmodule": "dist/{{name}}.modern.js",
+  "types": "dist/{{name}}.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@dicebear/avatars": "^4.2.5",
+    "@dicebear/avatars-cli": "^4.2.5",
+    "microbundle": "^0.12.4"
+  },
+  "peerDependencies": {
+    "@dicebear/avatars": "^4.2.5"
+  },
+  "scripts": {
+    "watch": "microbundle watch --name {{uc_name}} --globals @dicebear/avatars=Avatars",
+    "build": "npm run build:schema && npm run build:js",
+    "build:schema": "avatars build/schema.js",
+    "build:js": "microbundle --name {{uc_name}} --globals @dicebear/avatars=Avatars"
+  },
+  "author": "{{author_name}} {{author_email}}",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/{{user}}/{{repo}}.git"
+  },
+  "keywords": [
+    "avatars-style"
+  ],
+  "bugs": {
+    "url": "https://github.com/{{repo}}/issues"
+  },
+  "homepage": "https://github.com/{{repo}}#readme",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

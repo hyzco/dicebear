@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "definitions": {
+    "colors": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": ["red", "green", "blue"]
+          },
+          {
+            "$ref": "https://avatars.dicebear.com/schema.json#/definitions/color"
+          }
+        ]
+      },
+      "default": ["red", "green", "blue"],
+      "examples": [["red"], ["green"], ["blue"]]
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "https://avatars.dicebear.com/schema.json"
+    },
+    {
+      "properties": {
+        "shape": {
+          "type": "array",
+          "title": "Shape",
+          "items": {
+            "type": "string",
+            "enum": ["polygon", "star", "ellipse"]
+          },
+          "default": ["polygon", "star", "ellipse"],
+          "examples": [["polygon"], ["star"], ["ellipse"]]
+        },
+        "shapeColor": {
+          "$ref": "#/definitions/colors",
+          "title": "Base Color",
+          "default": ["apricot", "coast", "topaz"],
+          "examples": [["apricot"], ["coast"], ["topaz"]]
+        }
+      }
+    }
+  ]
+}

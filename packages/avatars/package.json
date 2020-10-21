@@ -2,18 +2,20 @@
   "name": "@dicebear/avatars",
   "version": "4.2.0",
   "description": "Avatar generator library for designers and developers.",
-  "main": "dist/cjs/avatars.js",
-  "module": "dist/esm/avatars.js",
-  "browser": "dist/amd/avatars.min.js",
-  "types": "dist/types/index.d.ts",
+  "source": "src/index.ts",
+  "main": "dist/avatars.js",
+  "umd:main": "dist/avatars.umd.js",
+  "module": "dist/avatars.m.js",
+  "esmodule": "dist/avatars.modern.js",
+  "types": "dist/avatars.d.ts",
   "dependencies": {
     "@types/json-schema": "^7.0.5"
   },
   "scripts": {
+    "dev": "microbundle watch",
+    "build": "npm run build:schema && npm run build:js",
     "build:schema": "node build/schema.js",
-    "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/types",
-    "build:js": "rollup -c",
-    "build": "npm run build:types && npm run build:js"
+    "build:js": "microbundle --name Avatars"
   },
   "author": "Florian Körner <contact@dicebear.com>",
   "license": "MIT",
