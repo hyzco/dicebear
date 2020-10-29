@@ -2,7 +2,13 @@
   "name": "root",
   "private": true,
   "scripts": {},
-  "workspaces": [
-    "packages/*"
-  ]
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/preact",
+      "**/preact/**"
+    ]
+  }
 }

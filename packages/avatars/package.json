@@ -7,14 +7,18 @@
   "umd:main": "dist/avatars.umd.js",
   "module": "dist/avatars.m.js",
   "esmodule": "dist/avatars.modern.js",
-  "types": "dist/avatars.d.ts",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@types/json-schema": "^7.0.5"
+  },
+  "devDependencies": {
+    "@dicebear/avatars-cli": "^4.0.0",
+    "babel-plugin-remove-template-literals-whitespace": "^1.0.3"
   },
   "scripts": {
     "dev": "microbundle watch",
     "build": "npm run build:schema && npm run build:js",
-    "build:schema": "node build/schema.js",
+    "build:schema": "avatars options:build",
     "build:js": "microbundle --name Avatars"
   },
   "author": "Florian Körner <contact@dicebear.com>",
