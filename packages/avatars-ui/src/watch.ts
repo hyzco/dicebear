@@ -1,8 +1,8 @@
-import app from '.';
-import { micah } from '@dicebear/avatars';
+import { createAvatarUI } from '.';
+import * as micah from '@dicebear/avatars-micah';
 
-export default app({
+createAvatarUI({
   target: document.body,
   modes: ['creator', 'deterministic'],
-  styles: [micah],
+  styles: { micah },
 });

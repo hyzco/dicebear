@@ -1,121 +1,74 @@
 <script lang="ts">
-  import type {
-    Styles,
-    Modes,
-    Scene,
-    Mode,
-    StyleContext as _StyleContext, // <= Fix prettier parsing error
-    OptionsContext,
-    ModeContext,
-    I18n,
-    TransContext
-  } from '../types';
+  import type { Mode, Context, Options } from '../types';
 
-  import type { Style } from '@dicebear/avatars';
-  import { createAvatar } from '@dicebear/avatars';
   import Button from './Button.svelte';
-  import Icon from './Icon.svelte';
   import FormScene from './scenes/Form.svelte';
   import ModeScene from './scenes/Mode.svelte';
   import StyleScene from './scenes/Style.svelte';
-  import { afterUpdate, getContext, setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
+  import defaultLocales from '../locales';
+  import { getBackScene, getPossibleScenes } from '../lib/scene';
+  import { createPreviewAvatar } from '../lib/avatar';
 
-  export let modes: Modes = ['creator'];
-  export let styles: Styles;
-  export let i18n: Partial<I18n> = {};
+  export let options: Options;
+
+  let { styles, modes = ['creator'], locales = {}, locale = 'en_US', fallbackLocale = 'en_US' } = options;
 
   let mode: Mode = modes[0];
-  let style = styles[0];
-  let scene = getPossibleScenes()[0];
-  let options: any = {};
+  let style = Object.values(styles)[0];
+  let scene = getPossibleScenes(modes, styles)[0];
+  let avatarOptions: any = {};
   let contentHeight = 0;
   let contentTransitions = false;
+  let avatar: string | undefined;
 
-  $: trans = getContext<TransContext>('trans');
-  $: backScene = getBackScene();
-  $: avatar =
-    scene === 'form'
-      ? createAvatar(style, {
-          ...options,
-          width: undefined,
-          height: undefined,
-          base64: true,
-        })
-      : 'data:,';
+  let i18n = {
+    ...(defaultLocales[fallbackLocale] || {}),
+    ...(defaultLocales[locale] || {}),
+    ...(locales[fallbackLocale] || {}),
+    ...(locales[locale] || {}),
+  };
 
-  setContext<TransContext>('trans', {
-    modeHeadline: 'Choose a mode',
-    styleHeadline: 'Choose a style',
-    creatorModeDescription: 'Create a individual avatar piece by piece.',
-    deterministicModeDescription: 'Create deterministic avatars from a seed.',
-    ...i18n,
-  });
+  let context: Context = {
+    i18n: {
+      get: (key) => i18n[key],
+    },
+    mode: {
+      get: () => mode,
+      set: (newMode) => {
+        mode = newMode;
+        scene = getPossibleScenes(modes, styles).filter((v) => v !== 'mode')[0];
+        avatarOptions = {};
+      },
+    },
+    style: {
+      get: () => style,
+      set: (newStyle) => {
+        style = newStyle;
+        scene = 'form';
+        avatarOptions = {};
+      },
+    },
+    avatarOptions: {
+      get: () => avatarOptions,
+      set: (newAvatarOptions) => (avatarOptions = newAvatarOptions),
+    },
+    scene: {
+      get: () => scene,
+      set: (newScene) => (scene = newScene),
+    },
+  };
 
-  setContext<ModeContext>('mode', {
-    get: () => mode,
-    set: changeMode,
-  });
+  setContext('context', context);
 
-  setContext<_StyleContext>('style', {
-    get: () => style,
-    set: changeStyle,
-  });
+  $: backScene = getBackScene(modes, styles, scene);
+  $: avatar = createPreviewAvatar(style, avatarOptions);
 
-  setContext<OptionsContext>('options', {
-    get: () => options,
-    set: changeOptions,
-  });
-
-  afterUpdate(async () => {
+  onMount(async () => {
     setTimeout(() => {
       contentTransitions = contentHeight > 0;
     }, 100);
   });
-
-  function changeMode(newMode: Mode) {
-    mode = newMode;
-    scene = getPossibleScenes().filter((v) => v !== 'mode')[0];
-    options = {};
-  }
-
-  function changeStyle(newStyle: Style<any>) {
-    style = newStyle;
-    scene = 'form';
-    options = {};
-  }
-
-  function changeScene(newScene: Scene) {
-    scene = newScene;
-  }
-
-  function changeOptions(newOptions: any) {
-    options = newOptions;
-  }
-
-  function getPossibleScenes() {
-    let scenes: Scene[] = [];
-
-    if (modes.length > 1) {
-      scenes.push('mode');
-    }
-
-    if (Object.keys(styles).length > 1) {
-      scenes.push('style');
-    }
-
-    scenes.push('form');
-
-    return scenes;
-  }
-
-  function getBackScene(): Scene {
-    let possibleScenes = getPossibleScenes();
-    let currentSceneIndex = possibleScenes.indexOf(scene);
-
-    console.log(currentSceneIndex);
-
-    return currentSceneIndex === 0 ? undefined : possibleScenes[currentSceneIndex - 1];
-  }
 </script>
 
 <style>
@@ -130,15 +83,15 @@
     <div class="flex w-1/3">
       {#if backScene}
         <div class="mr-2">
-          <Button on:click={() => changeScene(backScene)} icon="chevron-left" />
+          <Button on:click={() => context.scene.set(backScene)} icon="chevron-left" />
         </div>
       {/if}
     </div>
     <div class="w-1/3 flex justify-center items-end ">
       {#if scene === 'mode'}
-        <h1 class="text-2xl text-gray-600">{trans.modeHeadline}</h1>
+        <h1 class="text-2xl text-gray-600">{context.i18n.get('modeHeadline')}</h1>
       {:else if scene === 'style'}
-        <h1 class="text-2xl text-gray-600">{trans.styleHeadline}</h1>
+        <h1 class="text-2xl text-gray-600">{context.i18n.get('styleHeadline')}</h1>
       {:else if scene === 'form'}
         <div class="text-center left-0 right-0">
           <img

@@ -1,9 +1,9 @@
-import type { Style } from '../../types';
-import { svg } from '../../utils';
+import type { Style } from '@dicebear/avatars';
+import { utils } from '@dicebear/avatars';
 import type { Options } from './options';
 import * as paths from './paths';
 import colors from './colors';
-import schema from './schema';
+import schema from './schema.js';
 
 const style: Style<Options> = {
   meta: {
@@ -19,15 +19,13 @@ const style: Style<Options> = {
   colors,
   create: ({ prng, options }) => {
     const pickColor = (values: string[], filter: string[] = []): string => {
-      let result = values
-        .map(val => colors[val] || val)
-        .filter(val => false === filter.includes(val));
+      let result = values.map((val) => colors[val] || val).filter((val) => false === filter.includes(val));
 
       return result.length > 0 ? prng.pick(result) : values[0] || 'transparent';
     };
 
     const pickPath = <T>(paths: Record<string, T>, values: string[] = []): T | undefined => {
-      let result = values.map(val => paths[val]);
+      let result = values.map((val) => paths[val]);
 
       return result.length > 0 ? prng.pick(result) : undefined;
     };
@@ -59,17 +57,17 @@ const style: Style<Options> = {
         fill: 'none',
       },
       body: `
-        ${base ? svg.createGroup({ children: base(baseColor), x: 90, y: 43 }) : ''}
-        ${facialHair ? svg.createGroup({ children: facialHair(facialHairColor), x: 124, y: 145.3 }) : ''}
-        ${mouth ? svg.createGroup({ children: mouth('#000'), x: 180, y: 203 }) : ''}
-        ${eyebrows ? svg.createGroup({ children: eyebrows(eyebrowColor), x: 120, y: 122 }) : ''}
-        ${hair ? svg.createGroup({ children: hair(hairColor), x: 59, y: 31 }) : ''}
-        ${eyes ? svg.createGroup({ children: eyes(eyeColor), x: 152, y: 139 }) : ''}
-        ${glasses ? svg.createGroup({ children: glasses(glassesColor), x: 112, y: 131 }) : ''}
-        ${nose ? svg.createGroup({ children: nose('#000'), x: 186.37, y: 168.42 }) : ''}
-        ${ears ? svg.createGroup({ children: ears(baseColor), x: 94, y: 174 }) : ''}
-        ${earrings ? svg.createGroup({ children: earrings(earringColor), x: 97, y: 209 }) : ''}
-        ${shirt ? svg.createGroup({ children: shirt(shirtColor), x: 63, y: 292 }) : ''}
+        ${base ? utils.svg.createGroup({ children: base(baseColor), x: 90, y: 43 }) : ''}
+        ${facialHair ? utils.svg.createGroup({ children: facialHair(facialHairColor), x: 124, y: 145.3 }) : ''}
+        ${mouth ? utils.svg.createGroup({ children: mouth('#000'), x: 180, y: 203 }) : ''}
+        ${eyebrows ? utils.svg.createGroup({ children: eyebrows(eyebrowColor), x: 120, y: 122 }) : ''}
+        ${hair ? utils.svg.createGroup({ children: hair(hairColor), x: 59, y: 31 }) : ''}
+        ${eyes ? utils.svg.createGroup({ children: eyes(eyeColor), x: 152, y: 139 }) : ''}
+        ${glasses ? utils.svg.createGroup({ children: glasses(glassesColor), x: 112, y: 131 }) : ''}
+        ${nose ? utils.svg.createGroup({ children: nose('#000'), x: 186.37, y: 168.42 }) : ''}
+        ${ears ? utils.svg.createGroup({ children: ears(baseColor), x: 94, y: 174 }) : ''}
+        ${earrings ? utils.svg.createGroup({ children: earrings(earringColor), x: 97, y: 209 }) : ''}
+        ${shirt ? utils.svg.createGroup({ children: shirt(shirtColor), x: 63, y: 292 }) : ''}
       `,
     };
   },

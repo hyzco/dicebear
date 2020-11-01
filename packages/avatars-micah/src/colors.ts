@@ -11,7 +11,7 @@ const colors: Record<string, string> = {
   seashell: '#FFEDEF',
   mellow: '#FFEBA4',
   black: '#000000',
-  white: '#FFFFFF'
-}
+  white: '#FFFFFF',
+};
 
 export default colors;

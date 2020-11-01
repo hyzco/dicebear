@@ -63,10 +63,10 @@ export function defaults(schema: JSONSchema7) {
     if (defaultValue) {
       result = {
         ...result,
-        [key]: defaultValue
-      }
+        [key]: defaultValue,
+      };
     }
-  })
+  });
 
   return result;
 }
@@ -80,10 +80,10 @@ export function examples(schema: JSONSchema7) {
     if (examples) {
       result = {
         ...result,
-        [key]: examples
-      }
+        [key]: examples,
+      };
     }
-  })
+  });
 
   return result;
 }
@@ -97,15 +97,12 @@ export function aliases(schema: JSONSchema7) {
     if (title) {
       result = {
         ...result,
-        [title]: [
-          ...result[title] || [],
-          key
-        ]
-      }
+        [title]: [...(result[title] || []), key],
+      };
     }
-  })
+  });
 
-  return Object.values(result).filter(val => val.length > 1);
+  return Object.values(result).filter((val) => val.length > 1);
 }
 
 export function iterateProperties(schema: JSONSchema7, callback: (val: JSONSchema7, key: string) => unknown) {

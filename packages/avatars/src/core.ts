@@ -18,8 +18,8 @@ export function createAvatar<O extends Options>(style: Style<O>, options: O) {
 
     aliases.forEach((alias: keyof O) => {
       options[alias] = val;
-    })
-  })
+    });
+  });
 
   let prngInstance = prng.create(options.seed);
   let result = style.create({ prng: prngInstance, options });

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { Modes, TransContext, ModeContext } from '../../types';
+  import type { Context, Modes } from '../../types';
+
   import { getContext } from 'svelte';
   import Button from '../Button.svelte';
 
   export let modes: Modes;
 
-  $: trans = getContext<TransContext>('trans');
-  $: modeCtx = getContext<ModeContext>('mode');
+  let context = getContext<Context>('context');
 </script>
 
 <style>
@@ -23,11 +23,11 @@
         <h2 class="text-xl mb-6 text-gray-700 capitalize">{mode}</h2>
         <p class="text-gray-600 mb-8 flex-grow">
           {#if mode === 'creator'}
-            {trans.creatorModeDescription}
-          {:else if mode === 'deterministic'}{trans.deterministicModeDescription}{/if}
+            {context.i18n.get('creatorModeDescription')}
+          {:else if mode === 'deterministic'}{context.i18n.get('deterministicModeDescription')}{/if}
         </p>
         <div class="text-center">
-          <Button on:click={() => modeCtx.set(mode)}>Select</Button>
+          <Button on:click={() => context.mode.set(mode)}>Select</Button>
         </div>
       </div>
     {/each}
