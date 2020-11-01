@@ -4,11 +4,9 @@
   "scripts": {},
   "workspaces": {
     "packages": [
+      "docs",
       "packages/*"
     ],
-    "nohoist": [
-      "**/preact",
-      "**/preact/**"
-    ]
+    "nohoist": []
   }
 }
