@@ -79,7 +79,7 @@
 </style>
 
 <div class="bg-gray-200 border-8 rounded-lg border-gray-200">
-  <div class="h-10 flex mb-6">
+  <div class="h-10 flex h-16">
     <div class="flex w-1/3">
       {#if backScene}
         <div class="mr-2">
@@ -87,16 +87,16 @@
         </div>
       {/if}
     </div>
-    <div class="w-1/3 flex justify-center items-end ">
+    <div class="w-1/3 flex justify-center items-center whitespace-no-wrap">
       {#if scene === 'mode'}
-        <h1 class="text-2xl text-gray-600">{context.i18n.get('modeHeadline')}</h1>
+        <h1 class="text-2xl text-gray-600 mb-2">{context.i18n.get('modeHeadline')}</h1>
       {:else if scene === 'style'}
-        <h1 class="text-2xl text-gray-600">{context.i18n.get('styleHeadline')}</h1>
+        <h1 class="text-2xl text-gray-600 mb-2">{context.i18n.get('styleHeadline')}</h1>
       {:else if scene === 'form'}
-        <div class="text-center left-0 right-0">
+        <div class="text-center left-0 right-0 self-start">
           <img
             src={avatar}
-            class="w-32 h-32 -mt-16 inline-block border-2 border-white rounded-lg shadow-md bg-transparent-shape"
+            class="w-32 h-auto max-w-full -mb-16 inline-block border-2 border-white rounded-lg shadow-md bg-transparent-shape z-10 relative"
             alt="Your Avatar" />
         </div>
       {/if}
@@ -117,7 +117,7 @@
       class="relative overflow-hidden ${contentTransitions ? 'transition-all ease-out duration-150' : ''}"
       style="height: {contentHeight}px;">
       {#key scene}
-        <div class="absolute top-0 left-0 right-0" bind:offsetHeight={contentHeight}>
+        <div class="absolute top-0 left-0 right-0 p-6 sm:p-8 md:p-10 lg:p-12" bind:offsetHeight={contentHeight}>
           {#if scene === 'mode'}
             <ModeScene {modes} />
           {:else if scene === 'style'}

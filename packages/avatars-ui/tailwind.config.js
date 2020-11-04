@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin');
 const fs = require('fs');
 const path = require('path');
 
-let transparent = fs.readFileSync(path.join(__dirname, 'src/transparent.svg'), {
+let transparent = fs.readFileSync(path.join(__dirname, 'src/img/transparent.svg'), {
   encoding: 'utf-8',
 });
 
