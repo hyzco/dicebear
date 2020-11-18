@@ -30,14 +30,14 @@ const style: Style<Options> = {
       return result.length > 0 ? prng.pick(result) : undefined;
     };
 
-    const baseColor = pickColor(options.baseColor);
-    const hairColor = pickColor(options.hairColor, [baseColor]);
-    const shirtColor = pickColor(options.shirtColor, [baseColor]);
-    const earringColor = pickColor(options.earringColor, [baseColor, hairColor]);
-    const glassesColor = pickColor(options.glassesColor, [baseColor, hairColor]);
-    const eyeColor = pickColor(options.eyeColor, [baseColor, glassesColor]);
-    const eyebrowColor = pickColor(options.eyebrowColor, [baseColor, glassesColor, eyeColor]);
-    const facialHairColor = pickColor(options.facialHairColor, [baseColor]);
+    const baseColor = pickColor(options.baseColor ?? []);
+    const hairColor = pickColor(options.hairColor ?? [], [baseColor]);
+    const shirtColor = pickColor(options.shirtColor ?? [], [baseColor]);
+    const earringColor = pickColor(options.earringColor ?? [], [baseColor, hairColor]);
+    const glassesColor = pickColor(options.glassesColor ?? [], [baseColor, hairColor]);
+    const eyeColor = pickColor(options.eyeColor ?? [], [baseColor, glassesColor]);
+    const eyebrowColor = pickColor(options.eyebrowColor ?? [], [baseColor, glassesColor, eyeColor]);
+    const facialHairColor = pickColor(options.facialHairColor ?? [], [baseColor]);
 
     const shirt = pickPath(paths.shirt, options.shirt);
     const earrings = prng.bool(options.earringsProbability) && pickPath(paths.earrings, options.earrings);

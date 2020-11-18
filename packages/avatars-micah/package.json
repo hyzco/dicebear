@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "microbundle watch",
     "build": "npm run build:schema && npm run build:js",
-    "build:schema": "avatars options:build",
+    "build:schema": "avatars schema:create-types ./src/schema.json ./src/options.ts",
     "build:js": "microbundle --name AvatarsMicah --globals @dicebear/avatars=Avatars"
   },
   "author": "Florian Körner <contact@dicebear.com>",
