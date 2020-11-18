@@ -2,12 +2,7 @@ import { compile } from 'json-schema-to-typescript';
 import path from 'path';
 import fs from 'fs-extra';
 
-interface Options {
-  input: string;
-  output?: string;
-}
-
-export async function createTypes({ input, output }: Options): Promise<string> {
+export async function createTypes(input: string, output?: string): Promise<string> {
   let filePath = path.join(process.cwd(), input);
 
   let content = await compile(require(filePath), 'Options', {

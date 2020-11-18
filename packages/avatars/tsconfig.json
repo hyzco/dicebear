@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "moduleResolution": "node",
-    "lib": ["es2020", "dom"],
-    "noImplicitAny": true,
-    "sourceMap": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "strict": true,
     "esModuleInterop": true,
-    "importsNotUsedAsValues": "error",
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true
-  },
-  "include": ["./src/**/*", "./tests/**/*"]
+  }
 }

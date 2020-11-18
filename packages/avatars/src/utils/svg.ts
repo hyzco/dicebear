@@ -75,6 +75,10 @@ export function getViewBox(result: StyleCreateResult) {
 }
 
 export function addMargin<O extends Options>(result: StyleCreateResult, options: O) {
+  if (undefined === options.margin) {
+    return result.body;
+  }
+
   let viewBox = getViewBox(result);
   let translateX = (viewBox.width * options.margin) / 100;
   let translateY = (viewBox.height * options.margin) / 100;
@@ -108,6 +112,10 @@ export function addBackgroundColor<O extends Options>(result: StyleCreateResult,
 }
 
 export function addRadius<O extends Options>(result: StyleCreateResult, options: O) {
+  if (undefined === options.radius) {
+    return result.body;
+  }
+
   let viewBox = getViewBox(result);
   let width = viewBox.width.toString();
   let height = viewBox.height.toString();

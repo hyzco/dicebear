@@ -15,7 +15,7 @@ export function resolve(schema: JSONSchema7, dependencies: JSONSchema7[] = []): 
   schema = clone(schema);
   dependencies = dependencies.map(clone);
 
-  const traverse = (parent: Record<string, any>, field: string = undefined, base = 'http://localhost') => {
+  const traverse = (parent: Record<string, any>, field: string | undefined = undefined, base = 'http://localhost') => {
     let obj = field ? parent[field] : parent;
     let [path, hash] = base.split('#');
     let url = obj.$id ? new URL(obj.$id, path).toString() : field ? `${path}#${hash || ''}/${field}` : path;
@@ -24,7 +24,7 @@ export function resolve(schema: JSONSchema7, dependencies: JSONSchema7[] = []): 
 
     if (obj === Object(obj)) {
       Object.keys(obj).forEach((prop) => {
-        if (prop === '$ref') {
+        if (prop === '$ref' && field) {
           refs.push({
             parent,
             field,

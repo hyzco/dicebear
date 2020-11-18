@@ -12,7 +12,7 @@ export function createAvatar<O extends Options>(style: Style<O>, options: O) {
   };
 
   schema.aliases(style.schema).forEach((aliases) => {
-    let val: any = aliases.reduce((current, alias) => {
+    let val = aliases.reduce<any>((current, alias) => {
       return current || options[alias];
     }, undefined);
 
