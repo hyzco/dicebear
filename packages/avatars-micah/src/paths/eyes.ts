@@ -1,4 +1,4 @@
-export default {
+export const eyes = {
   eyes: (color: string) => `
     <g fill="#000">
       <ellipse cx="16.53" cy="29.402" rx="9" ry="13.5" transform="rotate(-6.776 16.53 29.402)"/>

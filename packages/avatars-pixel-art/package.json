@@ -1,16 +1,16 @@
 {
-  "name": "@dicebear/avatars-male",
+  "name": "@dicebear/avatars-pixel-art",
   "version": "4.4.0",
-  "description": "Pixel art male avatar style for DiceBear Avatars",
+  "description": "Pixel art pixel-art avatar style for DiceBear Avatars",
   "keywords": [
     "dicebear",
     "avatar",
-    "male",
+    "pixel-art",
     "svg",
     "sprites",
     "pixel-art"
   ],
-  "homepage": "https://github.com/DiceBear/avatars/tree/v4/packages/avatars-male#readme",
+  "homepage": "https://github.com/DiceBear/avatars/tree/v4/packages/avatars-pixel-art#readme",
   "bugs": {
     "url": "https://github.com/DiceBear/avatars/issues"
   },

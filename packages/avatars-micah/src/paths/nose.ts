@@ -1,4 +1,4 @@
-export default {
+export const nose = {
   curve: (color: string) => `
     <path d="M14.736 7.08c.203 3.842 1.697 12.081 6.048 14.297 5.439 2.77 1.175 11.953-9.006 11.364" stroke="#000" stroke-width="4"/>
   `,

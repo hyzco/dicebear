@@ -1,4 +1,4 @@
-export default {
+export const base = {
   standard: (color: string) => `
     <path d="M154 319.5c-14.4-20-25.667-58.666-27-78L58.5 212 30 319.5h124z" fill="${color}" stroke="#000" stroke-width="4"/>
     <path d="M130.373 263.688A65.051 65.051 0 01124 264c-30.779 0-56.053-21.572-58.76-49.098L127 241.5c.378 5.48 1.554 13.316 3.373 22.188z" fill="#000"/>

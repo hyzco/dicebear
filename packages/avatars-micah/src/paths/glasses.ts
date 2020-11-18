@@ -1,4 +1,4 @@
-export default {
+export const glasses = {
   round: (color: string) => `
     <g stroke="${color}" stroke-width="4">
       <circle cx="122.5" cy="28" r="26"/>
