@@ -43,14 +43,5 @@ export function create(seed?: string): Prng {
     pick<T>(arr: T[]): T {
       return arr[integer(0, arr.length - 1)];
     },
-    // @deprecated
-    pickone<T>(arr: T[]): T {
-      return arr[integer(0, arr.length - 1)];
-    },
-    skip(rounds: number) {
-      for (let i = 0; i < rounds; i++) {
-        next();
-      }
-    },
   };
 }

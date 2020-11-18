@@ -1,13 +1,12 @@
 # Changelog
 
-## [4.5.0] - t.b.a.
+## [5.0.0] - t.b.a.
 
 ### Added
 
 - HTTP-API serverless functions (Apache OpenWhisk)
 - JSON Schema for options of core library and avatar styles.
 - New documentation page (based on docusaurus 2)
-- `requiredCoreVersion` property + check for avatar styles.
 - `@dicebear/avatars`: Util for JSON Schema. See `./utils/schema`.
 - `@dicebear/avatars`: New `createAvatar` function, which becomes the central interface. Classes are not used from version 5.0.0.
 - `@dicebear/avatars-cli`: CLI for common tasks during avatar style development.
@@ -16,13 +15,13 @@
 
 - `@dicebear/avatars`: Replaced `seedrandom` with smaller own pseudo-random number generator implementation (utils/prng).
 
-### Deprecated
+### Removed
 
-- `@dicebear/avatars`: Colors collection will be removed in Version 5.0.0.
-- `@dicebear/avatars`: Random Class will be removed in Version 5.0.0. Use `./utils/prng` instead.
-- `@dicebear/avatars`: Color modifiers will be removed in Version 5.0.0. Use `pure-color` directly instead.
-- `@dicebear/avatars`: SVG Parser will be removed in Version 5.0.0.
-- `@dicebear/avatars`: Default export / class will be removed in Version 5.0.0. Use `createAvatar` export / function instead.
+- `@dicebear/avatars`: Colors collection
+- `@dicebear/avatars`: Random Class. Use `./utils/prng` instead.
+- `@dicebear/avatars`: Color modifiers. Use `pure-color` directly instead.
+- `@dicebear/avatars`: SVG Parser.
+- `@dicebear/avatars`: Default export / class. Use `createAvatar` export / function instead.
 
 ## [4.4.0] - 2020-11-11
 

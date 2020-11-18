@@ -1,26 +1,29 @@
 {
-  "name": "@dicebear/avatars",
+  "name": "@dicebear/avatars-micah",
   "version": "4.2.0",
   "description": "Avatar generator library for designers and developers.",
   "source": "src/index.ts",
-  "main": "dist/index.js",
-  "umd:main": "dist/index.umd.js",
-  "module": "dist/index.m.js",
-  "esmodule": "dist/index.modern.js",
+  "main": "dist/avatars-micah.js",
+  "umd:main": "dist/avatars-micah.umd.js",
+  "module": "dist/avatars-micah.m.js",
+  "esmodule": "dist/avatars-micah.modern.js",
   "types": "dist/index.d.ts",
   "dependencies": {
     "@types/json-schema": "^7.0.5"
   },
   "devDependencies": {
+    "@dicebear/avatars": "^4.2.0",
     "@dicebear/avatars-cli": "^4.0.0",
     "babel-plugin-remove-template-literals-whitespace": "^1.0.3"
   },
+  "peerDependencies": {
+    "@dicebear/avatars": "^4.2.0"
+  },
   "scripts": {
-    "dev": "microbundle watch --name Avatars",
-    "prebuild": "rm -r ./dist || true",
+    "dev": "microbundle watch",
     "build": "npm run build:schema && npm run build:js",
-    "build:schema": "avatars schema:create-types ./src/schema.json ./src/options.ts",
-    "build:js": "microbundle --name Avatars"
+    "build:schema": "avatars options:build",
+    "build:js": "microbundle --name AvatarsMicah --globals @dicebear/avatars=Avatars"
   },
   "author": "Florian Körner <contact@dicebear.com>",
   "license": "MIT",

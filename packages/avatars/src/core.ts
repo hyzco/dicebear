@@ -1,235 +1,65 @@
-import type { INode } from 'svgson';
-import type { Prng } from './types';
-import { prng } from './utils';
-import Parser from './parser';
-import { utils } from '.';
-import { version } from '../package.json';
+import type { Style } from './types';
+import type { Options } from './options';
+import { svg, schema, prng } from './utils';
 
-export type Options = {
-  radius?: number;
-  r?: number;
-  base64?: boolean;
-  width?: number | string;
-  w?: number | string;
-  height?: number | string;
-  h?: number | string;
-  margin?: number;
-  m?: number;
-  background?: string;
-  b?: number;
-  /**
-   * @deprecated Since version 4.5. Will be removed in version 5.0.
-   */
-  userAgent?: string;
-};
+export function createAvatar<O extends Options>(style: Style<O>, options: O) {
+  let defaultOptions = schema.defaults(style.schema);
 
-export interface AvatarStyle<O = {}> {
-  requiredCoreVersion?: string;
-  (random: Prng, options?: O): string | INode;
-}
+  options = {
+    seed: Math.random().toString(),
+    ...defaultOptions,
+    ...options,
+  };
 
-/**
- * @deprecated Since version 4.5. Will be removed in version 5.0. Use `createAvatar` instead.
- */
-export default class Avatars<O> {
-  protected avatarStyle: AvatarStyle<O>;
-  protected defaultOptions?: O & Options;
+  schema.aliases(style.schema).forEach((aliases) => {
+    let val: any = aliases.reduce((current, alias) => {
+      return current || options[alias];
+    }, undefined);
 
-  /**
-   * @param avatarStyle
-   */
-  constructor(avatarStyle: AvatarStyle<O>, defaultOptions?: O & Options) {
-    if (avatarStyle.requiredCoreVersion) {
-      if (false === utils.semver.gte(version, avatarStyle.requiredCoreVersion)) {
-        console.error(
-          `This avatar style requires a newer version of the core library. Installed is version ${version}, required is version ${avatarStyle.requiredCoreVersion}.`
-        );
-      }
-    } else {
-      console.warn('This avatar style does not specify the required version of the core library. Problems may occur.');
-    }
-
-    this.avatarStyle = avatarStyle;
-    this.defaultOptions = {
-      userAgent: window?.navigator?.userAgent,
-      ...defaultOptions,
-    };
-  }
-
-  /**
-   * Creates an avatar
-   *
-   * @param seed
-   */
-  public create(seed: string, options?: O & Options) {
-    options = { ...this.defaultOptions, ...options };
-
-    // Apply alias options
-    options = {
-      radius: options.r,
-      width: options.w,
-      height: options.h,
-      margin: options.m,
-      background: options.b,
-      ...options,
-    };
-
-    let svg = this.avatarStyle(prng.create(seed), options);
-
-    if (options) {
-      svg = Parser.parse(svg);
-
-      let viewBox = svg.attributes['viewBox'].split(' ');
-      let viewBoxX = parseInt(viewBox[0]);
-      let viewBoxY = parseInt(viewBox[1]);
-      let viewBoxWidth = parseInt(viewBox[2]);
-      let viewBoxHeight = parseInt(viewBox[3]);
-
-      if (options.width) {
-        svg.attributes['width'] = options.width.toString();
-      }
-
-      if (options.height) {
-        svg.attributes['height'] = options.height.toString();
-      }
-
-      if (options.margin) {
-        let groupable: INode[] = [];
-
-        svg.children = svg.children.filter((child) => {
-          if (this.isGroupable(child)) {
-            groupable.push(child);
-
-            return false;
-          }
-
-          return true;
-        });
-
-        svg.children.push({
-          name: 'g',
-          type: 'element',
-          value: '',
-          children: [
-            {
-              name: 'g',
-              type: 'element',
-              value: '',
-              children: [
-                {
-                  name: 'rect',
-                  type: 'element',
-                  value: '',
-                  children: [],
-                  attributes: {
-                    fill: 'none',
-                    width: viewBoxWidth.toString(),
-                    height: viewBoxHeight.toString(),
-                    x: viewBoxX.toString(),
-                    y: viewBoxY.toString(),
-                  },
-                },
-                ...groupable,
-              ],
-              attributes: {
-                transform: `scale(${1 - (options.margin * 2) / 100})`,
-              },
-            },
-          ],
-          attributes: {
-            // prettier-ignore
-            transform: `translate(${viewBoxWidth * options.margin / 100}, ${viewBoxHeight * options.margin / 100})`,
-          },
-        });
-      }
-
-      if (options.background) {
-        svg.children.unshift({
-          name: 'rect',
-          type: 'element',
-          value: '',
-          children: [],
-          attributes: {
-            fill: options.background,
-            width: viewBoxWidth.toString(),
-            height: viewBoxHeight.toString(),
-            x: viewBoxX.toString(),
-            y: viewBoxY.toString(),
-          },
-        });
-      }
-
-      if (options.radius) {
-        let groupable: INode[] = [];
-
-        svg.children = svg.children.filter((child) => {
-          if (this.isGroupable(child)) {
-            groupable.push(child);
-
-            return false;
-          }
-
-          return true;
-        });
-
-        svg.children.push(
-          {
-            name: 'mask',
-            type: 'element',
-            value: '',
-            children: [
-              {
-                name: 'rect',
-                type: 'element',
-                value: '',
-                children: [],
-                attributes: {
-                  width: viewBoxWidth.toString(),
-                  height: viewBoxHeight.toString(),
-                  rx: ((viewBoxWidth * options.radius) / 100).toString(),
-                  ry: ((viewBoxHeight * options.radius) / 100).toString(),
-                  fill: '#fff',
-                  x: viewBoxX.toString(),
-                  y: viewBoxY.toString(),
-                },
-              },
-            ],
-            attributes: {
-              id: 'avatarsRadiusMask',
-            },
-          },
-          {
-            name: 'g',
-            type: 'element',
-            value: '',
-            children: groupable,
-            attributes: {
-              mask: `url(#avatarsRadiusMask)`,
-            },
-          }
-        );
-      }
-    }
-
-    svg = Parser.stringify(svg);
-
-    return options && options.base64 ? `data:image/svg+xml;base64,${this.base64EncodeUnicode(svg)}` : svg;
-  }
-
-  private isGroupable(element: INode) {
-    return element.type === 'element' && ['title', 'desc', 'defs', 'metadata'].indexOf(element.name) === -1;
-  }
-
-  private base64EncodeUnicode(value: string) {
-    // @see https://www.base64encoder.io/javascript/
-    let utf8Bytes = encodeURIComponent(value).replace(/%([0-9A-F]{2})/g, function (match, p1) {
-      return String.fromCharCode(parseInt(`0x${p1}`));
+    aliases.forEach((alias: keyof O) => {
+      options[alias] = val;
     });
+  });
 
-    return btoa(utf8Bytes);
+  let prngInstance = prng.create(options.seed);
+  let result = style.create({ prng: prngInstance, options });
+
+  if (options.width) {
+    result.attributes.width = options.width.toString();
   }
-}
 
-export function createAvatar<O>(style: AvatarStyle<O>, options: O & Options & { seed: string }) {
-  return new Avatars(style, options).create(options.seed);
+  if (options.height) {
+    result.attributes.height = options.height.toString();
+  }
+
+  if (options.margin) {
+    result.body = svg.addMargin(result, options);
+  }
+
+  if (options.backgroundColor) {
+    result.body = svg.addBackgroundColor(result, options);
+  }
+
+  if (options.radius) {
+    result.body = svg.addRadius(result, options);
+  }
+
+  let attributes: Record<string, string> = { ...svg.getXmlnsAttributes(), ...result.attributes };
+  let attributesAsString = Object.keys(attributes)
+    .map((attr) => `${attr}="${attributes[attr].replace('"', '&quot;')}"`)
+    .join(' ');
+
+  let avatar = `
+    <svg ${attributesAsString}>
+      ${svg.getMetadata(style)}
+      ${result.head ?? ''}
+      ${result.body}
+    </svg>
+  `;
+
+  if (options.dataUri) {
+    return `data:image/svg+xml;utf8,${encodeURIComponent(avatar)}`;
+  }
+
+  return avatar;
 }

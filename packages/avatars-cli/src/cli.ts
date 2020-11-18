@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 
 import sade from 'sade';
-import pkg from '../package.json';
+import * as commands from './commands';
 
-import { commands } from './';
+(async () => {
+  // package.json should not be bundled with microbundle
+  const packageJson = '../package.json';
+  const pkg = await import(packageJson);
 
-const name = Object.keys(pkg.bin)[0];
-const prog = sade(name);
+  const name = Object.keys(pkg.bin)[0];
+  const prog = sade(name);
 
-prog.version(pkg.version);
+  prog.version(pkg.version);
 
-prog
-  .command('schema:create-type')
-  .describe('Generates types from JSON schema files.')
-  .option('-i, --input', 'Set the path to the JSON schema input file.', './src/schema.json')
-  .option('-o, --output', 'Set the path to the typings output files.', './src/options.ts')
-  .example(`${name} options:build`)
-  .example('${name} options:build -i ./path/to/schema.json')
-  .action(commands.schema.createType);
+  prog
+    .command('schema:create-types <input> <output>')
+    .describe('Generates TypeScript types from JSON schema file.')
+    .example(`${name} schema:create-type ./path/to/schema.json ./schema.js`)
+    .action(commands.schema.createTypes);
 
-prog.parse(process.argv);
+  prog.parse(process.argv);
+})();

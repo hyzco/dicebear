@@ -1,3 +1,5 @@
+> :warning: The current stable version can be found in the [v4](https://github.com/DiceBear/avatars/tree/v4) branch.
+
 <h1 align="center"><img src="https://avatars.dicebear.com/api/male/seed.svg" width="124" /> <br />DiceBear Avatars</h1>
 <p align="center"><strong>Avatars is an avatar placeholder library for designers and developers.</strong></p>
 

@@ -1,52 +1,58 @@
-/// <reference types="../typings/pure-color" />
+import type { JSONSchema7 } from 'json-schema';
+import type { Options } from './options';
 
 export interface Prng {
   seed: string;
   bool(likelihood?: number): boolean;
   integer(min: number, max: number): number;
   pick<T>(arr: T[]): T;
-  // @deprecated
-  pickone<T>(arr: T[]): T;
-  skip(rounds: number): void;
 }
 
-/**
- * @deprecated Since version 4.5. Will be removed in version 5.0.
- */
-export interface Color {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
+export type StyleSchema = JSONSchema7;
+
+export interface StyleCreateProps<O> {
+  prng: Prng;
+  options: O;
 }
 
-/**
- * @deprecated Since version 4.5. Will be removed in version 5.0.
- */
-export interface ColorCollection {
-  amber: Color;
-  blue: Color;
-  blueGrey: Color;
-  brown: Color;
-  cyan: Color;
-  deepOrange: Color;
-  deepPurple: Color;
-  green: Color;
-  grey: Color;
-  indigo: Color;
-  lightBlue: Color;
-  lightGreen: Color;
-  lime: Color;
-  orange: Color;
-  pink: Color;
-  purple: Color;
-  red: Color;
-  teal: Color;
-  yellow: Color;
+export type StyleCreate<O extends Options> = (props: StyleCreateProps<O>) => StyleCreateResult;
+
+export interface StyleCreateResultAttributes {
+  viewBox: string;
+  [key: string]: string;
+}
+
+export interface StyleCreateResult {
+  attributes: StyleCreateResultAttributes;
+  head?: string;
+  body: string;
+}
+
+export interface StyleMetaLicense {
+  name: string;
+  link: string;
+}
+
+export interface StyleMeta {
+  title: string;
+  creator: string;
+  source: string;
+  license: StyleMetaLicense;
+}
+
+export interface StyleColors {
+  [name: string]: string;
+}
+
+export interface StylePathCreateProps {
+  color?: string;
+}
+
+export type StylePathCreate = (props: StylePathCreateProps) => string;
+
+export interface Style<O extends Options> {
+  meta: StyleMeta;
+  schema: StyleSchema;
+  colors: StyleColors;
+  create: StyleCreate<O>;
 }

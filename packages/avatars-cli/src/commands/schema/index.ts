@@ -1,1 +1,1 @@
-export { default as createType } from './create-type';
+export * from './create-types';

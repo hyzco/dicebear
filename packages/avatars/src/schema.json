@@ -1,5 +1,5 @@
 {
-  "$id": "https://avatars.dicebear.com/v4.5/schema.json",
+  "$id": "https://avatars.dicebear.com/schema.json",
   "type": "object",
   "definitions": {
     "probability": {
@@ -13,6 +13,10 @@
     }
   },
   "properties": {
+    "seed": {
+      "type": "string",
+      "title": "Seed"
+    },
     "radius": {
       "type": "number",
       "title": "Radius",
@@ -22,9 +26,9 @@
     "r": {
       "$ref": "#/properties/radius"
     },
-    "base64": {
+    "dataUri": {
       "type": "boolean",
-      "title": "Data URI (base64)"
+      "title": "Data URI"
     },
     "width": {
       "type": "number",
@@ -51,17 +55,13 @@
     "m": {
       "$ref": "#/properties/margin"
     },
-    "background": {
+    "backgroundColor": {
       "type": "array",
       "title": "Background Color",
       "items": { "$ref": "#/definitions/color" }
     },
     "b": {
       "$ref": "#/properties/backgroundColor"
-    },
-    "userAgent": {
-      "type": "string",
-      "title": "User Agent"
     }
   }
 }

@@ -30,6 +30,7 @@
     "cli"
   ],
   "scripts": {
+    "prebuild": "rm -rf ./dist || true",
     "build": "microbundle --target=node -f es,cjs",
     "watch": "microbundle --watch --target=node -f es,cjs"
   },
