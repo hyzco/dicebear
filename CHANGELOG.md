@@ -4,24 +4,58 @@
 
 ### Added
 
-- HTTP-API serverless functions (Apache OpenWhisk)
-- JSON Schema for options of core library and avatar styles.
-- New documentation page (based on docusaurus 2)
-- `@dicebear/avatars`: Util for JSON Schema. See `./utils/schema`.
-- `@dicebear/avatars`: New `createAvatar` function, which becomes the central interface. Classes are not used from version 5.0.0.
-- `@dicebear/avatars-cli`: CLI for common tasks during avatar style development.
-
 ### Changed
 
-- `@dicebear/avatars`: Replaced `seedrandom` with smaller own pseudo-random number generator implementation (utils/prng).
+#### General
+
+- We have renamed or combined several packages. The old HTTP-API endpoints still work, but the old package names are no longer updated.
+
+  | New package name              | Old package name                      |
+  | ----------------------------- | ------------------------------------- |
+  | @dicebear/avatars\-avataaars  | @dicebear/avatars\-avataaars\-sprites |
+  | @dicebear/avatars\-bottts     | @dicebear/avatars\-bottts\-sprites    |
+  | @dicebear/avatars\-gridy      | @dicebear/avatars\-gridy\-sprites     |
+  | @dicebear/avatars\-initials   | @dicebear/avatars\-initials\-sprites  |
+  | @dicebear/avatars\-shapes     | @dicebear/avatars\-jdenticon\-sprites |
+  | @dicebear/avatars\-identicon  | @dicebear/avatars\-identicon\-sprites |
+  | @dicebear/avatars\-pixel\-art | @dicebear/avatars\-female\-sprites    |
+  |                               | @dicebear/avatars\-male\-sprites      |
+  |                               | @dicebear/avatars\-human\-sprites     |
+
+#### @dicebear/avatars
+
+- Classes are rewritten as functions. This allows direct access to the `createAvatar` function without having to initialize an object first.
+
+  Old API
+
+  ```js
+    import Avatars from `@dicebear/avatars`;
+    import style from `@dicebear/avatars-identicon-sprites`;
+
+    let options = {};
+    let seed = 'custom-seed';
+    let avatars = new Avatars(style, options);
+    let svg = avatars.create(seed);
+  ```
+
+  New API
+
+  ```js
+    import { createAvatar } from `@dicebear/avatars`;
+    import * as style from `@dicebear/avatars-identicon`;
+
+    let svg = createAvatar(style, {
+      seed: 'custom-seed',
+      // ... and other options
+    });
+  ```
+
+- If no `seed` is passed, a random one is defined.
+- The following options have been renamed
+  - `base64` => `dataUri`
+  - `background` => `backgroundColor`
 
 ### Removed
-
-- `@dicebear/avatars`: Colors collection
-- `@dicebear/avatars`: Random Class. Use `./utils/prng` instead.
-- `@dicebear/avatars`: Color modifiers. Use `pure-color` directly instead.
-- `@dicebear/avatars`: SVG Parser.
-- `@dicebear/avatars`: Default export / class. Use `createAvatar` export / function instead.
 
 ## [4.4.0] - 2020-11-11
 
