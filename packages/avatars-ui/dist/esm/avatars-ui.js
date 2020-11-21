@@ -209,8 +209,8 @@ function get_current_component() {
         throw new Error('Function called outside component initialization');
     return current_component;
 }
-function afterUpdate(fn) {
-    get_current_component().$$.after_update.push(fn);
+function onMount(fn) {
+    get_current_component().$$.on_mount.push(fn);
 }
 function createEventDispatcher() {
     const component = get_current_component();
@@ -705,12 +705,12 @@ class Icon extends SvelteComponent {
 
 function add_css() {
 	var style = element("style");
-	style.id = "svelte-1jvfo6m-style";
-	style.textContent = "button.svelte-1jvfo6m{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button.svelte-1jvfo6m{overflow:visible}button.svelte-1jvfo6m{text-transform:none}button.svelte-1jvfo6m{-webkit-appearance:button}button.svelte-1jvfo6m::-moz-focus-inner{border-style:none;padding:0}button.svelte-1jvfo6m:-moz-focusring{outline:1px dotted ButtonText}button.svelte-1jvfo6m{background-color:transparent;background-image:none}button.svelte-1jvfo6m:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.svelte-1jvfo6m,.svelte-1jvfo6m::before,.svelte-1jvfo6m::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}button.svelte-1jvfo6m{cursor:pointer}button.svelte-1jvfo6m{padding:0;line-height:inherit;color:inherit}.bg-white.svelte-1jvfo6m{--bg-opacity:1;background-color:#fff;background-color:rgba(255, 255, 255, var(--bg-opacity))}.hover\\:bg-gray-900.svelte-1jvfo6m:hover{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26, 32, 44, var(--bg-opacity))}.rounded.svelte-1jvfo6m{border-radius:0.25rem}.inline-flex.svelte-1jvfo6m{display:inline-flex}.items-center.svelte-1jvfo6m{align-items:center}.justify-center.svelte-1jvfo6m{justify-content:center}.h-10.svelte-1jvfo6m{height:2.5rem}.focus\\:outline-none.svelte-1jvfo6m:focus{outline:2px solid transparent;outline-offset:2px}.px-4.svelte-1jvfo6m{padding-left:1rem;padding-right:1rem}.shadow-md.svelte-1jvfo6m{box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)}.hover\\:text-white.svelte-1jvfo6m:hover{--text-opacity:1;color:#fff;color:rgba(255, 255, 255, var(--text-opacity))}.w-10.svelte-1jvfo6m{width:2.5rem}@keyframes svelte-1jvfo6m-spin{to{transform:rotate(360deg)}}@keyframes svelte-1jvfo6m-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-1jvfo6m-pulse{50%{opacity:.5}}@keyframes svelte-1jvfo6m-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}";
+	style.id = "svelte-z2m585-style";
+	style.textContent = "button.svelte-z2m585{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button.svelte-z2m585{overflow:visible}button.svelte-z2m585{text-transform:none}button.svelte-z2m585{-webkit-appearance:button}button.svelte-z2m585::-moz-focus-inner{border-style:none;padding:0}button.svelte-z2m585:-moz-focusring{outline:1px dotted ButtonText}button.svelte-z2m585{background-color:transparent;background-image:none}button.svelte-z2m585:focus{outline:1px dotted;outline:5px auto -webkit-focus-ring-color}.svelte-z2m585,.svelte-z2m585::before,.svelte-z2m585::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}button.svelte-z2m585{cursor:pointer}button.svelte-z2m585{padding:0;line-height:inherit;color:inherit}.bg-white.svelte-z2m585{--bg-opacity:1;background-color:#fff;background-color:rgba(255, 255, 255, var(--bg-opacity))}.hover\\:bg-gray-900.svelte-z2m585:hover{--bg-opacity:1;background-color:#1a202c;background-color:rgba(26, 32, 44, var(--bg-opacity))}.rounded.svelte-z2m585{border-radius:0.25rem}.inline-flex.svelte-z2m585{display:inline-flex}.items-center.svelte-z2m585{align-items:center}.justify-center.svelte-z2m585{justify-content:center}.h-10.svelte-z2m585{height:2.5rem}.focus\\:outline-none.svelte-z2m585:focus{outline:2px solid transparent;outline-offset:2px}.px-4.svelte-z2m585{padding-left:1rem;padding-right:1rem}.shadow-md.svelte-z2m585{box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)}.hover\\:text-white.svelte-z2m585:hover{--text-opacity:1;color:#fff;color:rgba(255, 255, 255, var(--text-opacity))}.w-10.svelte-z2m585{width:2.5rem}@keyframes svelte-z2m585-spin{to{transform:rotate(360deg)}}@keyframes svelte-z2m585-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-z2m585-pulse{50%{opacity:.5}}@keyframes svelte-z2m585-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}@media(min-width: 640px){}@media(min-width: 768px){}@media(min-width: 1024px){}";
 	append(document.head, style);
 }
 
-// (784:2) {:else}
+// (840:2) {:else}
 function create_else_block(ctx) {
 	let current;
 	const default_slot_template = /*#slots*/ ctx[3].default;
@@ -749,7 +749,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (782:2) {#if icon}
+// (838:2) {#if icon}
 function create_if_block$1(ctx) {
 	let icon_1;
 	let current;
@@ -806,7 +806,7 @@ function create_fragment$1(ctx) {
 		c() {
 			button = element("button");
 			if_block.c();
-			attr(button, "class", button_class_value = "inline-flex items-center justify-center bg-white rounded hover:bg-gray-900 hover:text-white h-10 " + (/*icon*/ ctx[0] ? "w-10" : "px-4") + " shadow-md focus:outline-none" + " svelte-1jvfo6m");
+			attr(button, "class", button_class_value = "inline-flex items-center justify-center bg-white rounded hover:bg-gray-900 hover:text-white h-10 " + (/*icon*/ ctx[0] ? "w-10" : "px-4") + " shadow-md focus:outline-none" + " svelte-z2m585");
 		},
 		m(target, anchor) {
 			insert(target, button, anchor);
@@ -843,7 +843,7 @@ function create_fragment$1(ctx) {
 				if_block.m(button, null);
 			}
 
-			if (!current || dirty & /*icon*/ 1 && button_class_value !== (button_class_value = "inline-flex items-center justify-center bg-white rounded hover:bg-gray-900 hover:text-white h-10 " + (/*icon*/ ctx[0] ? "w-10" : "px-4") + " shadow-md focus:outline-none" + " svelte-1jvfo6m")) {
+			if (!current || dirty & /*icon*/ 1 && button_class_value !== (button_class_value = "inline-flex items-center justify-center bg-white rounded hover:bg-gray-900 hover:text-white h-10 " + (/*icon*/ ctx[0] ? "w-10" : "px-4") + " shadow-md focus:outline-none" + " svelte-z2m585")) {
 				attr(button, "class", button_class_value);
 			}
 		},
@@ -883,67 +883,235 @@ function instance$1($$self, $$props, $$invalidate) {
 class Button extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-1jvfo6m-style")) add_css();
+		if (!document.getElementById("svelte-z2m585-style")) add_css();
 		init(this, options, instance$1, create_fragment$1, safe_not_equal, { icon: 0 });
 	}
 }
 
-/* src/components/scenes/Form.svelte generated by Svelte v3.29.4 */
+/* src/components/scenes/Form/Deterministic.svelte generated by Svelte v3.29.4 */
 
 function add_css$1() {
 	var style = element("style");
-	style.id = "svelte-17k5r4-style";
-	style.textContent = ".svelte-17k5r4,.svelte-17k5r4::before,.svelte-17k5r4::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}@keyframes svelte-17k5r4-spin{to{transform:rotate(360deg)}}@keyframes svelte-17k5r4-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-17k5r4-pulse{50%{opacity:.5}}@keyframes svelte-17k5r4-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}";
+	style.id = "svelte-7c2a2-style";
+	style.textContent = "@keyframes svelte-7c2a2-spin{{transform:rotate(360deg)}}@keyframes svelte-7c2a2-ping{{transform:scale(2);opacity:0}}@keyframes svelte-7c2a2-pulse{{opacity:.5}}@keyframes svelte-7c2a2-bounce{{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}@media(min-width: 640px){}@media(min-width: 768px){}@media(min-width: 1024px){}";
 	append(document.head, style);
 }
 
 function create_fragment$2(ctx) {
-	let div;
+	let t;
 
 	return {
 		c() {
-			div = element("div");
-			div.textContent = "Form";
-			attr(div, "class", "svelte-17k5r4");
+			t = text("Deterministic");
 		},
 		m(target, anchor) {
-			insert(target, div, anchor);
+			insert(target, t, anchor);
 		},
 		p: noop,
 		i: noop,
 		o: noop,
 		d(detaching) {
-			if (detaching) detach(div);
+			if (detaching) detach(t);
 		}
 	};
+}
+
+class Deterministic extends SvelteComponent {
+	constructor(options) {
+		super();
+		if (!document.getElementById("svelte-7c2a2-style")) add_css$1();
+		init(this, options, null, create_fragment$2, safe_not_equal, {});
+	}
+}
+
+/* src/components/scenes/Form/Creator.svelte generated by Svelte v3.29.4 */
+
+function add_css$2() {
+	var style = element("style");
+	style.id = "svelte-1nedhoc-style";
+	style.textContent = "@keyframes svelte-1nedhoc-spin{{transform:rotate(360deg)}}@keyframes svelte-1nedhoc-ping{{transform:scale(2);opacity:0}}@keyframes svelte-1nedhoc-pulse{{opacity:.5}}@keyframes svelte-1nedhoc-bounce{{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}@media(min-width: 640px){}@media(min-width: 768px){}@media(min-width: 1024px){}";
+	append(document.head, style);
+}
+
+function create_fragment$3(ctx) {
+	let t;
+
+	return {
+		c() {
+			t = text("Creator");
+		},
+		m(target, anchor) {
+			insert(target, t, anchor);
+		},
+		p: noop,
+		i: noop,
+		o: noop,
+		d(detaching) {
+			if (detaching) detach(t);
+		}
+	};
+}
+
+class Creator extends SvelteComponent {
+	constructor(options) {
+		super();
+		if (!document.getElementById("svelte-1nedhoc-style")) add_css$2();
+		init(this, options, null, create_fragment$3, safe_not_equal, {});
+	}
+}
+
+/* src/components/scenes/Form.svelte generated by Svelte v3.29.4 */
+
+function add_css$3() {
+	var style = element("style");
+	style.id = "svelte-1mygurt-style";
+	style.textContent = ".svelte-1mygurt,.svelte-1mygurt::before,.svelte-1mygurt::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}.pt-16.svelte-1mygurt{padding-top:4rem}@keyframes svelte-1mygurt-spin{to{transform:rotate(360deg)}}@keyframes svelte-1mygurt-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-1mygurt-pulse{50%{opacity:.5}}@keyframes svelte-1mygurt-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}@media(min-width: 640px){}@media(min-width: 768px){}@media(min-width: 1024px){}";
+	append(document.head, style);
+}
+
+// (838:47) 
+function create_if_block_1$1(ctx) {
+	let deterministic;
+	let current;
+	deterministic = new Deterministic({});
+
+	return {
+		c() {
+			create_component(deterministic.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(deterministic, target, anchor);
+			current = true;
+		},
+		i(local) {
+			if (current) return;
+			transition_in(deterministic.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(deterministic.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(deterministic, detaching);
+		}
+	};
+}
+
+// (836:2) {#if ctx.mode.get() === 'creator'}
+function create_if_block$2(ctx) {
+	let creator;
+	let current;
+	creator = new Creator({});
+
+	return {
+		c() {
+			create_component(creator.$$.fragment);
+		},
+		m(target, anchor) {
+			mount_component(creator, target, anchor);
+			current = true;
+		},
+		i(local) {
+			if (current) return;
+			transition_in(creator.$$.fragment, local);
+			current = true;
+		},
+		o(local) {
+			transition_out(creator.$$.fragment, local);
+			current = false;
+		},
+		d(detaching) {
+			destroy_component(creator, detaching);
+		}
+	};
+}
+
+function create_fragment$4(ctx) {
+	let div;
+	let current_block_type_index;
+	let if_block;
+	let current;
+	const if_block_creators = [create_if_block$2, create_if_block_1$1];
+	const if_blocks = [];
+
+	function select_block_type(ctx, dirty) {
+		if (/*ctx*/ ctx[0].mode.get() === "creator") return 0;
+		if (/*ctx*/ ctx[0].mode.get() === "deterministic") return 1;
+		return -1;
+	}
+
+	if (~(current_block_type_index = select_block_type(ctx))) {
+		if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+	}
+
+	return {
+		c() {
+			div = element("div");
+			if (if_block) if_block.c();
+			attr(div, "class", "pt-16 svelte-1mygurt");
+		},
+		m(target, anchor) {
+			insert(target, div, anchor);
+
+			if (~current_block_type_index) {
+				if_blocks[current_block_type_index].m(div, null);
+			}
+
+			current = true;
+		},
+		p: noop,
+		i(local) {
+			if (current) return;
+			transition_in(if_block);
+			current = true;
+		},
+		o(local) {
+			transition_out(if_block);
+			current = false;
+		},
+		d(detaching) {
+			if (detaching) detach(div);
+
+			if (~current_block_type_index) {
+				if_blocks[current_block_type_index].d();
+			}
+		}
+	};
+}
+
+function instance$2($$self) {
+	
+	const ctx = getContext("ctx");
+	return [ctx];
 }
 
 class Form extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-17k5r4-style")) add_css$1();
-		init(this, options, null, create_fragment$2, safe_not_equal, {});
+		if (!document.getElementById("svelte-1mygurt-style")) add_css$3();
+		init(this, options, instance$2, create_fragment$4, safe_not_equal, {});
 	}
 }
 
 /* src/components/scenes/Mode.svelte generated by Svelte v3.29.4 */
 
-function add_css$2() {
+function add_css$4() {
 	var style = element("style");
-	style.id = "svelte-i8peb-style";
-	style.textContent = "h2.svelte-i8peb,p.svelte-i8peb{margin:0}.svelte-i8peb,.svelte-i8peb::before,.svelte-i8peb::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}h2.svelte-i8peb{font-size:inherit;font-weight:inherit}.bg-gray-100.svelte-i8peb{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247, 250, 252, var(--bg-opacity))}.rounded.svelte-i8peb{border-radius:0.25rem}.flex.svelte-i8peb{display:flex}.grid.svelte-i8peb{display:grid}.flex-col.svelte-i8peb{flex-direction:column}.flex-grow.svelte-i8peb{flex-grow:1}.text-xl.svelte-i8peb{font-size:1.25rem;line-height:1.75rem}.mb-6.svelte-i8peb{margin-bottom:1.5rem}.mb-8.svelte-i8peb{margin-bottom:2rem}.p-6.svelte-i8peb{padding:1.5rem}.p-12.svelte-i8peb{padding:3rem}.text-center.svelte-i8peb{text-align:center}.text-gray-600.svelte-i8peb{--text-opacity:1;color:#718096;color:rgba(113, 128, 150, var(--text-opacity))}.text-gray-700.svelte-i8peb{--text-opacity:1;color:#4a5568;color:rgba(74, 85, 104, var(--text-opacity))}.capitalize.svelte-i8peb{text-transform:capitalize}.gap-10.svelte-i8peb{grid-gap:2.5rem;gap:2.5rem}.grid-cols-cards.svelte-i8peb{grid-template-columns:repeat(auto-fill, minmax(240px, 1fr))}@keyframes svelte-i8peb-spin{to{transform:rotate(360deg)}}@keyframes svelte-i8peb-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-i8peb-pulse{50%{opacity:.5}}@keyframes svelte-i8peb-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}";
+	style.id = "svelte-t1vaam-style";
+	style.textContent = "h2.svelte-t1vaam,p.svelte-t1vaam{margin:0}.svelte-t1vaam,.svelte-t1vaam::before,.svelte-t1vaam::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}h2.svelte-t1vaam{font-size:inherit;font-weight:inherit}.bg-gray-100.svelte-t1vaam{--bg-opacity:1;background-color:#f7fafc;background-color:rgba(247, 250, 252, var(--bg-opacity))}.rounded.svelte-t1vaam{border-radius:0.25rem}.flex.svelte-t1vaam{display:flex}.grid.svelte-t1vaam{display:grid}.flex-col.svelte-t1vaam{flex-direction:column}.flex-grow.svelte-t1vaam{flex-grow:1}.text-xl.svelte-t1vaam{font-size:1.25rem;line-height:1.75rem}.mb-6.svelte-t1vaam{margin-bottom:1.5rem}.mb-8.svelte-t1vaam{margin-bottom:2rem}.p-6.svelte-t1vaam{padding:1.5rem}.text-center.svelte-t1vaam{text-align:center}.text-gray-600.svelte-t1vaam{--text-opacity:1;color:#718096;color:rgba(113, 128, 150, var(--text-opacity))}.text-gray-700.svelte-t1vaam{--text-opacity:1;color:#4a5568;color:rgba(74, 85, 104, var(--text-opacity))}.capitalize.svelte-t1vaam{text-transform:capitalize}.gap-6.svelte-t1vaam{grid-gap:1.5rem;gap:1.5rem}.grid-cols-cards.svelte-t1vaam{grid-template-columns:repeat(auto-fill, minmax(240px, 1fr))}@keyframes svelte-t1vaam-spin{to{transform:rotate(360deg)}}@keyframes svelte-t1vaam-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-t1vaam-pulse{50%{opacity:.5}}@keyframes svelte-t1vaam-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}@media(min-width: 640px){.sm\\:gap-8.svelte-t1vaam{grid-gap:2rem;gap:2rem}}@media(min-width: 768px){.md\\:gap-10.svelte-t1vaam{grid-gap:2.5rem;gap:2.5rem}}@media(min-width: 1024px){.lg\\:gap-12.svelte-t1vaam{grid-gap:3rem;gap:3rem}}";
 	append(document.head, style);
 }
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[4] = list[i];
+	child_ctx[3] = list[i];
 	return child_ctx;
 }
 
-// (788:45) 
-function create_if_block_1$1(ctx) {
-	let t_value = /*trans*/ ctx[1].deterministicModeDescription + "";
+// (842:43) 
+function create_if_block_1$2(ctx) {
+	let t_value = /*ctx*/ ctx[1].i18n.get("deterministicModeDescription") + "";
 	let t;
 
 	return {
@@ -953,18 +1121,16 @@ function create_if_block_1$1(ctx) {
 		m(target, anchor) {
 			insert(target, t, anchor);
 		},
-		p(ctx, dirty) {
-			if (dirty & /*trans*/ 2 && t_value !== (t_value = /*trans*/ ctx[1].deterministicModeDescription + "")) set_data(t, t_value);
-		},
+		p: noop,
 		d(detaching) {
 			if (detaching) detach(t);
 		}
 	};
 }
 
-// (786:10) {#if mode === 'creator'}
-function create_if_block$2(ctx) {
-	let t_value = /*trans*/ ctx[1].creatorModeDescription + "";
+// (840:8) {#if mode === 'creator'}
+function create_if_block$3(ctx) {
+	let t_value = /*ctx*/ ctx[1].i18n.get("creatorModeDescription") + "";
 	let t;
 
 	return {
@@ -974,16 +1140,14 @@ function create_if_block$2(ctx) {
 		m(target, anchor) {
 			insert(target, t, anchor);
 		},
-		p(ctx, dirty) {
-			if (dirty & /*trans*/ 2 && t_value !== (t_value = /*trans*/ ctx[1].creatorModeDescription + "")) set_data(t, t_value);
-		},
+		p: noop,
 		d(detaching) {
 			if (detaching) detach(t);
 		}
 	};
 }
 
-// (791:10) <Button on:click={() => modeCtx.set(mode)}>
+// (845:8) <Button on:click={() => ctx.mode.set(mode)}>
 function create_default_slot(ctx) {
 	let t;
 
@@ -1000,11 +1164,11 @@ function create_default_slot(ctx) {
 	};
 }
 
-// (782:4) {#each modes as mode}
+// (836:2) {#each modes as mode}
 function create_each_block(ctx) {
 	let div1;
 	let h2;
-	let t0_value = /*mode*/ ctx[4] + "";
+	let t0_value = /*mode*/ ctx[3] + "";
 	let t0;
 	let t1;
 	let p;
@@ -1015,15 +1179,15 @@ function create_each_block(ctx) {
 	let current;
 
 	function select_block_type(ctx, dirty) {
-		if (/*mode*/ ctx[4] === "creator") return create_if_block$2;
-		if (/*mode*/ ctx[4] === "deterministic") return create_if_block_1$1;
+		if (/*mode*/ ctx[3] === "creator") return create_if_block$3;
+		if (/*mode*/ ctx[3] === "deterministic") return create_if_block_1$2;
 	}
 
 	let current_block_type = select_block_type(ctx);
 	let if_block = current_block_type && current_block_type(ctx);
 
 	function click_handler(...args) {
-		return /*click_handler*/ ctx[3](/*mode*/ ctx[4], ...args);
+		return /*click_handler*/ ctx[2](/*mode*/ ctx[3], ...args);
 	}
 
 	button = new Button({
@@ -1047,10 +1211,10 @@ function create_each_block(ctx) {
 			div0 = element("div");
 			create_component(button.$$.fragment);
 			t3 = space();
-			attr(h2, "class", "text-xl mb-6 text-gray-700 capitalize svelte-i8peb");
-			attr(p, "class", "text-gray-600 mb-8 flex-grow svelte-i8peb");
-			attr(div0, "class", "text-center svelte-i8peb");
-			attr(div1, "class", "p-6 bg-gray-100 text-center rounded flex flex-col svelte-i8peb");
+			attr(h2, "class", "text-xl mb-6 text-gray-700 capitalize svelte-t1vaam");
+			attr(p, "class", "text-gray-600 mb-8 flex-grow svelte-t1vaam");
+			attr(div0, "class", "text-center svelte-t1vaam");
+			attr(div1, "class", "p-6 bg-gray-100 text-center rounded flex flex-col svelte-t1vaam");
 		},
 		m(target, anchor) {
 			insert(target, div1, anchor);
@@ -1067,7 +1231,7 @@ function create_each_block(ctx) {
 		},
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
-			if ((!current || dirty & /*modes*/ 1) && t0_value !== (t0_value = /*mode*/ ctx[4] + "")) set_data(t0, t0_value);
+			if ((!current || dirty & /*modes*/ 1) && t0_value !== (t0_value = /*mode*/ ctx[3] + "")) set_data(t0, t0_value);
 
 			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
 				if_block.p(ctx, dirty);
@@ -1083,7 +1247,7 @@ function create_each_block(ctx) {
 
 			const button_changes = {};
 
-			if (dirty & /*$$scope*/ 128) {
+			if (dirty & /*$$scope*/ 64) {
 				button_changes.$$scope = { dirty, ctx };
 			}
 
@@ -1110,9 +1274,8 @@ function create_each_block(ctx) {
 	};
 }
 
-function create_fragment$3(ctx) {
-	let div1;
-	let div0;
+function create_fragment$5(ctx) {
+	let div;
 	let current;
 	let each_value = /*modes*/ ctx[0];
 	let each_blocks = [];
@@ -1127,28 +1290,25 @@ function create_fragment$3(ctx) {
 
 	return {
 		c() {
-			div1 = element("div");
-			div0 = element("div");
+			div = element("div");
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
 				each_blocks[i].c();
 			}
 
-			attr(div0, "class", "grid grid-cols-cards gap-10 svelte-i8peb");
-			attr(div1, "class", "p-12 svelte-i8peb");
+			attr(div, "class", "grid grid-cols-cards gap-6 sm:gap-8 md:gap-10 lg:gap-12 svelte-t1vaam");
 		},
 		m(target, anchor) {
-			insert(target, div1, anchor);
-			append(div1, div0);
+			insert(target, div, anchor);
 
 			for (let i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(div0, null);
+				each_blocks[i].m(div, null);
 			}
 
 			current = true;
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*modeCtx, modes, trans*/ 7) {
+			if (dirty & /*ctx, modes*/ 3) {
 				each_value = /*modes*/ ctx[0];
 				let i;
 
@@ -1162,7 +1322,7 @@ function create_fragment$3(ctx) {
 						each_blocks[i] = create_each_block(child_ctx);
 						each_blocks[i].c();
 						transition_in(each_blocks[i], 1);
-						each_blocks[i].m(div0, null);
+						each_blocks[i].m(div, null);
 					}
 				}
 
@@ -1194,53 +1354,50 @@ function create_fragment$3(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			if (detaching) detach(div1);
+			if (detaching) detach(div);
 			destroy_each(each_blocks, detaching);
 		}
 	};
 }
 
-function instance$2($$self, $$props, $$invalidate) {
+function instance$3($$self, $$props, $$invalidate) {
 	
 	let { modes } = $$props;
-	const click_handler = mode => modeCtx.set(mode);
+	let ctx = getContext("ctx");
+	const click_handler = mode => ctx.mode.set(mode);
 
 	$$self.$$set = $$props => {
 		if ("modes" in $$props) $$invalidate(0, modes = $$props.modes);
 	};
 
-	let trans;
-	let modeCtx;
-	 $$invalidate(1, trans = getContext("trans"));
-	 $$invalidate(2, modeCtx = getContext("mode"));
-	return [modes, trans, modeCtx, click_handler];
+	return [modes, ctx, click_handler];
 }
 
 class Mode extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-i8peb-style")) add_css$2();
-		init(this, options, instance$2, create_fragment$3, safe_not_equal, { modes: 0 });
+		if (!document.getElementById("svelte-t1vaam-style")) add_css$4();
+		init(this, options, instance$3, create_fragment$5, safe_not_equal, { modes: 0 });
 	}
 }
 
 /* src/components/scenes/Style.svelte generated by Svelte v3.29.4 */
 
-function add_css$3() {
+function add_css$5() {
 	var style = element("style");
-	style.id = "svelte-f227p9-style";
-	style.textContent = ".svelte-f227p9,.svelte-f227p9::before,.svelte-f227p9::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}@keyframes svelte-f227p9-spin{to{transform:rotate(360deg)}}@keyframes svelte-f227p9-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-f227p9-pulse{50%{opacity:.5}}@keyframes svelte-f227p9-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}";
+	style.id = "svelte-158th4q-style";
+	style.textContent = ".svelte-158th4q,.svelte-158th4q::before,.svelte-158th4q::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}@keyframes svelte-158th4q-spin{to{transform:rotate(360deg)}}@keyframes svelte-158th4q-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-158th4q-pulse{50%{opacity:.5}}@keyframes svelte-158th4q-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}@media(min-width: 640px){}@media(min-width: 768px){}@media(min-width: 1024px){}";
 	append(document.head, style);
 }
 
-function create_fragment$4(ctx) {
+function create_fragment$6(ctx) {
 	let div;
 
 	return {
 		c() {
 			div = element("div");
 			div.textContent = "Style";
-			attr(div, "class", "svelte-f227p9");
+			attr(div, "class", "svelte-158th4q");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -1257,33 +1414,70 @@ function create_fragment$4(ctx) {
 class Style extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-f227p9-style")) add_css$3();
-		init(this, options, null, create_fragment$4, safe_not_equal, {});
+		if (!document.getElementById("svelte-158th4q-style")) add_css$5();
+		init(this, options, null, create_fragment$6, safe_not_equal, {});
 	}
+}
+
+var locales = {
+  en_US: {
+    modeHeadline: 'Choose a mode',
+    styleHeadline: 'Choose a style',
+    creatorModeDescription: 'Create a individual avatar piece by piece.',
+    deterministicModeDescription: 'Create deterministic avatars from a seed.'
+  }
+};
+
+function getPossibleScenes(modes, styles) {
+  var scenes = [];
+
+  if (modes.length > 1) {
+    scenes.push('mode');
+  }
+
+  if (Object.keys(styles).length > 1) {
+    scenes.push('style');
+  }
+
+  scenes.push('form');
+  return scenes;
+}
+function getBackScene(modes, styles, scene) {
+  var possibleScenes = getPossibleScenes(modes, styles);
+  var currentSceneIndex = possibleScenes.indexOf(scene);
+  return currentSceneIndex === 0 ? undefined : possibleScenes[currentSceneIndex - 1];
+}
+
+function createPreviewAvatar(style, options) {
+  return createAvatar(style, Object.assign(Object.assign({}, options), {
+    width: undefined,
+    height: undefined,
+    dataUri: true
+  }));
 }
 
 /* src/components/App.svelte generated by Svelte v3.29.4 */
 
-function add_css$4() {
+function add_css$6() {
 	var style = element("style");
-	style.id = "svelte-cu4tlh-style";
-	style.textContent = "h1.svelte-cu4tlh{font-size:2em;margin:0.67em 0}a.svelte-cu4tlh{background-color:transparent}img.svelte-cu4tlh{border-style:none}h1.svelte-cu4tlh,p.svelte-cu4tlh{margin:0}.svelte-cu4tlh,.svelte-cu4tlh::before,.svelte-cu4tlh::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}img.svelte-cu4tlh{border-style:solid}h1.svelte-cu4tlh{font-size:inherit;font-weight:inherit}a.svelte-cu4tlh{color:inherit;text-decoration:inherit}img.svelte-cu4tlh{display:block;vertical-align:middle}img.svelte-cu4tlh{max-width:100%;height:auto}.bg-white.svelte-cu4tlh{--bg-opacity:1;background-color:#fff;background-color:rgba(255, 255, 255, var(--bg-opacity))}.bg-gray-200.svelte-cu4tlh{--bg-opacity:1;background-color:#edf2f7;background-color:rgba(237, 242, 247, var(--bg-opacity))}.border-white.svelte-cu4tlh{--border-opacity:1;border-color:#fff;border-color:rgba(255, 255, 255, var(--border-opacity))}.border-gray-200.svelte-cu4tlh{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237, 242, 247, var(--border-opacity))}.rounded.svelte-cu4tlh{border-radius:0.25rem}.rounded-lg.svelte-cu4tlh{border-radius:0.5rem}.border-2.svelte-cu4tlh{border-width:2px}.border-8.svelte-cu4tlh{border-width:8px}.inline-block.svelte-cu4tlh{display:inline-block}.flex.svelte-cu4tlh{display:flex}.items-end.svelte-cu4tlh{align-items:flex-end}.justify-end.svelte-cu4tlh{justify-content:flex-end}.justify-center.svelte-cu4tlh{justify-content:center}.font-semibold.svelte-cu4tlh{font-weight:600}.h-10.svelte-cu4tlh{height:2.5rem}.h-32.svelte-cu4tlh{height:8rem}.text-xs.svelte-cu4tlh{font-size:0.75rem;line-height:1rem}.text-2xl.svelte-cu4tlh{font-size:1.5rem;line-height:2rem}.mr-2.svelte-cu4tlh{margin-right:0.5rem}.ml-2.svelte-cu4tlh{margin-left:0.5rem}.mb-6.svelte-cu4tlh{margin-bottom:1.5rem}.-mt-16.svelte-cu4tlh{margin-top:-4rem}.overflow-hidden.svelte-cu4tlh{overflow:hidden}.pt-1.svelte-cu4tlh{padding-top:0.25rem}.pr-2.svelte-cu4tlh{padding-right:0.5rem}.absolute.svelte-cu4tlh{position:absolute}.relative.svelte-cu4tlh{position:relative}.top-0.svelte-cu4tlh{top:0}.right-0.svelte-cu4tlh{right:0}.left-0.svelte-cu4tlh{left:0}.shadow-md.svelte-cu4tlh{box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)}.text-center.svelte-cu4tlh{text-align:center}.text-right.svelte-cu4tlh{text-align:right}.text-gray-400.svelte-cu4tlh{--text-opacity:1;color:#cbd5e0;color:rgba(203, 213, 224, var(--text-opacity))}.text-gray-600.svelte-cu4tlh{--text-opacity:1;color:#718096;color:rgba(113, 128, 150, var(--text-opacity))}.hover\\:underline.svelte-cu4tlh:hover{text-decoration:underline}.w-32.svelte-cu4tlh{width:8rem}.w-1\\/3.svelte-cu4tlh{width:33.333333%}.ease-out.svelte-cu4tlh{transition-timing-function:cubic-bezier(0, 0, 0.2, 1)}.duration-150.svelte-cu4tlh{transition-duration:150ms}@keyframes svelte-cu4tlh-spin{to{transform:rotate(360deg)}}@keyframes svelte-cu4tlh-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-cu4tlh-pulse{50%{opacity:.5}}@keyframes svelte-cu4tlh-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}.bg-transparent-shape.svelte-cu4tlh{background-image:url(data:image/svg+xml;utf8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22white%22%2F%3E%0A%3Crect%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.03%22%2F%3E%0A%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.03%22%2F%3E%0A%3Crect%20x%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.06%22%2F%3E%0A%3Crect%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.06%22%2F%3E%0A%3C%2Fsvg%3E%0A)}";
+	style.id = "svelte-s48hr4-style";
+	style.textContent = "h1.svelte-s48hr4{font-size:2em;margin:0.67em 0}a.svelte-s48hr4{background-color:transparent}img.svelte-s48hr4{border-style:none}h1.svelte-s48hr4,p.svelte-s48hr4{margin:0}.svelte-s48hr4,.svelte-s48hr4::before,.svelte-s48hr4::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e2e8f0}img.svelte-s48hr4{border-style:solid}h1.svelte-s48hr4{font-size:inherit;font-weight:inherit}a.svelte-s48hr4{color:inherit;text-decoration:inherit}img.svelte-s48hr4{display:block;vertical-align:middle}img.svelte-s48hr4{max-width:100%;height:auto}.bg-white.svelte-s48hr4{--bg-opacity:1;background-color:#fff;background-color:rgba(255, 255, 255, var(--bg-opacity))}.bg-gray-200.svelte-s48hr4{--bg-opacity:1;background-color:#edf2f7;background-color:rgba(237, 242, 247, var(--bg-opacity))}.border-white.svelte-s48hr4{--border-opacity:1;border-color:#fff;border-color:rgba(255, 255, 255, var(--border-opacity))}.border-gray-200.svelte-s48hr4{--border-opacity:1;border-color:#edf2f7;border-color:rgba(237, 242, 247, var(--border-opacity))}.rounded.svelte-s48hr4{border-radius:0.25rem}.rounded-lg.svelte-s48hr4{border-radius:0.5rem}.border-2.svelte-s48hr4{border-width:2px}.border-8.svelte-s48hr4{border-width:8px}.inline-block.svelte-s48hr4{display:inline-block}.flex.svelte-s48hr4{display:flex}.items-center.svelte-s48hr4{align-items:center}.self-start.svelte-s48hr4{align-self:flex-start}.justify-end.svelte-s48hr4{justify-content:flex-end}.justify-center.svelte-s48hr4{justify-content:center}.font-semibold.svelte-s48hr4{font-weight:600}.h-10.svelte-s48hr4{height:2.5rem}.h-16.svelte-s48hr4{height:4rem}.h-auto.svelte-s48hr4{height:auto}.text-xs.svelte-s48hr4{font-size:0.75rem;line-height:1rem}.text-2xl.svelte-s48hr4{font-size:1.5rem;line-height:2rem}.mr-2.svelte-s48hr4{margin-right:0.5rem}.mb-2.svelte-s48hr4{margin-bottom:0.5rem}.ml-2.svelte-s48hr4{margin-left:0.5rem}.-mb-16.svelte-s48hr4{margin-bottom:-4rem}.max-w-full.svelte-s48hr4{max-width:100%}.overflow-hidden.svelte-s48hr4{overflow:hidden}.p-6.svelte-s48hr4{padding:1.5rem}.pt-1.svelte-s48hr4{padding-top:0.25rem}.pr-2.svelte-s48hr4{padding-right:0.5rem}.absolute.svelte-s48hr4{position:absolute}.relative.svelte-s48hr4{position:relative}.top-0.svelte-s48hr4{top:0}.right-0.svelte-s48hr4{right:0}.left-0.svelte-s48hr4{left:0}.shadow-md.svelte-s48hr4{box-shadow:0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)}.text-center.svelte-s48hr4{text-align:center}.text-right.svelte-s48hr4{text-align:right}.text-gray-400.svelte-s48hr4{--text-opacity:1;color:#cbd5e0;color:rgba(203, 213, 224, var(--text-opacity))}.text-gray-600.svelte-s48hr4{--text-opacity:1;color:#718096;color:rgba(113, 128, 150, var(--text-opacity))}.hover\\:underline.svelte-s48hr4:hover{text-decoration:underline}.whitespace-no-wrap.svelte-s48hr4{white-space:nowrap}.w-32.svelte-s48hr4{width:8rem}.w-1\\/3.svelte-s48hr4{width:33.333333%}.z-10.svelte-s48hr4{z-index:10}.ease-out.svelte-s48hr4{transition-timing-function:cubic-bezier(0, 0, 0.2, 1)}.duration-150.svelte-s48hr4{transition-duration:150ms}@keyframes svelte-s48hr4-spin{to{transform:rotate(360deg)}}@keyframes svelte-s48hr4-ping{75%,100%{transform:scale(2);opacity:0}}@keyframes svelte-s48hr4-pulse{50%{opacity:.5}}@keyframes svelte-s48hr4-bounce{0%,100%{transform:translateY(-25%);animation-timing-function:cubic-bezier(0.8,0,1,1)}50%{transform:none;animation-timing-function:cubic-bezier(0,0,0.2,1)}}.bg-transparent-shape.svelte-s48hr4{background-image:url(data:image/svg+xml;utf8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22white%22%2F%3E%0A%3Crect%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.03%22%2F%3E%0A%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.03%22%2F%3E%0A%3Crect%20x%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.06%22%2F%3E%0A%3Crect%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22black%22%20fill-opacity%3D%220.06%22%2F%3E%0A%3C%2Fsvg%3E%0A)}@media(min-width: 640px){.sm\\:p-8.svelte-s48hr4{padding:2rem}}@media(min-width: 768px){.md\\:p-10.svelte-s48hr4{padding:2.5rem}}@media(min-width: 1024px){.lg\\:p-12.svelte-s48hr4{padding:3rem}}";
 	append(document.head, style);
 }
 
-// (860:6) {#if backScene}
+// (898:6) {#if backScene}
 function create_if_block_7(ctx) {
 	let div;
 	let button;
 	let current;
 	button = new Button({ props: { icon: "chevron-left" } });
-	button.$on("click", /*click_handler*/ ctx[10]);
+	button.$on("click", /*click_handler*/ ctx[8]);
 
 	return {
 		c() {
 			div = element("div");
 			create_component(button.$$.fragment);
-			attr(div, "class", "mr-2 svelte-cu4tlh");
+			attr(div, "class", "mr-2 svelte-s48hr4");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -1307,7 +1501,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (871:33) 
+// (909:33) 
 function create_if_block_6(ctx) {
 	let div;
 	let img;
@@ -1317,17 +1511,17 @@ function create_if_block_6(ctx) {
 		c() {
 			div = element("div");
 			img = element("img");
-			if (img.src !== (img_src_value = /*avatar*/ ctx[6])) attr(img, "src", img_src_value);
-			attr(img, "class", "w-32 h-32 -mt-16 inline-block border-2 border-white rounded-lg shadow-md bg-transparent-shape svelte-cu4tlh");
+			if (img.src !== (img_src_value = /*avatar*/ ctx[3])) attr(img, "src", img_src_value);
+			attr(img, "class", "w-32 h-auto max-w-full -mb-16 inline-block border-2 border-white rounded-lg shadow-md bg-transparent-shape z-10 relative svelte-s48hr4");
 			attr(img, "alt", "Your Avatar");
-			attr(div, "class", "text-center left-0 right-0 svelte-cu4tlh");
+			attr(div, "class", "text-center left-0 right-0 self-start svelte-s48hr4");
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
 			append(div, img);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*avatar*/ 64 && img.src !== (img_src_value = /*avatar*/ ctx[6])) {
+			if (dirty & /*avatar*/ 8 && img.src !== (img_src_value = /*avatar*/ ctx[3])) {
 				attr(img, "src", img_src_value);
 			}
 		},
@@ -1337,57 +1531,47 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (869:34) 
+// (907:34) 
 function create_if_block_5(ctx) {
 	let h1;
-	let t_value = /*trans*/ ctx[4].styleHeadline + "";
-	let t;
 
 	return {
 		c() {
 			h1 = element("h1");
-			t = text(t_value);
-			attr(h1, "class", "text-2xl text-gray-600 svelte-cu4tlh");
+			h1.textContent = `${/*ctx*/ ctx[6].i18n.get("styleHeadline")}`;
+			attr(h1, "class", "text-2xl text-gray-600 mb-2 svelte-s48hr4");
 		},
 		m(target, anchor) {
 			insert(target, h1, anchor);
-			append(h1, t);
 		},
-		p(ctx, dirty) {
-			if (dirty & /*trans*/ 16 && t_value !== (t_value = /*trans*/ ctx[4].styleHeadline + "")) set_data(t, t_value);
-		},
+		p: noop,
 		d(detaching) {
 			if (detaching) detach(h1);
 		}
 	};
 }
 
-// (867:6) {#if scene === 'mode'}
+// (905:6) {#if scene === 'mode'}
 function create_if_block_4$1(ctx) {
 	let h1;
-	let t_value = /*trans*/ ctx[4].modeHeadline + "";
-	let t;
 
 	return {
 		c() {
 			h1 = element("h1");
-			t = text(t_value);
-			attr(h1, "class", "text-2xl text-gray-600 svelte-cu4tlh");
+			h1.textContent = `${/*ctx*/ ctx[6].i18n.get("modeHeadline")}`;
+			attr(h1, "class", "text-2xl text-gray-600 mb-2 svelte-s48hr4");
 		},
 		m(target, anchor) {
 			insert(target, h1, anchor);
-			append(h1, t);
 		},
-		p(ctx, dirty) {
-			if (dirty & /*trans*/ 16 && t_value !== (t_value = /*trans*/ ctx[4].modeHeadline + "")) set_data(t, t_value);
-		},
+		p: noop,
 		d(detaching) {
 			if (detaching) detach(h1);
 		}
 	};
 }
 
-// (881:6) {#if scene === 'form'}
+// (919:6) {#if scene === 'form'}
 function create_if_block_3$1(ctx) {
 	let div0;
 	let button0;
@@ -1405,8 +1589,8 @@ function create_if_block_3$1(ctx) {
 			t = space();
 			div1 = element("div");
 			create_component(button1.$$.fragment);
-			attr(div0, "class", "ml-2 svelte-cu4tlh");
-			attr(div1, "class", "ml-2 svelte-cu4tlh");
+			attr(div0, "class", "ml-2 svelte-s48hr4");
+			attr(div1, "class", "ml-2 svelte-s48hr4");
 		},
 		m(target, anchor) {
 			insert(target, div0, anchor);
@@ -1437,7 +1621,7 @@ function create_if_block_3$1(ctx) {
 	};
 }
 
-// (901:37) 
+// (939:37) 
 function create_if_block_2$1(ctx) {
 	let formscene;
 	let current;
@@ -1467,8 +1651,8 @@ function create_if_block_2$1(ctx) {
 	};
 }
 
-// (899:38) 
-function create_if_block_1$2(ctx) {
+// (937:38) 
+function create_if_block_1$3(ctx) {
 	let stylescene;
 	let current;
 	stylescene = new Style({});
@@ -1497,11 +1681,11 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (897:10) {#if scene === 'mode'}
-function create_if_block$3(ctx) {
+// (935:10) {#if scene === 'mode'}
+function create_if_block$4(ctx) {
 	let modescene;
 	let current;
-	modescene = new Mode({ props: { modes: /*modes*/ ctx[0] } });
+	modescene = new Mode({ props: { modes: /*modes*/ ctx[5] } });
 
 	return {
 		c() {
@@ -1511,11 +1695,7 @@ function create_if_block$3(ctx) {
 			mount_component(modescene, target, anchor);
 			current = true;
 		},
-		p(ctx, dirty) {
-			const modescene_changes = {};
-			if (dirty & /*modes*/ 1) modescene_changes.modes = /*modes*/ ctx[0];
-			modescene.$set(modescene_changes);
-		},
+		p: noop,
 		i(local) {
 			if (current) return;
 			transition_in(modescene.$$.fragment, local);
@@ -1531,20 +1711,20 @@ function create_if_block$3(ctx) {
 	};
 }
 
-// (895:6) {#key scene}
+// (933:6) {#key scene}
 function create_key_block(ctx) {
 	let div;
 	let current_block_type_index;
 	let if_block;
 	let div_resize_listener;
 	let current;
-	const if_block_creators = [create_if_block$3, create_if_block_1$2, create_if_block_2$1];
+	const if_block_creators = [create_if_block$4, create_if_block_1$3, create_if_block_2$1];
 	const if_blocks = [];
 
 	function select_block_type_1(ctx, dirty) {
-		if (/*scene*/ ctx[1] === "mode") return 0;
-		if (/*scene*/ ctx[1] === "style") return 1;
-		if (/*scene*/ ctx[1] === "form") return 2;
+		if (/*scene*/ ctx[0] === "mode") return 0;
+		if (/*scene*/ ctx[0] === "style") return 1;
+		if (/*scene*/ ctx[0] === "form") return 2;
 		return -1;
 	}
 
@@ -1556,8 +1736,8 @@ function create_key_block(ctx) {
 		c() {
 			div = element("div");
 			if (if_block) if_block.c();
-			attr(div, "class", "absolute top-0 left-0 right-0 svelte-cu4tlh");
-			add_render_callback(() => /*div_elementresize_handler*/ ctx[11].call(div));
+			attr(div, "class", "absolute top-0 left-0 right-0 p-6 sm:p-8 md:p-10 lg:p-12 svelte-s48hr4");
+			add_render_callback(() => /*div_elementresize_handler*/ ctx[9].call(div));
 		},
 		m(target, anchor) {
 			insert(target, div, anchor);
@@ -1566,7 +1746,7 @@ function create_key_block(ctx) {
 				if_blocks[current_block_type_index].m(div, null);
 			}
 
-			div_resize_listener = add_resize_listener(div, /*div_elementresize_handler*/ ctx[11].bind(div));
+			div_resize_listener = add_resize_listener(div, /*div_elementresize_handler*/ ctx[9].bind(div));
 			current = true;
 		},
 		p(ctx, dirty) {
@@ -1624,7 +1804,7 @@ function create_key_block(ctx) {
 	};
 }
 
-function create_fragment$5(ctx) {
+function create_fragment$7(ctx) {
 	let div6;
 	let div3;
 	let div0;
@@ -1635,22 +1815,22 @@ function create_fragment$5(ctx) {
 	let t2;
 	let div5;
 	let div4;
-	let previous_key = /*scene*/ ctx[1];
+	let previous_key = /*scene*/ ctx[0];
 	let div4_class_value;
 	let t3;
 	let p;
 	let current;
-	let if_block0 = /*backScene*/ ctx[5] && create_if_block_7(ctx);
+	let if_block0 = /*backScene*/ ctx[4] && create_if_block_7(ctx);
 
 	function select_block_type(ctx, dirty) {
-		if (/*scene*/ ctx[1] === "mode") return create_if_block_4$1;
-		if (/*scene*/ ctx[1] === "style") return create_if_block_5;
-		if (/*scene*/ ctx[1] === "form") return create_if_block_6;
+		if (/*scene*/ ctx[0] === "mode") return create_if_block_4$1;
+		if (/*scene*/ ctx[0] === "style") return create_if_block_5;
+		if (/*scene*/ ctx[0] === "form") return create_if_block_6;
 	}
 
 	let current_block_type = select_block_type(ctx);
 	let if_block1 = current_block_type && current_block_type(ctx);
-	let if_block2 = /*scene*/ ctx[1] === "form" && create_if_block_3$1();
+	let if_block2 = /*scene*/ ctx[0] === "form" && create_if_block_3$1();
 	let key_block = create_key_block(ctx);
 
 	return {
@@ -1673,21 +1853,21 @@ function create_fragment$5(ctx) {
 			p = element("p");
 
 			p.innerHTML = `Powered By
-  <a href="https://avatars.dicebear.com" class="font-semibold hover:underline svelte-cu4tlh">DiceBear Avatars</a>`;
+  <a href="https://avatars.dicebear.com" class="font-semibold hover:underline svelte-s48hr4">DiceBear Avatars</a>`;
 
-			attr(div0, "class", "flex w-1/3 svelte-cu4tlh");
-			attr(div1, "class", "w-1/3 flex justify-center items-end  svelte-cu4tlh");
-			attr(div2, "class", "flex w-1/3 justify-end svelte-cu4tlh");
-			attr(div3, "class", "h-10 flex mb-6 svelte-cu4tlh");
+			attr(div0, "class", "flex w-1/3 svelte-s48hr4");
+			attr(div1, "class", "w-1/3 flex justify-center items-center whitespace-no-wrap svelte-s48hr4");
+			attr(div2, "class", "flex w-1/3 justify-end svelte-s48hr4");
+			attr(div3, "class", "h-10 flex h-16 svelte-s48hr4");
 
-			attr(div4, "class", div4_class_value = "relative overflow-hidden $" + (/*contentTransitions*/ ctx[3]
+			attr(div4, "class", div4_class_value = "relative overflow-hidden $" + (/*contentTransitions*/ ctx[2]
 			? "transition-all ease-out duration-150"
-			: "") + " svelte-cu4tlh");
+			: "") + " svelte-s48hr4");
 
-			set_style(div4, "height", /*contentHeight*/ ctx[2] + "px");
-			attr(div5, "class", "rounded bg-white shadow-md relative svelte-cu4tlh");
-			attr(div6, "class", "bg-gray-200 border-8 rounded-lg border-gray-200 svelte-cu4tlh");
-			attr(p, "class", "text-right text-xs text-gray-400 pr-2 pt-1 svelte-cu4tlh");
+			set_style(div4, "height", /*contentHeight*/ ctx[1] + "px");
+			attr(div5, "class", "rounded bg-white shadow-md relative svelte-s48hr4");
+			attr(div6, "class", "bg-gray-200 border-8 rounded-lg border-gray-200 svelte-s48hr4");
+			attr(p, "class", "text-right text-xs text-gray-400 pr-2 pt-1 svelte-s48hr4");
 		},
 		m(target, anchor) {
 			insert(target, div6, anchor);
@@ -1709,11 +1889,11 @@ function create_fragment$5(ctx) {
 			current = true;
 		},
 		p(ctx, [dirty]) {
-			if (/*backScene*/ ctx[5]) {
+			if (/*backScene*/ ctx[4]) {
 				if (if_block0) {
 					if_block0.p(ctx, dirty);
 
-					if (dirty & /*backScene*/ 32) {
+					if (dirty & /*backScene*/ 16) {
 						transition_in(if_block0, 1);
 					}
 				} else {
@@ -1744,9 +1924,9 @@ function create_fragment$5(ctx) {
 				}
 			}
 
-			if (/*scene*/ ctx[1] === "form") {
+			if (/*scene*/ ctx[0] === "form") {
 				if (if_block2) {
-					if (dirty & /*scene*/ 2) {
+					if (dirty & /*scene*/ 1) {
 						transition_in(if_block2, 1);
 					}
 				} else {
@@ -1765,7 +1945,7 @@ function create_fragment$5(ctx) {
 				check_outros();
 			}
 
-			if (dirty & /*scene*/ 2 && safe_not_equal(previous_key, previous_key = /*scene*/ ctx[1])) {
+			if (dirty & /*scene*/ 1 && safe_not_equal(previous_key, previous_key = /*scene*/ ctx[0])) {
 				group_outros();
 				transition_out(key_block, 1, 1, noop);
 				check_outros();
@@ -1777,14 +1957,14 @@ function create_fragment$5(ctx) {
 				key_block.p(ctx, dirty);
 			}
 
-			if (!current || dirty & /*contentTransitions*/ 8 && div4_class_value !== (div4_class_value = "relative overflow-hidden $" + (/*contentTransitions*/ ctx[3]
+			if (!current || dirty & /*contentTransitions*/ 4 && div4_class_value !== (div4_class_value = "relative overflow-hidden $" + (/*contentTransitions*/ ctx[2]
 			? "transition-all ease-out duration-150"
-			: "") + " svelte-cu4tlh")) {
+			: "") + " svelte-s48hr4")) {
 				attr(div4, "class", div4_class_value);
 			}
 
-			if (!current || dirty & /*contentHeight*/ 4) {
-				set_style(div4, "height", /*contentHeight*/ ctx[2] + "px");
+			if (!current || dirty & /*contentHeight*/ 2) {
+				set_style(div4, "height", /*contentHeight*/ ctx[1] + "px");
 			}
 		},
 		i(local) {
@@ -1816,7 +1996,7 @@ function create_fragment$5(ctx) {
 	};
 }
 
-function instance$3($$self, $$props, $$invalidate) {
+function instance$4($$self, $$props, $$invalidate) {
 	var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
 		function adopt(value) {
 			return value instanceof P
@@ -1854,127 +2034,88 @@ function instance$3($$self, $$props, $$invalidate) {
 	};
 
 	
-	let { modes = ["creator"] } = $$props;
-	let { styles } = $$props;
-	let { i18n = {} } = $$props;
+	let { options } = $$props;
+	let { styles, modes = ["creator"], locales: locales$1 = {}, locale = "en_US", fallbackLocale = "en_US" } = options;
 	let mode = modes[0];
-	let style = styles[0];
-	let scene = getPossibleScenes()[0];
-	let options = {};
+	let style = Object.values(styles)[0];
+	let scene = getPossibleScenes(modes, styles)[0];
+	let avatarOptions = {};
 	let contentHeight = 0;
 	let contentTransitions = false;
+	let avatar;
+	let i18n = Object.assign(Object.assign(Object.assign(Object.assign({}, locales[fallbackLocale] || {}), locales[locale] || {}), locales$1[fallbackLocale] || {}), locales$1[locale] || {});
 
-	setContext("trans", Object.assign(
-		{
-			modeHeadline: "Choose a mode",
-			styleHeadline: "Choose a style",
-			creatorModeDescription: "Create a individual avatar piece by piece.",
-			deterministicModeDescription: "Create deterministic avatars from a seed."
+	let ctx = {
+		i18n: { get: key => i18n[key] },
+		mode: {
+			get: () => mode,
+			set: newMode => {
+				mode = newMode;
+				$$invalidate(0, scene = getPossibleScenes(modes, styles).filter(v => v !== "mode")[0]);
+				$$invalidate(12, avatarOptions = {});
+			}
 		},
-		i18n
-	));
+		style: {
+			get: () => style,
+			set: newStyle => {
+				$$invalidate(11, style = newStyle);
+				$$invalidate(0, scene = "form");
+				$$invalidate(12, avatarOptions = {});
+			}
+		},
+		avatarOptions: {
+			get: () => avatarOptions,
+			set: newAvatarOptions => $$invalidate(12, avatarOptions = newAvatarOptions)
+		},
+		scene: {
+			get: () => scene,
+			set: newScene => $$invalidate(0, scene = newScene)
+		}
+	};
 
-	setContext("mode", { get: () => mode, set: changeMode });
-	setContext("style", { get: () => style, set: changeStyle });
-	setContext("options", { get: () => options, set: changeOptions });
+	setContext("ctx", ctx);
 
-	afterUpdate(() => __awaiter(void 0, void 0, void 0, function* () {
+	onMount(() => __awaiter(void 0, void 0, void 0, function* () {
 		setTimeout(
 			() => {
-				$$invalidate(3, contentTransitions = contentHeight > 0);
+				$$invalidate(2, contentTransitions = contentHeight > 0);
 			},
 			100
 		);
 	}));
 
-	function changeMode(newMode) {
-		mode = newMode;
-		$$invalidate(1, scene = getPossibleScenes().filter(v => v !== "mode")[0]);
-		$$invalidate(14, options = {});
-	}
-
-	function changeStyle(newStyle) {
-		$$invalidate(13, style = newStyle);
-		$$invalidate(1, scene = "form");
-		$$invalidate(14, options = {});
-	}
-
-	function changeScene(newScene) {
-		$$invalidate(1, scene = newScene);
-	}
-
-	function changeOptions(newOptions) {
-		$$invalidate(14, options = newOptions);
-	}
-
-	function getPossibleScenes() {
-		let scenes = [];
-
-		if (modes.length > 1) {
-			scenes.push("mode");
-		}
-
-		if (Object.keys(styles).length > 1) {
-			scenes.push("style");
-		}
-
-		scenes.push("form");
-		return scenes;
-	}
-
-	function getBackScene() {
-		let possibleScenes = getPossibleScenes();
-		let currentSceneIndex = possibleScenes.indexOf(scene);
-		console.log(currentSceneIndex);
-
-		return currentSceneIndex === 0
-		? undefined
-		: possibleScenes[currentSceneIndex - 1];
-	}
-
-	const click_handler = () => changeScene(backScene);
+	const click_handler = () => ctx.scene.set(backScene);
 
 	function div_elementresize_handler() {
 		contentHeight = this.offsetHeight;
-		$$invalidate(2, contentHeight);
+		$$invalidate(1, contentHeight);
 	}
 
 	$$self.$$set = $$props => {
-		if ("modes" in $$props) $$invalidate(0, modes = $$props.modes);
-		if ("styles" in $$props) $$invalidate(8, styles = $$props.styles);
-		if ("i18n" in $$props) $$invalidate(9, i18n = $$props.i18n);
+		if ("options" in $$props) $$invalidate(7, options = $$props.options);
 	};
 
-	let trans;
 	let backScene;
-	let avatar;
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*scene, style, options*/ 24578) {
-			 $$invalidate(6, avatar = scene === "form"
-			? createAvatar(style, Object.assign(Object.assign({}, options), {
-					width: undefined,
-					height: undefined,
-					base64: true
-				}))
-			: "data:,");
+		if ($$self.$$.dirty & /*scene*/ 1) {
+			 $$invalidate(4, backScene = getBackScene(modes, styles, scene));
+		}
+
+		if ($$self.$$.dirty & /*style, avatarOptions*/ 6144) {
+			 $$invalidate(3, avatar = createPreviewAvatar(style, avatarOptions));
 		}
 	};
 
-	 $$invalidate(4, trans = getContext("trans"));
-	 $$invalidate(5, backScene = getBackScene());
-
 	return [
-		modes,
 		scene,
 		contentHeight,
 		contentTransitions,
-		trans,
-		backScene,
 		avatar,
-		changeScene,
-		styles,
-		i18n,
+		backScene,
+		modes,
+		ctx,
+		options,
 		click_handler,
 		div_elementresize_handler
 	];
@@ -1983,19 +2124,21 @@ function instance$3($$self, $$props, $$invalidate) {
 class App extends SvelteComponent {
 	constructor(options) {
 		super();
-		if (!document.getElementById("svelte-cu4tlh-style")) add_css$4();
-		init(this, options, instance$3, create_fragment$5, safe_not_equal, { modes: 0, styles: 8, i18n: 9 });
+		if (!document.getElementById("svelte-s48hr4-style")) add_css$6();
+		init(this, options, instance$4, create_fragment$7, safe_not_equal, { options: 7 });
 	}
 }
 
-var index = (function (options) {
+var createAvatarUI = function createAvatarUI(options) {
   var target = options.target,
-      props = __rest(options, ["target"]);
+      rest = __rest(options, ["target"]);
 
   return new App({
     target: target,
-    props: props
+    props: {
+      options: rest
+    }
   });
-});
+};
 
-export default index;
+export { createAvatarUI };

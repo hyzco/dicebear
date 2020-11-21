@@ -6,7 +6,7 @@
 
   export let modes: Modes;
 
-  let context = getContext<Context>('context');
+  let ctx = getContext<Context>('ctx');
 </script>
 
 <style>
@@ -22,11 +22,11 @@
       <h2 class="text-xl mb-6 text-gray-700 capitalize">{mode}</h2>
       <p class="text-gray-600 mb-8 flex-grow">
         {#if mode === 'creator'}
-          {context.i18n.get('creatorModeDescription')}
-        {:else if mode === 'deterministic'}{context.i18n.get('deterministicModeDescription')}{/if}
+          {ctx.i18n.get('creatorModeDescription')}
+        {:else if mode === 'deterministic'}{ctx.i18n.get('deterministicModeDescription')}{/if}
       </p>
       <div class="text-center">
-        <Button on:click={() => context.mode.set(mode)}>Select</Button>
+        <Button on:click={() => ctx.mode.set(mode)}>Select</Button>
       </div>
     </div>
   {/each}

@@ -29,7 +29,7 @@
     ...(locales[locale] || {}),
   };
 
-  let context: Context = {
+  let ctx: Context = {
     i18n: {
       get: (key) => i18n[key],
     },
@@ -59,7 +59,7 @@
     },
   };
 
-  setContext('context', context);
+  setContext('ctx', ctx);
 
   $: backScene = getBackScene(modes, styles, scene);
   $: avatar = createPreviewAvatar(style, avatarOptions);
@@ -83,15 +83,15 @@
     <div class="flex w-1/3">
       {#if backScene}
         <div class="mr-2">
-          <Button on:click={() => context.scene.set(backScene)} icon="chevron-left" />
+          <Button on:click={() => ctx.scene.set(backScene)} icon="chevron-left" />
         </div>
       {/if}
     </div>
     <div class="w-1/3 flex justify-center items-center whitespace-no-wrap">
       {#if scene === 'mode'}
-        <h1 class="text-2xl text-gray-600 mb-2">{context.i18n.get('modeHeadline')}</h1>
+        <h1 class="text-2xl text-gray-600 mb-2">{ctx.i18n.get('modeHeadline')}</h1>
       {:else if scene === 'style'}
-        <h1 class="text-2xl text-gray-600 mb-2">{context.i18n.get('styleHeadline')}</h1>
+        <h1 class="text-2xl text-gray-600 mb-2">{ctx.i18n.get('styleHeadline')}</h1>
       {:else if scene === 'form'}
         <div class="text-center left-0 right-0 self-start">
           <img
