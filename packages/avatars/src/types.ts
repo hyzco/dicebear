@@ -10,12 +10,14 @@ export interface Prng {
 
 export type StyleSchema = JSONSchema7;
 
+export type StyleOptions<O extends {}> = Options & O;
+
 export interface StyleCreateProps<O> {
   prng: Prng;
-  options: O;
+  options: StyleOptions<O>;
 }
 
-export type StyleCreate<O extends Options> = (props: StyleCreateProps<O>) => StyleCreateResult;
+export type StyleCreate<O extends {}> = (props: StyleCreateProps<O>) => StyleCreateResult;
 
 export interface StyleCreateResultAttributes {
   viewBox: string;
@@ -41,18 +43,17 @@ export interface StyleMeta {
 }
 
 export interface StyleColors {
-  [name: string]: string;
+  [name: string]: Record<string, string>;
 }
 
-export interface StylePathCreateProps {
-  color?: string;
+export interface StylePresets<O extends {}> {
+  [name: string]: Partial<StyleOptions<O>>;
 }
 
-export type StylePathCreate = (props: StylePathCreateProps) => string;
-
-export interface Style<O extends Options> {
+export interface Style<O extends {}> {
   meta: StyleMeta;
   schema: StyleSchema;
   colors: StyleColors;
   create: StyleCreate<O>;
+  presets?: StylePresets<O>;
 }

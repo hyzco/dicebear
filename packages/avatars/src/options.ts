@@ -6,19 +6,18 @@
  */
 
 export type Seed = string;
-export type Radius = number;
 export type DataURI = boolean;
+export type Radius = number;
 export type Width = number;
 export type Height = number;
 export type Margin = number;
-export type Color = string;
-export type BackgroundColor = Color[];
+export type BackgroundColor = string | string[];
 
 export interface Options {
   seed?: Seed;
+  dataUri?: DataURI;
   radius?: Radius;
   r?: Radius;
-  dataUri?: DataURI;
   width?: Width;
   w?: Width;
   height?: Height;

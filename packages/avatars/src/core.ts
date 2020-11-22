@@ -1,22 +1,23 @@
-import type { Style } from './types';
-import type { Options } from './options';
+import type { Style, StyleOptions } from './types';
 import { svg, schema, prng } from './utils';
+import { schema as coreSchema } from './schema';
 
-export function createAvatar<O extends Options>(style: Style<O>, options: O) {
-  let defaultOptions = schema.defaults(style.schema);
-
+export function createAvatar<O extends {}>(style: Style<O>, options: StyleOptions<O>) {
   options = {
     seed: Math.random().toString(),
-    ...defaultOptions,
+    ...schema.defaults(coreSchema),
+    ...schema.defaults(style.schema),
     ...options,
   };
 
-  schema.aliases(style.schema).forEach((aliases) => {
+  let coreAndStyleAliases = [...schema.aliases(coreSchema), ...schema.aliases(style.schema)];
+
+  coreAndStyleAliases.forEach((aliases) => {
     let val = aliases.reduce<any>((current, alias) => {
       return current || options[alias];
     }, undefined);
 
-    aliases.forEach((alias: keyof O) => {
+    aliases.forEach((alias: keyof StyleOptions<O>) => {
       options[alias] = val;
     });
   });

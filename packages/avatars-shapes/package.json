@@ -35,13 +35,10 @@
     "test": "echo 'No tests available'",
     "watch": "microbundle --watch"
   },
-  "dependencies": {
-    "shapes": "^2.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@dicebear/avatars": "^4.0.0",
     "@dicebear/avatars-cli": "^4.4.0",
-    "shapes": "^2.1.1",
     "microbundle": "^0.12.4",
     "typescript": "^4.0.5"
   },
