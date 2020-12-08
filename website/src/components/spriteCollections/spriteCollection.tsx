@@ -18,7 +18,7 @@ export default class SpriteCollection extends React.Component<Props> {
             </div>
           </div>
           <h3 className="display-3 text-center mb-0">{this.props.id}</h3>
-          <p className="text-muted text-center mb-5">@dicebear/avatars-{this.props.id}-sprites</p>
+          <p className="text-muted text-center mb-5">@dicebear/avatars-{this.props.id}</p>
         </div>
         <div className="text-center">
           <Link

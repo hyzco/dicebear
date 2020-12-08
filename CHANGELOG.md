@@ -1,122 +1,88 @@
 # Changelog
 
-## [4.5.1] - 2020-12-07
-
-### Fixed
-
-- `@dicebear/avatars` Randomness increased in new PRNG implementation
-
-## [4.5.0] - 2020-12-06
+## [5.0.0] - TBA
 
 ### Added
 
-- `@dicebear/avatars` Option `dataUri` as replacement for `base64`.
+- `@dicebear/avatars-pixel-art`  
+  Replacement for `male`, `female` and `human` avatar styles.
+
+- `@dicebear/avatars-shapes`  
+  Replacement for `jdenticon` avatar style.
+
+- `@dicebear/avatars-micha`  
+  New avatar style. Designed by [Micah Lanier](https://dribbble.com/micahlanier).
+
+- `@dicebear/avatars-cli`  
+  Official Dicebear Avatars CLI.
 
 ### Changed
 
-- `@dicebear/avatars` Package `seedrandom` replaced with own PRNG implementation.
+- Package `@dicebear/avatars-avataaars-sprites` renamed to `@dicebear/avatars-avataaars`.
 
-### Deprecated
+- Package `@dicebear/avatars-bottts-sprites` renamed to `@dicebear/avatars-bottts`.
 
-- `@dicebear/avatars` Option `base64` is now deprecated. Use `dataUri` instead.
+- Package `@dicebear/avatars-gridy-sprites` renamed to `@dicebear/avatars-gridy`.
 
-## [4.4.1] - 2020-11-21
+- Package `@dicebear/avatars-identicon-sprites` renamed to `@dicebear/avatars-identicon`.
+
+- Package `@dicebear/avatars-initials-sprites` renamed to `@dicebear/avatars-initials`.
+
+#### @dicebear/avatars
+
+- Classes are rewritten as functions. This allows direct access to the `createAvatar` function without having to
+  initialize an object first.
+
+  Old API
+
+  ```js
+  import Avatars from `@dicebear/avatars`;
+  import style from `@dicebear/avatars-identicon-sprites`;
+
+  let options = {};
+  let seed = 'custom-seed';
+  let avatars = new Avatars(style, options);
+  let svg = avatars.create(seed);
+  ```
+
+  New API
+
+  ```js
+  import { createAvatar } from `@dicebear/avatars`;
+  import * as style from `@dicebear/avatars-identicon`;
+
+  let svg = createAvatar(style, {
+    seed: 'custom-seed',
+    // ... and other options
+  });
+  ```
+
+- If no seed is passed, a random one is defined.
+
+- The following options have been renamed:
+
+  - `background` => `backgroundColor`
 
 ### Removed
 
-- `@dicebear/avatars-avataaars-sprites` Graphic shirt "selena"
+- `@dicebear/avatars-male-sprites`  
+  Use `@dicebear/avatars-pixel-art` instead.
 
-## [4.4.0] - 2020-11-11
+- `@dicebear/avatars-female-sprites`  
+  Use `@dicebear/avatars-pixel-art` instead.
 
-### Added
+- `@dicebear/avatars-human-sprites`  
+  Use `@dicebear/avatars-pixel-art` instead.
 
-- `@dicebear/avatars-avataaars-sprites` New option values for `facialHair`: `pastel` and `gray`
-- `@dicebear/avatars-avataaars-sprites` New option value for `eyebrow`: `frown`
-- `@dicebear/avatars-avataaars-sprites` New option `accessoriesColor`
+- `@dicebear/avatars-jdenticon-sprites`  
+  Use `@dicebear/avatars-shapes` instead.
 
-### Changed
+#### @dicebear/avatars
 
-- `@dicebear/avatars-avataaars-sprites` Completely rewritten to remove the `react`, `react-dom` and `avataaars`
-  dependencies. Solves [#48](https://github.com/DiceBear/avatars/issues/48).
+- The following options have been removed:
 
-## [4.3.0] - 2020-11-06
+  - `base64` => Use `dataUri` instead.
 
-### Fixed
+## Older Versions
 
-- Text position was wrong in `@dicebear/avatars-initials-sprites` when a font size was specified.
-
-### Removed
-
-- Code sprites are no longer supported. Too CPU intensive for the HTTP API and does not fit into the future vision of
-  the next major release. Use [qr-image](https://www.npmjs.com/package/qr-image) directly instead.
-
-## [4.2.4] - 2020-07-22
-
-### Fixed
-
-- Types for array options in `avatars-avataaars-sprites`
-
-## [4.2.2] - 2020-07-21
-
-### Fixed
-
-- Type for `topChance` in `avatars-avataaars-sprites`
-
-## [4.2.1] - 2020-06-20
-
-### Changed
-
-- Renamed default branch to `v4`.
-
-## [4.2.0] - 2020-05-26
-
-### Changed
-
-- [#73][7] Update seedrandom package to 3.0.5
-
-[7]: https://github.com/DiceBear/avatars/pull/73
-
-## [4.1.1] - 2020-05-14
-
-### Changed
-
-- New API Path. `/api/` instead of `/v2/`
-
-### Fixed
-
-- `initials` more precisely centered
-- `avataaars` Background Color
-
-## [4.1.0] - 2020-05-09
-
-### Added
-
-- [#55][1] Aliases for `width`, `height`, `radius`, `background` and `margin`, to keep the URLs of the HTTP API shorter
-- [#66][5] `deterministic` for `gridy` avatars. (thanks to @elierotenberg)
-- This changelog
-
-### Changed
-
-- [#55][1] Parameter key for the HTTP API flattened. It is now no longer necessary to nest the values in an `options`
-  object.
-- [#61][6] Update `topChange` to `topChance`, clarify some documentation (thanks to @pennstatephil)
-- [Configurator][2] now always generates the smallest possible HTTP-API URL.
-- Reorganized dependencies in the repository.
-- Stackpath CDN configured for HTTP API. Saves 90% traffic to Cloudflare Workers and therefore also unnecessary costs.
-  Unfortunately makes the initial call a bit slower.
-
-### Fixed
-
-- [#69][3] Initial avatars were displayed incorrectly in Firefox. Same solution implemented for all browsers.
-- [#58][4] Value `0` did not work for chance options in `bottts`.
-
-### Removed
-
-- `bowser` dependency in initials avatars.
-
-[1]: https://github.com/DiceBear/avatars/issues/55
-[2]: https://avatars.dicebear.com
-[3]: https://github.com/DiceBear/avatars/issues/69
-[4]: https://github.com/DiceBear/avatars/issues/58
-[5]: https://github.com/DiceBear/avatars/pull/66
-[6]: https://github.com/DiceBear/avatars/pull/61
+- [4.x](https://github.com/DiceBear/avatars/blob/v4/CHANGELOG.md)

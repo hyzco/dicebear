@@ -38,13 +38,13 @@ See the [HTTP API documentation](/docs/http-api) for more information.
 
 Install the Avatars and this avatar style with the following command.
 
-    npm install --save @dicebear/avatars @dicebear/avatars-identicon-sprites
+    npm install --save @dicebear/avatars @dicebear/avatars-identicon
 
 Now you are ready to create your first Avatar.
 
 ```js
 import Avatars from '@dicebear/avatars';
-import sprites from '@dicebear/avatars-identicon-sprites';
+import sprites from '@dicebear/avatars-identicon';
 
 let options = {};
 let avatars = new Avatars(sprites, options);
@@ -53,13 +53,13 @@ let svg = avatars.create('custom-seed');
 
 ## Options
 
-| name       | alias | type             | default | description                                                                                                                                                                                                  |
-| ---------- | ----- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| radius     | r     | number           | `0`     | Avatar border radius                                                                                                                                                                                         |
-| dataUri    |       | bool             | `false` | Return avatar as data uri instead of XML <br /> **Not supported by the HTTP API**                                                                                                                            |
-| width      | w     | number           | `null`  | Fixed width                                                                                                                                                                                                  |
-| height     | h     | number           | `null`  | Fixed height                                                                                                                                                                                                 |
-| margin     | m     | number           | `0`     | Avatar margin in percent<br /> **HTTP-API limitation** Max value `25`                                                                                                                                        |
-| background | b     | string           | `null`  | Any valid color identifier<br /> **HTTP-API limitation** Only hex _(3-digit, 6-digit and 8-digit)_ values are allowed. Use url encoded hash: `%23`.                                                          |
-| colors     |       | array of strings | `null`  | Possible values: `amber`, `blue`, `blueGrey`, `brown`, `cyan`, `deepOrange`, `deepPurple`, `green`, `grey`, `indigo`, `lightBlue`, `lightGreen`, `lime`, `orange`, `pink`, `purple`, `red`, `teal`, `yellow` |
-| colorLevel |       | number           | `600`   | Possible values: `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`                                                                                                                         |
+| name            | alias | type             | default | description                                                                                                                                                                                                  |
+| --------------- | ----- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| radius          | r     | number           | `0`     | Avatar border radius                                                                                                                                                                                         |
+| dataUri         |       | bool             | `false` | Return avatar as data uri instead of XML <br /> **Not supported by the HTTP API**                                                                                                                            |
+| width           | w     | number           | `null`  | Fixed width                                                                                                                                                                                                  |
+| height          | h     | number           | `null`  | Fixed height                                                                                                                                                                                                 |
+| margin          | m     | number           | `0`     | Avatar margin in percent<br /> **HTTP-API limitation** Max value `25`                                                                                                                                        |
+| backgroundColor | b     | string           | `null`  | Any valid color identifier<br /> **HTTP-API limitation** Only hex _(3-digit, 6-digit and 8-digit)_ values are allowed. Use url encoded hash: `%23`.                                                          |
+| colors          |       | array of strings | `null`  | Possible values: `amber`, `blue`, `blueGrey`, `brown`, `cyan`, `deepOrange`, `deepPurple`, `green`, `grey`, `indigo`, `lightBlue`, `lightGreen`, `lime`, `orange`, `pink`, `purple`, `red`, `teal`, `yellow` |
+| colorLevel      |       | number           | `600`   | Possible values: `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`                                                                                                                         |

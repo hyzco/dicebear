@@ -1,67 +1,67 @@
-import avataaarsOptions from "./avataaars";
-import botttsOptions from "./bottts";
-import femaleOptions from "./female";
-import humanOptions from "./human";
-import gridyOptions from "./gridy";
-import identiconOptions from "./identicon";
-import initialsOptions from "./initials";
-import jdenticonOptions from "./jdenticon";
-import maleOptions from "./male";
+import avataaarsOptions from './avataaars';
+import botttsOptions from './bottts';
+import femaleOptions from './female';
+import humanOptions from './human';
+import gridyOptions from './gridy';
+import identiconOptions from './identicon';
+import initialsOptions from './initials';
+import jdenticonOptions from './jdenticon';
+import maleOptions from './male';
 
-import avataaars from "@dicebear/avatars-avataaars-sprites";
-import bottts from "@dicebear/avatars-bottts-sprites";
-import female from "@dicebear/avatars-female-sprites";
-import human from "@dicebear/avatars-human-sprites";
-import gridy from "@dicebear/avatars-gridy-sprites";
-import identicon from "@dicebear/avatars-identicon-sprites";
-import initials from "@dicebear/avatars-initials-sprites";
-import jdenticon from "@dicebear/avatars-jdenticon-sprites";
-import male from "@dicebear/avatars-male-sprites";
-import SpriteCollection from "../types/spriteCollection";
+import avataaars from '@dicebear/avatars-avataaars';
+import bottts from '@dicebear/avatars-bottts';
+import female from '@dicebear/avatars-pixel-art';
+import human from '@dicebear/avatars-human';
+import gridy from '@dicebear/avatars-gridy';
+import identicon from '@dicebear/avatars-identicon';
+import initials from '@dicebear/avatars-initials';
+import jdenticon from '@dicebear/avatars-shapes';
+import male from '@dicebear/avatars-male';
+import SpriteCollection from '../types/spriteCollection';
 
 export default [
   {
-    id: "male",
+    id: 'male',
     style: male,
     options: maleOptions,
   },
   {
-    id: "female",
+    id: 'female',
     style: female,
     options: femaleOptions,
   },
   {
-    id: "human",
+    id: 'human',
     style: human,
     options: humanOptions,
   },
   {
-    id: "identicon",
+    id: 'identicon',
     style: identicon,
     options: identiconOptions,
   },
   {
-    id: "initials",
+    id: 'initials',
     style: initials,
     options: initialsOptions,
   },
   {
-    id: "bottts",
+    id: 'bottts',
     style: bottts,
     options: botttsOptions,
   },
   {
-    id: "avataaars",
+    id: 'avataaars',
     style: avataaars,
     options: avataaarsOptions,
   },
   {
-    id: "jdenticon",
+    id: 'jdenticon',
     style: jdenticon,
     options: jdenticonOptions,
   },
   {
-    id: "gridy",
+    id: 'gridy',
     style: gridy,
     options: gridyOptions,
   },

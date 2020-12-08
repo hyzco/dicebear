@@ -11,13 +11,13 @@ Install the Avatars package with the following command.
 
 You also need to add a [avatar style](/styles). In our example, we will use the male avatar style.
 
-    npm install --save @dicebear/avatars-male-sprites
+    npm install --save @dicebear/avatars-male
 
 Now you are ready to create your first Avatar.
 
 ```js
 import Avatars from '@dicebear/avatars';
-import sprites from '@dicebear/avatars-male-sprites';
+import sprites from '@dicebear/avatars-male';
 
 let options = {};
 let avatars = new Avatars(sprites, options);
