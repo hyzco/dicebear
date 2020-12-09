@@ -24,7 +24,7 @@
     "build:schema": "avatars schema:create-types ./src/schema.ts ./src/options.ts",
     "build:js": "microbundle --name AvatarsIdenticon --globals @dicebear/avatars=Avatars"
   },
-  "author": "Florian Körner <contact@dicebear.com>",
+  "author": "Florian Körner <contact@florian-koerner.com>",
   "license": "MIT",
   "repository": {
     "type": "git",

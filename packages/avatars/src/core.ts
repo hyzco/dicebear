@@ -1,28 +1,10 @@
 import type { Style, StyleOptions } from './types';
-import { svg, schema, prng } from './utils';
-import { schema as coreSchema } from './schema';
+import * as utils from './utils';
 
 export function createAvatar<O extends {}>(style: Style<O>, options: StyleOptions<O>) {
-  options = {
-    seed: Math.random().toString(),
-    ...schema.defaults(coreSchema),
-    ...schema.defaults(style.schema),
-    ...options,
-  };
+  options = utils.style.options(style, options);
 
-  let coreAndStyleAliases = [...schema.aliases(coreSchema), ...schema.aliases(style.schema)];
-
-  coreAndStyleAliases.forEach((aliases) => {
-    let val = aliases.reduce<any>((current, alias) => {
-      return current || options[alias];
-    }, undefined);
-
-    aliases.forEach((alias: keyof StyleOptions<O>) => {
-      options[alias] = val;
-    });
-  });
-
-  let prngInstance = prng.create(options.seed);
+  let prngInstance = utils.prng.create(options.seed);
   let result = style.create({ prng: prngInstance, options });
 
   if (options.width) {
@@ -34,25 +16,20 @@ export function createAvatar<O extends {}>(style: Style<O>, options: StyleOption
   }
 
   if (options.margin) {
-    result.body = svg.addMargin(result, options);
+    result.body = utils.svg.addMargin(result, options);
   }
 
   if (options.backgroundColor) {
-    result.body = svg.addBackgroundColor(result, options);
+    result.body = utils.svg.addBackgroundColor(result, options);
   }
 
   if (options.radius) {
-    result.body = svg.addRadius(result, options);
+    result.body = utils.svg.addRadius(result, options);
   }
 
-  let attributes: Record<string, string> = { ...svg.getXmlnsAttributes(), ...result.attributes };
-  let attributesAsString = Object.keys(attributes)
-    .map((attr) => `${attr}="${attributes[attr].replace('"', '&quot;')}"`)
-    .join(' ');
-
   let avatar = `
-    <svg ${attributesAsString}>
-      ${svg.getMetadata(style)}
+    <svg ${utils.svg.createAttrString(result.attributes)}>
+      ${utils.svg.getMetadata(style)}
       ${result.head ?? ''}
       ${result.body}
     </svg>

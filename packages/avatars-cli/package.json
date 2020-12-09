@@ -15,7 +15,7 @@
     "url": "git+https://github.com/DiceBear/avatars.git"
   },
   "license": "MIT",
-  "author": "Florian Körner <contact@dicebear.com>",
+  "author": "Florian Körner <contact@florian-koerner.com>",
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "source": [

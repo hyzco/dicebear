@@ -26,13 +26,10 @@ function randomSeed() {
   return MIN + Math.floor((MAX - MIN) * Math.random()).toString();
 }
 
-export function create(seed?: string): Prng {
-  seed = seed ?? randomSeed();
-
+export function create(seed: string = randomSeed()): Prng {
   let value = hashSeed(seed) || 1;
 
   const next = () => (value = xorshift(value));
-
   const integer = (min: number, max: number) => {
     return Math.floor(((next() - MIN) / (MAX - MIN)) * (max + 1 - min) + min);
   };

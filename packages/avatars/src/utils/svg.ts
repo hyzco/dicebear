@@ -1,5 +1,7 @@
+import { StyleCreateResultAttributes } from '../../dist';
 import type { Options } from '../options';
 import type { Style, StyleCreateResult } from '../types';
+import * as utils from './';
 
 type CreateGroupProps = {
   children: string;
@@ -130,4 +132,12 @@ export function addRadius<O extends Options>(result: StyleCreateResult, options:
     </mask>
     <g mask="url(#avatarsRadiusMask)>${result.body}</g>
   `;
+}
+
+export function createAttrString(attributes: StyleCreateResultAttributes): string {
+  attributes = { ...getXmlnsAttributes(), ...attributes };
+
+  return Object.keys(attributes)
+    .map((attr) => `${utils.escape.attr(attr)}="${utils.escape.attr(attributes[attr])}"`)
+    .join(' ');
 }
