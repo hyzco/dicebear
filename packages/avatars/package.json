@@ -1,6 +1,6 @@
 {
   "name": "@dicebear/avatars",
-  "version": "4.5.1",
+  "version": "4.5.2",
   "description": "Avatar placeholder library for designers and developers.",
   "source": "src/index.ts",
   "main": "dist/index.js",
