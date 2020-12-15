@@ -1,6 +1,6 @@
 import type { Style, StyleOptions } from '../types';
 import { schema as coreSchema } from '../schema';
-import { schema } from './';
+import * as schema from './schema';
 
 export function options<O extends {}>(style: Style<O>, options: StyleOptions<O>): StyleOptions<O> {
   let result: StyleOptions<O> = {

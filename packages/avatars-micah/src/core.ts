@@ -2,8 +2,8 @@ import type { Style } from '@dicebear/avatars';
 import { utils } from '@dicebear/avatars';
 import type { Options } from './options';
 import * as paths from './paths';
-import colors from './colors';
-import schema from './schema.js';
+import * as colors from './colors';
+import { schema } from './schema.js';
 
 const style: Style<Options> = {
   meta: {
@@ -16,10 +16,11 @@ const style: Style<Options> = {
     },
   },
   schema,
-  colors,
   create: ({ prng, options }) => {
     const pickColor = (values: string[], filter: string[] = []): string => {
-      let result = values.map((val) => colors[val] || val).filter((val) => false === filter.includes(val));
+      let result = values
+        .map((val) => colors[val as keyof typeof colors] || val)
+        .filter((val) => false === filter.includes(val));
 
       return result.length > 0 ? prng.pick(result) : values[0] || 'transparent';
     };

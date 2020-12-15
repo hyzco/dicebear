@@ -5,53 +5,6 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type Options = {
-  seed?: Seed;
-  radius?: Radius;
-  r?: Radius;
-  dataUri?: DataURI;
-  width?: Width;
-  w?: Width;
-  height?: Height;
-  h?: Height;
-  margin?: Margin;
-  m?: Margin;
-  backgroundColor?: BackgroundColor;
-  b?: BackgroundColor;
-  [k: string]: unknown;
-} & {
-  base?: Base;
-  baseColor?: BaseColor;
-  earrings?: Earrings;
-  earringColor?: EarringColor;
-  earringsProbability?: EarringsProbability;
-  eyebrows?: Eyebrows;
-  eyebrowColor?: EyebrowColor;
-  ears?: Ears;
-  eyes?: Eyes;
-  eyeColor?: EyeColor;
-  facialHair?: FacialHair;
-  facialHairColor?: FacialHairColor;
-  facialHairProbability?: FacialHairProbability;
-  glasses?: Glasses;
-  glassesColor?: GlassesColor;
-  glassesProbability?: GlassesProbability;
-  mouth?: Mouth;
-  nose?: Nose;
-  shirt?: Shirt;
-  shirtColor?: ShirtColor;
-  hair?: Hair;
-  hairColor?: HairColor;
-  hairProbability?: HairProbability;
-  [k: string]: unknown;
-};
-export type Seed = string;
-export type Radius = number;
-export type DataURI = boolean;
-export type Width = number;
-export type Height = number;
-export type Margin = number;
-export type BackgroundColor = string[];
 export type Base = "standard"[];
 export type BaseColor = (
   | (
@@ -91,7 +44,7 @@ export type EarringColor = (
   | string
 )[];
 export type EarringsProbability = number;
-export type Eyebrows = ("eyelashesDown" | "eyelashesUp" | "down" | "up")[];
+export type Eyebrows = ("down" | "eyelashesDown" | "eyelashesUp" | "up")[];
 export type EyebrowColor = (
   | (
       | "apricot"
@@ -111,7 +64,7 @@ export type EyebrowColor = (
   | string
 )[];
 export type Ears = "attached"[];
-export type Eyes = ("smiling" | "eyes" | "eyesShadow" | "round")[];
+export type Eyes = ("eyes" | "eyesShadow" | "round" | "smiling")[];
 export type EyeColor = (
   | (
       | "apricot"
@@ -170,7 +123,7 @@ export type GlassesColor = (
   | string
 )[];
 export type GlassesProbability = number;
-export type Mouth = ("laughing" | "nervous" | "pucker" | "sad" | "smile" | "smirk" | "surprised" | "frown")[];
+export type Mouth = ("frown" | "laughing" | "nervous" | "pucker" | "sad" | "smile" | "smirk" | "surprised")[];
 export type Nose = ("curve" | "pointed" | "round")[];
 export type Shirt = ("collared" | "crew" | "open")[];
 export type ShirtColor = (
@@ -191,7 +144,7 @@ export type ShirtColor = (
     )
   | string
 )[];
-export type Hair = ("pixie" | "dannyPhantom" | "dougFunny" | "fonze" | "full" | "mrClean" | "mrT" | "turban")[];
+export type Hair = ("dannyPhantom" | "dougFunny" | "fonze" | "full" | "mrClean" | "mrT" | "pixie" | "turban")[];
 export type HairColor = (
   | (
       | "apricot"
@@ -211,3 +164,30 @@ export type HairColor = (
   | string
 )[];
 export type HairProbability = number;
+
+export interface Options {
+  base?: Base;
+  baseColor?: BaseColor;
+  earrings?: Earrings;
+  earringColor?: EarringColor;
+  earringsProbability?: EarringsProbability;
+  eyebrows?: Eyebrows;
+  eyebrowColor?: EyebrowColor;
+  ears?: Ears;
+  eyes?: Eyes;
+  eyeColor?: EyeColor;
+  facialHair?: FacialHair;
+  facialHairColor?: FacialHairColor;
+  facialHairProbability?: FacialHairProbability;
+  glasses?: Glasses;
+  glassesColor?: GlassesColor;
+  glassesProbability?: GlassesProbability;
+  mouth?: Mouth;
+  nose?: Nose;
+  shirt?: Shirt;
+  shirtColor?: ShirtColor;
+  hair?: Hair;
+  hairColor?: HairColor;
+  hairProbability?: HairProbability;
+  [k: string]: unknown;
+}

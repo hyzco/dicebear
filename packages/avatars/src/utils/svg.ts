@@ -1,7 +1,6 @@
-import { StyleCreateResultAttributes } from '../../dist';
 import type { Options } from '../options';
-import type { Style, StyleCreateResult } from '../types';
-import * as utils from './';
+import type { Style, StyleCreateResult, StyleCreateResultAttributes } from '../types';
+import * as escape from './escape';
 
 type CreateGroupProps = {
   children: string;
@@ -138,6 +137,6 @@ export function createAttrString(attributes: StyleCreateResultAttributes): strin
   attributes = { ...getXmlnsAttributes(), ...attributes };
 
   return Object.keys(attributes)
-    .map((attr) => `${utils.escape.attr(attr)}="${utils.escape.attr(attributes[attr])}"`)
+    .map((attr) => `${escape.attr(attr)}="${escape.attr(attributes[attr])}"`)
     .join(' ');
 }

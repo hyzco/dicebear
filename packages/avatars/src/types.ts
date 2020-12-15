@@ -42,18 +42,8 @@ export interface StyleMeta {
   license: StyleMetaLicense;
 }
 
-export interface StyleColors {
-  [name: string]: Record<string, string>;
-}
-
-export interface StylePresets<O extends {}> {
-  [name: string]: Partial<StyleOptions<O>>;
-}
-
 export interface Style<O extends {}> {
   meta: StyleMeta;
   schema: StyleSchema;
-  colors: StyleColors;
   create: StyleCreate<O>;
-  presets?: StylePresets<O>;
 }
