@@ -17,25 +17,6 @@ export function defaults(schema: JSONSchema7) {
 
   return result;
 }
-
-export function examples(schema: JSONSchema7) {
-  let result: Record<string, unknown> = {};
-  let properties = schema.properties || {};
-
-  Object.keys(properties).forEach((key) => {
-    let val = properties[key];
-
-    if (typeof val === 'object') {
-      result = {
-        ...result,
-        [key]: val.examples,
-      };
-    }
-  });
-
-  return result;
-}
-
 export function aliases(schema: JSONSchema7) {
   let result: Record<string, string[]> = {};
   let properties = schema.properties || {};
@@ -55,5 +36,13 @@ export function aliases(schema: JSONSchema7) {
     }
   });
 
-  return Object.values(result).filter((val) => val.length > 1);
+  return Object.values(result)
+    .filter((val) => val.length > 1)
+    .reduce<Record<string, string>>((response, val) => {
+      val.slice(1).forEach((alias) => {
+        response[alias] = val[0];
+      });
+
+      return response;
+    }, {});
 }

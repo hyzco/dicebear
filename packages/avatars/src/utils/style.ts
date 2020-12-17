@@ -10,16 +10,10 @@ export function options<O extends {}>(style: Style<O>, options: StyleOptions<O>)
     ...options,
   };
 
-  let coreAndStyleAliases = [...schema.aliases(coreSchema), ...schema.aliases(style.schema)];
+  let aliases = { ...schema.aliases(coreSchema), ...schema.aliases(style.schema) };
 
-  coreAndStyleAliases.forEach((aliases) => {
-    let val = aliases.reduce<any>((current, alias) => {
-      return current || result[alias];
-    }, undefined);
-
-    aliases.forEach((alias: keyof StyleOptions<O>) => {
-      result[alias] = val;
-    });
+  Object.keys(aliases).forEach((alias) => {
+    result[aliases[alias] as keyof StyleOptions<O>] = (result[aliases[alias]] || result[alias]) as any;
   });
 
   return result;
