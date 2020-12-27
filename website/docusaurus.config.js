@@ -17,10 +17,10 @@ module.exports = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'DiceBear Avatars',
+      title: '',
       logo: {
         alt: 'DiceBear Avatars',
-        src: 'img/favicon.svg',
+        src: 'img/logo.svg',
       },
       items: [
         {
@@ -105,10 +105,10 @@ module.exports = {
           routeBasePath: '/',
         },
         theme: {
-          customCss: require.resolve('./src/css/index.scss'),
+          customCss: require.resolve('./src/css/index.css'),
         },
       },
     ],
   ],
-  plugins: ['docusaurus-plugin-sass', path.resolve(__dirname, 'src/plugins/buffer-plugin')],
+  plugins: [require.resolve('./plugins/postcss-tailwindcss-loader')],
 };

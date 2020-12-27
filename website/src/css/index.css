@@ -1,0 +1,77 @@
+@tailwind utilities;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 calc(var(--ifm-spacing-horizontal) * -1);
+}
+
+@responsive {
+  .col {
+    --ifm-col-width: 100%;
+    flex: 1 0;
+    max-width: var(--ifm-col-width);
+    padding: 0 var(--ifm-spacing-horizontal);
+    width: 100%;
+  }
+
+  .col.col--1 {
+    --ifm-col-width: calc(1 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--2 {
+    --ifm-col-width: calc(2 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--3 {
+    --ifm-col-width: calc(3 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--4 {
+    --ifm-col-width: calc(4 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--5 {
+    --ifm-col-width: calc(5 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--6 {
+    --ifm-col-width: calc(6 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--7 {
+    --ifm-col-width: calc(7 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--8 {
+    --ifm-col-width: calc(8 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--9 {
+    --ifm-col-width: calc(9 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--10 {
+    --ifm-col-width: calc(10 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--11 {
+    --ifm-col-width: calc(11 / 12 * 100%);
+    flex: 0 0 var(--ifm-col-width);
+  }
+
+  .col.col--12 {
+    --ifm-col-width: 100%;
+    flex: 0 0 var(--ifm-col-width);
+  }
+}

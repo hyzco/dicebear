@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { JSONSchema7Definition, JSONSchema7TypeName } from 'json-schema';
 import ReactMarkdown from 'react-markdown';
+import Heading from '@theme/Heading';
 
 type Props = {
   name: string;
   aliases?: string[];
   definition: JSONSchema7Definition;
 };
+
+const H3 = Heading('h3');
 
 function OptionsRow({ name, aliases = [], definition }: Props) {
   let types: JSONSchema7TypeName[] = [];
@@ -45,22 +48,40 @@ function OptionsRow({ name, aliases = [], definition }: Props) {
     }, '');
 
   return (
-    <tr>
-      <td>{name}</td>
-      <td>{aliases.join(',')}</td>
-      <td>
-        <ReactMarkdown children={typesList} disallowedTypes={['paragraph']} unwrapDisallowed skipHtml />
-      </td>
-      <td>{definition.default !== undefined && <code>{JSON.stringify(definition.default)}</code>}</td>
-      <td>
+    <>
+      <H3 id={name}>{name}</H3>
+      <ul>
+        {aliases.length > 0 && (
+          <li>
+            Alias:
+            {aliases.map((alias, i) => {
+              return (
+                <>
+                  {i > 0 ? ', ' : ''}
+                  <code>{alias}</code>
+                </>
+              );
+            })}
+          </li>
+        )}
+        <li>
+          Type: <ReactMarkdown children={typesList} disallowedTypes={['paragraph']} unwrapDisallowed skipHtml />
+        </li>
+        {definition.default !== undefined && (
+          <li>
+            Default: <code>{JSON.stringify(definition.default)}</code>
+          </li>
+        )}
+      </ul>
+      <p>
         <ReactMarkdown
           children={definition.description ?? ''}
           disallowedTypes={['paragraph']}
           unwrapDisallowed
           skipHtml
         />
-      </td>
-    </tr>
+      </p>
+    </>
   );
 }
 

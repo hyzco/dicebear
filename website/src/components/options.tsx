@@ -20,36 +20,19 @@ function Options({ style }: Props) {
     aliases = { ...aliases, ...utils.schema.aliases(style.schema) };
   }
 
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Aliases</th>
-          <th>Type</th>
-          <th>Default value</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.keys(properties)
-          .filter((property) => false === property in aliases)
-          .map((property) => {
-            let propertyAliases = Object.keys(aliases).reduce<string[]>((result, alias) => {
-              if (aliases[alias] === property) {
-                result.push(alias);
-              }
+  return Object.keys(properties)
+    .filter((property) => false === property in aliases)
+    .map((property) => {
+      let propertyAliases = Object.keys(aliases).reduce<string[]>((result, alias) => {
+        if (aliases[alias] === property) {
+          result.push(alias);
+        }
 
-              return result;
-            }, []);
+        return result;
+      }, []);
 
-            return (
-              <OptionsRow key={property} name={property} definition={properties[property]} aliases={propertyAliases} />
-            );
-          })}
-      </tbody>
-    </table>
-  );
+      return <OptionsRow key={property} name={property} definition={properties[property]} aliases={propertyAliases} />;
+    });
 }
 
 export default Options;

@@ -22,11 +22,7 @@ function hashSeed(seed: string) {
   return hash;
 }
 
-function randomSeed() {
-  return MIN + Math.floor((MAX - MIN) * Math.random()).toString();
-}
-
-export function create(seed: string = randomSeed()): Prng {
+export function create(seed: string = ''): Prng {
   let value = hashSeed(seed) || 1;
 
   const next = () => (value = xorshift(value));

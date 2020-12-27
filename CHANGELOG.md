@@ -57,8 +57,6 @@
   });
   ```
 
-- If no seed is passed, a random one is defined.
-
 - The following options have been renamed:
 
   - `background` => `backgroundColor`
