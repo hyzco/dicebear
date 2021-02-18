@@ -1,8 +1,9 @@
 import Head from 'next/head';
+import Header from './Header';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="container">
+    <div className="container font-sans text-gray-900">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="Learn how to build a personal website using Next.js" />
@@ -18,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="og:title" content={siteTitle} />
         */}
       </Head>
-      <header>Header</header>
+      <Header />
       <main>{children}</main>
     </div>
   );

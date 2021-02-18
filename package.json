@@ -9,9 +9,6 @@
       "packages/*",
       "scripts",
       "website"
-    ],
-    "nohoist": [
-      "**/html-minifier-terser"
     ]
   }
 }
