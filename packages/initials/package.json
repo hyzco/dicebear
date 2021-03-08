@@ -21,21 +21,21 @@
     "prepublishOnly": "npm run build",
     "prebuild": "rm -r ./dist || true",
     "build": "npm run build:schema && npm run build:js",
-    "build:schema": "avatars schema:create-types ./src/schema.ts ./src/options.ts",
-    "build:js": "microbundle --name AvatarsInitials --globals @dicebear/core=Avatars"
+    "build:schema": "dicebear schema:create-types ./src/schema.ts ./src/options.ts",
+    "build:js": "microbundle --name DiceBearInitials --globals @dicebear/core=DiceBear"
   },
   "author": "Florian Körner <contact@florian-koerner.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DiceBear/avatars.git"
+    "url": "git+https://github.com/dicebear/dicebear.git"
   },
   "keywords": [
     "dicebear-avatars",
     "initials"
   ],
   "bugs": {
-    "url": "https://github.com/DiceBear/avatars/issues"
+    "url": "https://github.com/dicebear/dicebear/issues"
   },
   "homepage": "https://avatars.dicebear.com/styles/initials",
   "files": [

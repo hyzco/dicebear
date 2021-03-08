@@ -8,11 +8,11 @@
   ],
   "homepage": "https://avatars.dicebear.com/docs/cli",
   "bugs": {
-    "url": "https://github.com/DiceBear/avatars/issues"
+    "url": "https://github.com/dicebear/dicebear/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DiceBear/avatars.git"
+    "url": "git+https://github.com/dicebear/dicebear.git"
   },
   "license": "MIT",
   "author": "Florian Körner <contact@florian-koerner.com>",
@@ -24,7 +24,7 @@
   ],
   "types": "dist/index.d.ts",
   "bin": {
-    "avatars": "dist/cli.js"
+    "dicebear": "dist/cli.js"
   },
   "files": [
     "cli"
