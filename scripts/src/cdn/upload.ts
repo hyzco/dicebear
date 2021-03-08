@@ -9,11 +9,9 @@ import spawn from 'cross-spawn';
   const websiteBuildDir = path.resolve(__dirname, '../../../website/build');
 
   // Build docs
-  spawn.sync(
-    'yarn',
-    ['--cwd', path.resolve(__dirname, '../../..'), 'workspace', '@dicebear/avatars-website', 'run', 'build'],
-    { stdio: 'inherit' }
-  );
+  spawn.sync('yarn', ['--cwd', path.resolve(__dirname, '../../..'), 'workspace', '@dicebear/website', 'run', 'build'], {
+    stdio: 'inherit',
+  });
 
   // Upload build
   const client = new ftp.Client();

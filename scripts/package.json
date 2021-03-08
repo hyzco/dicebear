@@ -1,5 +1,5 @@
 {
-  "name": "@dicebear/avatars-scripts",
+  "name": "@dicebear/scripts",
   "version": "1.0.0",
   "main": "src/cli.ts",
   "repository": "https://github.com/DiceBear/avatars.git",

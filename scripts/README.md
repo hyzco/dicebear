@@ -11,7 +11,7 @@ Copy the `.env.dist` to `.env` and add the credentials.
 Commands that you can execute as follows:
 
 ```
-yarn workspace @dicebear/avatars-scripts run <COMMAND>
+yarn workspace @dicebear/scripts run <COMMAND>
 ```
 
 ### cdn:clear
